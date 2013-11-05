@@ -7,17 +7,10 @@ import java.util.ArrayList;
 public abstract class ChessPiece {
 
 	// fields
-	private PieceType pieceType;
-	private Point location;
-	private Side side;
-	
-	
-	// constructor
-	public ChessPiece(PieceType pieceType, Point location, Side side) {
-		this.pieceType = pieceType;
-		this.location = location;
-		this.side = side;
-	}
+	protected PieceType pieceType;
+	protected Point location;
+	protected Side side;
+	protected Boolean alive;
 	
 	
 	// accessor and mutator
@@ -30,11 +23,20 @@ public abstract class ChessPiece {
 	}
 	
 	public void setLocation(Point p) {
-		this.location = p;
+		this.location.x = p.x;
+		this.location.y = p.y;
 	}
 	
 	public Side getSide() {
 		return this.side;
+	}
+	
+	public boolean isAlive() {
+		return this.alive;
+	}
+	
+	public void setAsCaptured() {
+		this.alive = false;
 	}
 	
 	/*public ChessPiece promote() {
