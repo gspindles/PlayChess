@@ -1,18 +1,20 @@
 package models;
 
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
 public class King extends ChessPiece {
-	public King(Point location, Side side) {
+	
+	// constructor
+	public King(Side side) {
 		this.pieceType = PieceType.KING;
-		this.location = location;
 		this.side = side;
 		this.alive = true;
 	}
 	
-	public List<Point> getPossibleMoves() {
+	
+	// method
+	public List<Point> getPossibleMoves(Point point) {
 		List<Point> availableMoves = new ArrayList<Point>();
 		
 		return super.filterBadLocation(availableMoves);

@@ -1,19 +1,20 @@
 package models;
 
-import java.awt.Point;
 import java.util.List;
 import java.util.ArrayList;
 
 public class Pawn extends ChessPiece {
 	
-	public Pawn(Point location, Side side) {
+	// constructor
+	public Pawn(Side side) {
 		this.pieceType = PieceType.PAWN;
-		this.location = location;
 		this.side = side;
 		this.alive = true;
 	}
 	
-	public List<Point> getPossibleMoves() {
+	
+	// methods
+	public List<Point> getPossibleMoves(Point point) {
 		List<Point> availableMoves = new ArrayList<Point>();
 		if (this.side == Side.BLACK) {
 			
@@ -21,5 +22,10 @@ public class Pawn extends ChessPiece {
 			
 		}
 		return super.filterBadLocation(availableMoves);
+	}
+	
+	
+	public void Promote(PieceType pieceType) {
+		this.pieceType = pieceType;
 	}
 }
