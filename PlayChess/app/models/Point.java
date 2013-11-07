@@ -1,4 +1,4 @@
-package models;
+package chessjava;
 
 public class Point {
 
@@ -14,7 +14,8 @@ public class Point {
 	}
 	
 	public Point(int x, int y) {
-		if (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
+		if (x >= 0 && x <= 7 && y >= 0 && y <= 7) 
+                {
 			this.x = x;
 			this.y = y;
 		}
@@ -22,8 +23,19 @@ public class Point {
 	
 	
 	// methods
-	public boolean isValidPoint() {
-		if (this.x >= 0 && this.x <= 7 && this.y >= 0 && this.y <= 7) {
+	public boolean isValidPoint() 
+        {
+		if (this.x >= 0 && this.x <= 7 && this.y >= 0 && this.y <= 7) 
+                {
+			return true;
+		}
+		return false;
+	}
+        
+        public boolean isValidPoint(Point pt) 
+        {
+		if (pt.x >= 0 && pt.x <= 7 && pt.y >= 0 && pt.y <= 7) 
+                {
 			return true;
 		}
 		return false;

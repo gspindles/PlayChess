@@ -1,4 +1,4 @@
-package models;
+package chessjava;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -9,6 +9,7 @@ public abstract class ChessPiece {
 	protected PieceType pieceType;
 	protected Side side;
 	protected Boolean alive;
+        protected Boolean hasMoved = false;
 
 
 	// accessor and mutator
@@ -27,6 +28,14 @@ public abstract class ChessPiece {
 	public void setAsCaptured() {
 		this.alive = false;
 	}
+        public Boolean getHasMoved()
+        {            
+            return hasMoved;
+        }
+        public void setHasMoved()
+        {
+            hasMoved = true;
+        }
 
 
 	// methods

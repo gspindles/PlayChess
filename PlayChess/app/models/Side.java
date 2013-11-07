@@ -1,4 +1,4 @@
-package models;
+package chessjava;
 
 public enum Side {
 	BLACK,
