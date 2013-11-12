@@ -78,6 +78,7 @@ public class ChessBoard_1 {
             }
             return null;
         }
+
         public static ChessPiece getBoardChessPiece(Point pt)
         {
             if (pt.x >= 0 & pt.y >= 0)
@@ -106,6 +107,7 @@ public class ChessBoard_1 {
                 }
             }            
         }
+        
         /*returns the entire board array board[7][7]
          * 
          */

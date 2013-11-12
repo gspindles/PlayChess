@@ -6,18 +6,50 @@
         $(document).ready(function() {
             $('#board > tbody > tr > td').each(function() {
                 $(this).addClass('tile');
-            })
+            });
+
+            $('#board > tbody > tr > td').css('height', $('#board > tbody > tr > td').css('width') );
+
+            setDefaultBackground();            
         });
+
+        // functions
+        function setDefaultBackground() {
+            $('#board > tbody > tr').each(function() {
+                if($(this).index() % 2 === 0) {
+                    $(this).children('td').each(function() {
+                        if($(this).index() % 2 === 1) {
+                            $(this).addClass('bgOrange');
+                        } else {
+                            $(this).addClass('bgWhite');
+                        }
+                    });
+                } else {
+                    $(this).children('td').each(function() {
+                        if($(this).index() % 2 === 0) {
+                            $(this).addClass('bgOrange');
+                        } else {
+                            $(this).addClass('bgWhite');
+                        }
+                    });
+                }
+            });
+        }
 
     </script>
 
-    <style>
+    <style type="text/css">
         .tile {
             min-width: 75px;
             min-height: 75px;
         }
-        .colored {
+
+        .bgOrange {
             background-color: orange;
+        }
+
+        .bgWhite {
+            background-color: white;
         }
     </style>
 
@@ -32,7 +64,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <te></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
