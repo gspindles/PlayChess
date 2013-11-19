@@ -3,19 +3,24 @@
 @main("Welcome to PlayChess") {
 
     <script type="text/javascript">
-        var wKing = 'U+2654';
-        var wQueen = 'U+2655';
-        var wRook = 'U+2656';
-        var wBishop = 'U+2657';
-        var wKnight = 'U+2658';
-        var wPawn = 'U+2659';
-        var bKing = 'U+265A';
-        var bQueen = 'U+265B';
-        var bRook = 'U+265C';
-        var bBishop = 'U+265D';
-        var bKnight = 'U+265E';
-        var bPawn = 'U+265F';
-
+        var pieces = {
+            black: {
+                king : "U+2654",
+                queen : "U+2655",
+                rook : "U+2656",
+                bishop : "U+2657",
+                knight : "U+2658",
+                pawn : "U+2659"
+            },
+            white : {
+                king : "U+265A",
+                queen : "U+265B",
+                rook : "U+265C",
+                bishop : "U+265D",
+                knight : "U+265E",
+                pawn : "U+265F"
+            }
+        };
 
         $(document).ready(function() {
             $('#board > tbody > tr').each(function() {
@@ -25,8 +30,8 @@
                 });
             });
 
-
             setDefaultBackground();
+            setDefaultBoard();
         });
 
         $(window).resize(function () {
@@ -55,6 +60,31 @@
                     });
                 }
             });
+        }
+
+        function setDefaultBoard() {
+            $('#board > tbody > tr')[0].children('td')[0].append(pieces.black.rook);
+            $('#board > tbody > tr')[0].children('td')[1].append(pieces.black.knight);
+            $('#board > tbody > tr')[0].children('td')[2].append(pieces.black.bishop);
+            $('#board > tbody > tr')[0].children('td')[3].append(pieces.black.queen);
+            $('#board > tbody > tr')[0].children('td')[4].append(pieces.black.king);
+            $('#board > tbody > tr')[0].children('td')[5].append(pieces.black.bishop);
+            $('#board > tbody > tr')[0].children('td')[6].append(pieces.black.knight);
+            $('#board > tbody > tr')[0].children('td')[7].append(pieces.black.rook);
+            $('#board > tbody > tr')[1].children('td').each(function() {
+                $(this).text(pieces.black.pawn);
+            });
+            $('#board > tbody > tr')[6].children('td').each(function() {
+                $(this).text(pieces.white.pawn);
+            });
+            $('#board > tbody > tr')[7].children('td')[0].append(pieces.white.rook);
+            $('#board > tbody > tr')[7].children('td')[1].append(pieces.white.knight);
+            $('#board > tbody > tr')[7].children('td')[2].append(pieces.white.bishop);
+            $('#board > tbody > tr')[7].children('td')[3].append(pieces.white.queen);
+            $('#board > tbody > tr')[7].children('td')[4].append(pieces.white.king);
+            $('#board > tbody > tr')[7].children('td')[5].append(pieces.white.bishop);
+            $('#board > tbody > tr')[7].children('td')[6].append(pieces.white.knight);
+            $('#board > tbody > tr')[7].children('td')[7].append(pieces.white.rook);
         }
 
     </script>
