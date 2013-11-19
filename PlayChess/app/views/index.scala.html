@@ -3,6 +3,20 @@
 @main("Welcome to PlayChess") {
 
     <script type="text/javascript">
+        var wKing = 'U+2654';
+        var wQueen = 'U+2655';
+        var wRook = 'U+2656';
+        var wBishop = 'U+2657';
+        var wKnight = 'U+2658';
+        var wPawn = 'U+2659';
+        var bKing = 'U+265A';
+        var bQueen = 'U+265B';
+        var bRook = 'U+265C';
+        var bBishop = 'U+265D';
+        var bKnight = 'U+265E';
+        var bPawn = 'U+265F';
+
+
         $(document).ready(function() {
             $('#board > tbody > tr').each(function() {
                 $(this).children().each(function () {
@@ -12,7 +26,7 @@
             });
 
 
-            setDefaultBackground();            
+            setDefaultBackground();
         });
 
         $(window).resize(function () {
@@ -53,6 +67,7 @@
             margin-left: auto;
             margin-right: auto;
             vertical-align: middle;
+            font-size: 75px;
         }
 
         .bgOrange {
