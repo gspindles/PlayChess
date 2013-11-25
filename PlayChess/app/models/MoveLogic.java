@@ -17,9 +17,9 @@ public class MoveLogic
      * 
      *
      */
-    public static List<Point> movePawn(Tile tile)
+    public static List<Move> movePawn(Tile tile)
     {
-        List<Point> array = new ArrayList<Point>();
+        List<Move> array = new ArrayList<Move>();
         //if the pawn has not moved yet
         if(tile.getChessPiece().getSide() == Side.BLACK)
         {
@@ -27,10 +27,10 @@ public class MoveLogic
             {
                 if (tile.getLocation().south().equals(new Empty())) 
                 {
-                    array.add(tile.getLocation().south());
+                    array.add(new Move(tile.getLocation(),tile.getLocation().south(), tile.getChessPiece()));
                     if (tile.getLocation().south().south().equals(new Empty())) 
                     {
-                        array.add(tile.getLocation().south().south());
+                        array.add(new Move(tile.getLocation(),tile.getLocation().south().south(),tile.getChessPiece()));
                     }
                 }
                 //check the se tile to see if there is a piece
@@ -40,7 +40,7 @@ public class MoveLogic
                         //check to see if that piece is the same color
                         if (tile.getChessPiece().getSide() != ChessBoard_1.getBoardChessPiece(tile.getLocation().se()).getSide()) 
                         {
-                            array.add(tile.getLocation().se());
+                            array.add(new Move(tile.getLocation(),tile.getLocation().se(),tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(tile.getLocation().se()) ));
                         }
                     }
                 }
@@ -53,7 +53,7 @@ public class MoveLogic
                         //check to see if that piece is the same color
                         if (tile.getChessPiece().getSide() != ChessBoard_1.getBoardChessPiece(tile.getLocation().sw()).getSide()) 
                         {
-                            array.add(tile.getLocation().sw());
+                            array.add(new Move(tile.getLocation(),tile.getLocation().sw(),tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(tile.getLocation().sw())));
                         }
                     }
                 }
@@ -62,7 +62,7 @@ public class MoveLogic
             {
                 if (tile.getLocation().south().equals(new Empty())) 
                 {
-                    array.add(tile.getLocation().south());
+                    array.add(new Move(tile.getLocation(),tile.getLocation().south(),tile.getChessPiece()));
                 }
                 //check the se tile to see if there is a piece
                 if (tile.getLocation().se().isValidPoint() == true) {
@@ -71,7 +71,7 @@ public class MoveLogic
                         //check to see if that piece is the same color
                         if (tile.getChessPiece().getSide() != ChessBoard_1.getBoardChessPiece(tile.getLocation().se()).getSide()) 
                         {
-                            array.add(tile.getLocation().se());
+                            array.add(new Move(tile.getLocation(),tile.getLocation().se(),tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(tile.getLocation().se())));
                         }
                     }
                 }
@@ -84,7 +84,7 @@ public class MoveLogic
                         //check to see if that piece is the same color
                         if (tile.getChessPiece().getSide() != ChessBoard_1.getBoardChessPiece(tile.getLocation().sw()).getSide()) 
                         {
-                            array.add(tile.getLocation().sw());
+                            array.add(new Move(tile.getLocation(),tile.getLocation().sw(),tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(tile.getLocation().sw())));
                         }
                     }
                 }
@@ -98,10 +98,10 @@ public class MoveLogic
                     {
                         if(tile.getLocation().north().equals(new Empty()))
                         {
-                            array.add(tile.getLocation().north());
+                            array.add(new Move(tile.getLocation(),tile.getLocation().north(),tile.getChessPiece()));
                             if(tile.getLocation().north().north().equals(new Empty()))
                             {
-                                array.add(tile.getLocation().north().north());
+                                array.add(new Move(tile.getLocation(),tile.getLocation().north().north(),tile.getChessPiece()));
                             }
                         }
                         //check the se tile to see if there is a piece
@@ -112,7 +112,7 @@ public class MoveLogic
                                 //check to see if that piece is the same color
                                 if(tile.getChessPiece().getSide() != ChessBoard_1.getBoardChessPiece(tile.getLocation().ne()).getSide())
                                 {
-                                    array.add(tile.getLocation().ne());
+                                    array.add(new Move(tile.getLocation(),tile.getLocation().ne(),tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(tile.getLocation().ne())));
                                 }
                             }
                         }
@@ -125,7 +125,7 @@ public class MoveLogic
                                 //check to see if that piece is the same color
                                 if(tile.getChessPiece().getSide() != ChessBoard_1.getBoardChessPiece(tile.getLocation().nw()).getSide())
                                 {
-                                    array.add(tile.getLocation().nw());
+                                    array.add(new Move(tile.getLocation(),tile.getLocation().nw(),tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(tile.getLocation().nw())));
                                 }
                             }
                         }                        
@@ -135,7 +135,7 @@ public class MoveLogic
                     {
                         if(tile.getLocation().north().equals(new Empty()))
                         {
-                            array.add(tile.getLocation().north());                            
+                            array.add(new Move(tile.getLocation(),tile.getLocation().north(),tile.getChessPiece()));                            
                         }
                         //check the se tile to see if there is a piece
                         if(tile.getLocation().ne().isValidPoint() == true)
@@ -145,7 +145,7 @@ public class MoveLogic
                                 //check to see if that piece is the same color
                                 if(tile.getChessPiece().getSide() != ChessBoard_1.getBoardChessPiece(tile.getLocation().ne()).getSide())
                                 {
-                                    array.add(tile.getLocation().ne());
+                                    array.add(new Move(tile.getLocation(),tile.getLocation().ne(),tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(tile.getLocation().ne())));
                                 }
                             }
                         }
@@ -158,7 +158,7 @@ public class MoveLogic
                                 //check to see if that piece is the same color
                                 if(tile.getChessPiece().getSide() != ChessBoard_1.getBoardChessPiece(tile.getLocation().nw()).getSide())
                                 {
-                                    array.add(tile.getLocation().nw());
+                                    array.add(new Move(tile.getLocation(),tile.getLocation().nw(),tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(tile.getLocation().nw())));
                                 }
                             }
                         }                        
@@ -168,9 +168,9 @@ public class MoveLogic
         return array;
         
     }
-    public static List<Point> moveRook(Tile tile)
+    public static List<Move> moveRook(Tile tile)
     {
-        List<Point> array = new ArrayList<Point>();        
+        List<Move> array = new ArrayList<Move>();        
         Point temp = tile.getLocation();            
                 while(temp.north().isValidPoint())
                 {
@@ -181,12 +181,12 @@ public class MoveLogic
                         {
                             break;
                         }
-                         array.add(temp);
+                         array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
                         break;
                     }
                     else
                     {
-                        array.add(temp);
+                        array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
                     }
                 }
                 temp = tile.getLocation();
@@ -198,12 +198,12 @@ public class MoveLogic
                         {
                             break;
                         }
-                        array.add(temp);
+                        array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
                         break;
                     }
                     else
                     {
-                        array.add(temp);
+                        array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
                     }
                 }
                 temp = tile.getLocation();
@@ -216,12 +216,12 @@ public class MoveLogic
                         {
                             break;
                         }
-                        array.add(temp);
+                        array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
                         break;
                     }
                     else
                     {
-                        array.add(temp);
+                        array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
                     }
                 }
                 temp = tile.getLocation();
@@ -234,19 +234,19 @@ public class MoveLogic
                         {
                             break;
                         }
-                        array.add(temp);
+                        array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
                         break;
                     }
                     else
                     {
-                        array.add(temp);
+                        array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
                     }
                 }        
         return array;
     }
-    public static List<Point> moveKnight(Tile tile)
+    public static List<Move> moveKnight(Tile tile)
     {
-        List<Point> array = new ArrayList<Point>();
+        List<Move> array = new ArrayList<Move>();
         Point temp = tile.getLocation();
         temp.x ++;
         temp.y +=2;
@@ -254,7 +254,14 @@ public class MoveLogic
         {
             if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                array.add(temp);
+                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                }
+                else
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
+                }
             }
         }
         temp = tile.getLocation();
@@ -264,7 +271,14 @@ public class MoveLogic
         {
             if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                array.add(temp);
+                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                }
+                else
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
+                }
             }
         }
         temp = tile.getLocation();
@@ -274,7 +288,14 @@ public class MoveLogic
         {
             if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                array.add(temp);
+                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                }
+                else
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
+                }
             }
         }
         temp = tile.getLocation();
@@ -284,7 +305,14 @@ public class MoveLogic
         {
             if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                array.add(temp);
+                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                }
+                else
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
+                }
             }
         }
         temp = tile.getLocation();
@@ -294,7 +322,14 @@ public class MoveLogic
         {
             if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                array.add(temp);
+                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                }
+                else
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
+                }
             }
         }
         temp = tile.getLocation();
@@ -304,7 +339,14 @@ public class MoveLogic
         {
             if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                array.add(temp);
+                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                }
+                else
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
+                }
             }
         }
         temp = tile.getLocation();
@@ -314,7 +356,14 @@ public class MoveLogic
         {
             if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                array.add(temp);
+                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                }
+                else
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
+                }
             }
         }
         temp = tile.getLocation();
@@ -324,14 +373,21 @@ public class MoveLogic
         {
             if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                array.add(temp);
+                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                }
+                else
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
+                }
             }
         }
         return array;
     }
-    public static List<Point> moveBishop(Tile tile)
+    public static List<Move> moveBishop(Tile tile)
     {
-        List<Point> array = new ArrayList<Point>();
+        List<Move> array = new ArrayList<Move>();
         Point temp = tile.getLocation();
         while (temp.ne().isValidPoint()) 
         {
@@ -343,12 +399,12 @@ public class MoveLogic
                 {
                     break;
                 }
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
                 break;
             } 
             else 
             {
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
         temp = tile.getLocation();
@@ -362,12 +418,12 @@ public class MoveLogic
                 {
                     break;
                 }
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
                 break;
             } 
             else 
             {
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
         temp = tile.getLocation();
@@ -381,12 +437,12 @@ public class MoveLogic
                 {
                     break;
                 }
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
                 break;
             } 
             else 
             {
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
         temp = tile.getLocation();
@@ -400,19 +456,19 @@ public class MoveLogic
                 {
                     break;
                 }
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
                 break;
             } 
             else 
             {
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
         return array;
     }
-    public static List<Point> moveQueen(Tile tile)
+    public static List<Move> moveQueen(Tile tile)
     {
-        List<Point> array = new ArrayList<Point>();
+        List<Move> array = new ArrayList<Move>();
         Point temp = tile.getLocation();
         while(temp.north().isValidPoint())
         {
@@ -423,12 +479,12 @@ public class MoveLogic
                 {
                     break;
                 }
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
                 break;
             }
             else
             {
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
         temp = tile.getLocation();
@@ -441,12 +497,12 @@ public class MoveLogic
                 {
                     break;
                 }
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
                 break;
             }
             else
             {
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
         temp = tile.getLocation();
@@ -459,12 +515,12 @@ public class MoveLogic
                 {
                     break;
                 }
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
                 break;
             }
             else
             {
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
         temp = tile.getLocation();
@@ -477,12 +533,12 @@ public class MoveLogic
                 {
                     break;
                 }
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
                 break;
             }
             else
             {
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }                                
 
@@ -496,12 +552,12 @@ public class MoveLogic
                 {
                     break;
                 }
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
                 break;
             }
             else
             {
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
         temp = tile.getLocation();
@@ -515,12 +571,12 @@ public class MoveLogic
                 {
                     break;
                 }
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
                 break;
             }
             else
             {
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
         temp = tile.getLocation();
@@ -534,12 +590,12 @@ public class MoveLogic
                 {
                     break;
                 }
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
                 break;
             }
             else
             {
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
         temp = tile.getLocation();
@@ -553,26 +609,33 @@ public class MoveLogic
                 {
                     break;
                 }
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
                 break;
             }
             else
             {
-                array.add(temp);
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
         return array;
     }
-    public static List<Point> moveKing(Tile tile)
+    public static List<Move> moveKing(Tile tile)
     {
-        List<Point> array = new ArrayList<Point>();
+        List<Move> array = new ArrayList<Move>();
         Point temp = tile.getLocation();                    
         temp.y ++;
         if(temp.isValidPoint() == true)
         {
             if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                array.add(temp);
+                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                }
+                else
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
+                }                
             }
         }
         temp = tile.getLocation();
@@ -582,7 +645,14 @@ public class MoveLogic
         {
             if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                array.add(temp);
+                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                }
+                else
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
+                }
             }
         }
         temp = tile.getLocation();
@@ -591,7 +661,14 @@ public class MoveLogic
         {
             if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                array.add(temp);
+                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                }
+                else
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
+                }
             }
         }
         temp = tile.getLocation();
@@ -601,7 +678,14 @@ public class MoveLogic
         {
             if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                array.add(temp);
+                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                }
+                else
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
+                }
             }
         }
         temp = tile.getLocation();                    
@@ -610,7 +694,14 @@ public class MoveLogic
         {
             if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                array.add(temp);
+                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                }
+                else
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
+                }
             }
         }
         temp = tile.getLocation();
@@ -620,7 +711,14 @@ public class MoveLogic
         {
             if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                array.add(temp);
+                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                }
+                else
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
+                }
             }
         }
         temp = tile.getLocation();
@@ -629,7 +727,14 @@ public class MoveLogic
         {
             if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                array.add(temp);
+                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                }
+                else
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
+                }
             }
         }
         temp = tile.getLocation();
@@ -639,14 +744,21 @@ public class MoveLogic
         {
             if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                array.add(temp);
+                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                }
+                else
+                {
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
+                }
             }
         }
         return array;    
     }
-    public static List<Point> determineMoves(Tile tile)
+    public static List<Move> determineMoves(Tile tile)
     {
-        List<Point> array = new ArrayList<Point>();
+        List<Move> array = new ArrayList<Move>();
         Point pt = tile.getLocation();
         if(tile.getChessPiece().pieceType.name() == "EMPTY")
         {
@@ -658,31 +770,30 @@ public class MoveLogic
             //based on which team they are on
                         
             if(tile.getChessPiece().getPieceType() == PieceType.PAWN)
-            {                    
-
+            { 
+                array = movePawn(tile);
             }
             else if(tile.getChessPiece().getPieceType() == PieceType.ROOK)
             {
-
+                array = moveRook(tile);
             }
             else if(tile.getChessPiece().getPieceType() == PieceType.BISHOP)
             {
-
+                array = moveBishop(tile);
             }
             else if(tile.getChessPiece().getPieceType() == PieceType.KNIGHT)
             {
-
-
+                array = moveKnight(tile);
             }
             //literally copy pasted code from Rook and Bishop
             else if(tile.getChessPiece().getPieceType() == PieceType.QUEEN)
             {
-
+                array = moveQueen(tile);
             }
             else if(tile.getChessPiece().getPieceType() == PieceType.KING)
             {
-
-            }            
+                array = moveKing(tile);
+            }
         }
         
         return array;

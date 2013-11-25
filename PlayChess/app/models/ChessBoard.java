@@ -11,7 +11,7 @@ package chessjava;
  */
  public class ChessBoard 
 {
-    public static Piece[][] board = new Piece[7][7];
+    public static Piece[][] board = new Piece[8][8];
     
     public void setPiece(Point pt, Piece pc)
     {

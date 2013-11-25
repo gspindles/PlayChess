@@ -41,8 +41,7 @@ public class Piece
                 location = p;
             }
         }
-        System.out.println("the input point was out of bounds");  
-       
+        System.out.println("the input point was out of bounds");       
     }   
     
 }

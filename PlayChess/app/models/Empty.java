@@ -9,15 +9,8 @@ public class Empty extends ChessPiece {
         {
             this.pieceType = PieceType.EMPTY;
             this.side = Side.NEUTRAL;
-            this.alive = false;
-            
-        }
-	public Empty(Side side) {
-		this.pieceType = PieceType.EMPTY;
-		this.side = side;
-		this.alive = true;
-	}
-	
+            this.alive = false;            
+        }	
 	
 	// method
 	public List<Point> getPossibleMoves(Point point) {

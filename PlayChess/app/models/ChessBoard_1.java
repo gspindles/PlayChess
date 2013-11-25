@@ -2,21 +2,42 @@ package chessjava;
 
 public class ChessBoard_1 {
 
-	private final int ROWS = 7;
-	private final int COLUMNS = 7;
+	private final int ROWS = 8;
+	private final int COLUMNS = 8;
+        //these keep track of where the pieces are on the board or if there are any left
+        //not really necessary except for king
+        private Point[] blackRook = new Point[8];
+        private Point[] whiteRook = new Point[8];
+        
+        private Point[] blackKnight = new Point[8];
+        private Point[] whiteKnight = new Point[8];
+        
+        private Point[] blackBishop = new Point[8];
+        private Point[] whiteBishop = new Point[8];
+        
+        private Point[] blackQueen = new Point[8];
+        private Point[] whiteQueen = new Point[8];
+        
+        private static Point blackKing;
+        private static Point whiteKing;
+        
+        private Point[] blackPawn = new Point[8];
+        private Point[] whitePawn = new Point[8];
 
 	private static Tile[][] board;
 
 	public ChessBoard_1() {
     	board = new Tile[ROWS][COLUMNS];
-        board[0][0] = new Tile(new Rook(Side.WHITE), Color.BLACK, new Point(0, 0));
-        board[0][1] = new Tile(new Knight(Side.WHITE), Color.WHITE, new Point(0, 1));
+        board[0][0] = new Tile(new Rook(Side.WHITE), Color.BLACK, new Point(0, 0));        
+        board[0][1] = new Tile(new Knight(Side.WHITE), Color.WHITE, new Point(0, 1));        
         board[0][2] = new Tile(new Bishop(Side.WHITE), Color.BLACK, new Point(0, 2));
         board[0][3] = new Tile(new Queen(Side.WHITE), Color.WHITE, new Point(0, 3));
         board[0][4] = new Tile(new King(Side.WHITE), Color.BLACK, new Point(0, 4));
+        whiteKing = new Point(0,4);
         board[0][5] = new Tile(new Bishop(Side.WHITE), Color.WHITE, new Point(0, 5));
         board[0][6] = new Tile(new Knight(Side.WHITE), Color.BLACK, new Point(0, 6));
         board[0][7] = new Tile(new Rook(Side.WHITE), Color.WHITE, new Point(0, 7));
+        
 
         board[1][0] = new Tile(new Pawn(Side.WHITE), Color.WHITE, new Point(1, 0));
         board[1][1] = new Tile(new Pawn(Side.WHITE), Color.BLACK, new Point(1, 1));
@@ -58,6 +79,7 @@ public class ChessBoard_1 {
         board[7][2] = new Tile(new Bishop(Side.BLACK), Color.WHITE, new Point(7, 2));
         board[7][3] = new Tile(new Queen(Side.BLACK), Color.BLACK, new Point(7, 3));
         board[7][4] = new Tile(new King(Side.BLACK), Color.WHITE, new Point(7, 4));
+        blackKing = new Point(7,4);
         board[7][5] = new Tile(new Bishop(Side.BLACK), Color.BLACK, new Point(7, 5));
         board[7][6] = new Tile(new Knight(Side.BLACK), Color.WHITE, new Point(7, 6));
         board[7][7] = new Tile(new Rook(Side.BLACK), Color.BLACK, new Point(7, 7));
@@ -78,7 +100,6 @@ public class ChessBoard_1 {
             }
             return null;
         }
-
         public static ChessPiece getBoardChessPiece(Point pt)
         {
             if (pt.x >= 0 & pt.y >= 0)
@@ -107,7 +128,6 @@ public class ChessBoard_1 {
                 }
             }            
         }
-        
         /*returns the entire board array board[7][7]
          * 
          */
@@ -124,6 +144,31 @@ public class ChessBoard_1 {
             board = newBoard;
         }
         
-        
+        public static Point getKing(Color c)
+        {
+            if(c == Color.WHITE)
+            {
+                return whiteKing;
+            }
+            else if(c == Color.BLACK)
+            {
+                return blackKing;
+            }
+            return null;
+        }
+        /*no error checking implemented here do it elsewhere
+         * 
+         */
+        public static void setKing(Color c, Point p)
+        {
+            if(c == Color.WHITE)
+            {
+                whiteKing = p;
+            }
+            else if(c == Color.BLACK)
+            {
+                blackKing = p;
+            }
+        }
 
 }
