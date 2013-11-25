@@ -31,33 +31,54 @@
                 });
             });
 
+            $('#board > tbody > tr').each(function() {
+                if ($(this).index() < 8) {
+                    $(this).children().each(function () {
+                        if ($(this).index() < 8) {
+                            $(this).addClass('spot');
+                        }
+                    });
+                }
+            });
+
             $('#board > tbody > tr > td').height($('#board > tbody > tr > td').width());
 
             setDefaultBoard();
+
+            resize();
         });
 
         $(window).resize(function () {
-            var cw = $('#board > tbody > tr > td').width();
-            $('#board > tbody > tr > td').height(cw);
-            $('#board > tbody > tr > td').css('font-size', cw);
+            var cw = $('.tile').width();
+            $('.tile').height(cw);
+            $('.spot').css('font-size', cw);
         });
 
         // functions
         function setDefaultBackground() {
             $('#board > tbody > tr').each(function() {
                 if($(this).index() % 2 === 0) {
-                    $(this).children('td').each(function() {
-                        if($(this).index() % 2 === 1) {
-                            $(this).addClass('bgOrange');
-                        } else {
-                            $(this).addClass('bgWhite');
-                        }
-                    });
-                } else {
+                    if ($(this).index() < 8) {
+                        $(this).children('td').each(function() {
+                            if($(this).index() % 2 === 1) {
+                                $(this).addClass('bgOrange');
+                            }
+                            else {
+                                if ($(this).index() < 8) {
+                                    $(this).addClass('bgWhite');
+                                }
+                            }
+                        });
+                    }
+                }
+                else {
                     $(this).children('td').each(function() {
                         if($(this).index() % 2 === 0) {
-                            $(this).addClass('bgOrange');
-                        } else {
+                            if ($(this).index() < 8) {
+                                $(this).addClass('bgOrange');
+                            }
+                        }
+                        else {
                             $(this).addClass('bgWhite');
                         }
                     });
@@ -88,12 +109,16 @@
                 }
                 if ($(this).index() == 1) {
                     $(this).children('td').each(function () {
-                        $(this).text(pieces.black.pawn);
+                        if ($(this).index() < 8) {
+                            $(this).text(pieces.black.pawn);
+                        }
                     });
                 }
                 if ($(this).index() == 6) {
                     $(this).children('td').each(function () {
-                        $(this).text(pieces.white.pawn);
+                        if ($(this).index() < 8) {
+                            $(this).text(pieces.white.pawn);
+                        }
                     });
                 }
                 if ($(this).index() == 7) {
@@ -125,11 +150,11 @@
             min-width: 75px;
             min-height: 75px;
             font-size: 75px;
-            margin-left: auto;
-            margin-right: auto;
             text-align: center !important;
             vertical-align: middle !important;
         }
+
+        .spot {}
 
         .bgOrange {
             background-color: orange;
@@ -163,7 +188,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <th>1</th>
+                    <td>1</td>
                 </tr>
                 <tr>
                     <td></td>
@@ -174,7 +199,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <th>2</th>
+                    <td>2</td>
                 </tr>
                 <tr>
                     <td></td>
@@ -185,7 +210,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <th>3</th>
+                    <td>3</td>
                 </tr>
                 <tr>
                     <td></td>
@@ -196,7 +221,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <th>4</th>
+                    <td>4</td>
                 </tr>
                 <tr>
                     <td></td>
@@ -207,7 +232,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <th>5</th>
+                    <td>5</td>
                 </tr>
                 <tr>
                     <td></td>
@@ -218,7 +243,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <th>6</th>
+                    <td>6</td>
                 <tr>
                     <td></td>
                     <td></td>
@@ -228,7 +253,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <th>7</th>
+                    <td>7</td>
                 <tr>
                     <td></td>
                     <td></td>
@@ -238,17 +263,17 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <th>8</th>
+                    <td>8</td>
                 </tr>
                 <tr>
-                    <th>A</th>
-                    <th>B</th>
-                    <th>C</th>
-                    <th>D</th>
-                    <th>E</th>
-                    <th>F</th>
-                    <th>G</th>
-                    <th>H</th>
+                    <td>A</td>
+                    <td>B</td>
+                    <td>C</td>
+                    <td>D</td>
+                    <td>E</td>
+                    <td>F</td>
+                    <td>G</td>
+                    <td>H</td>
                     <td></td>
                 </tr>
             </tbody>
