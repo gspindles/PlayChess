@@ -5,38 +5,41 @@
     <script type="text/javascript">
         var pieces = {
             black: {
-                king : "U+2654",
-                queen : "U+2655",
-                rook : "U+2656",
-                bishop : "U+2657",
-                knight : "U+2658",
-                pawn : "U+2659"
+                king : '\u2654',
+                queen : '\u2655',
+                rook : '\u2656',
+                bishop : '\u2657',
+                knight : '\u2658',
+                pawn : '\u2659'
             },
             white : {
-                king : "U+265A",
-                queen : "U+265B",
-                rook : "U+265C",
-                bishop : "U+265D",
-                knight : "U+265E",
-                pawn : "U+265F"
+                king : '\u265A',
+                queen : '\u265B',
+                rook : '\u265C',
+                bishop : '\u265D',
+                knight : '\u265E',
+                pawn : '\u265F'
             }
         };
 
         $(document).ready(function() {
+            setDefaultBackground();
+
             $('#board > tbody > tr').each(function() {
                 $(this).children().each(function () {
                     $(this).addClass('tile');
-                    $(this).css('height', $(this).width());
                 });
             });
 
-            setDefaultBackground();
+            $('#board > tbody > tr > td').height($('#board > tbody > tr > td').width());
+
             setDefaultBoard();
         });
 
         $(window).resize(function () {
             var cw = $('#board > tbody > tr > td').width();
             $('#board > tbody > tr > td').height(cw);
+            $('#board > tbody > tr > td').css('font-size', cw);
         });
 
         // functions
@@ -63,28 +66,56 @@
         }
 
         function setDefaultBoard() {
-            $('#board > tbody > tr')[0].children('td')[0].append(pieces.black.rook);
-            $('#board > tbody > tr')[0].children('td')[1].append(pieces.black.knight);
-            $('#board > tbody > tr')[0].children('td')[2].append(pieces.black.bishop);
-            $('#board > tbody > tr')[0].children('td')[3].append(pieces.black.queen);
-            $('#board > tbody > tr')[0].children('td')[4].append(pieces.black.king);
-            $('#board > tbody > tr')[0].children('td')[5].append(pieces.black.bishop);
-            $('#board > tbody > tr')[0].children('td')[6].append(pieces.black.knight);
-            $('#board > tbody > tr')[0].children('td')[7].append(pieces.black.rook);
-            $('#board > tbody > tr')[1].children('td').each(function() {
-                $(this).text(pieces.black.pawn);
+            $('#board > tbody > tr').each(function() {
+                if ($(this).index() == 0) {
+                    $(this).children('td').each(function () {
+                        if ($(this).index() == 0 || $(this).index() == 7) {
+                            $(this).text(pieces.black.rook);
+                        }
+                        if ($(this).index() == 1 || $(this).index() == 6) {
+                            $(this).text(pieces.black.knight);
+                        }
+                        if ($(this).index() == 2 || $(this).index() == 5) {
+                            $(this).text(pieces.black.bishop);
+                        }
+                        if ($(this).index() == 3) {
+                            $(this).text(pieces.black.queen);
+                        }
+                        if ($(this).index() == 4) {
+                            $(this).text(pieces.black.king);
+                        }
+                    });
+                }
+                if ($(this).index() == 1) {
+                    $(this).children('td').each(function () {
+                        $(this).text(pieces.black.pawn);
+                    });
+                }
+                if ($(this).index() == 6) {
+                    $(this).children('td').each(function () {
+                        $(this).text(pieces.white.pawn);
+                    });
+                }
+                if ($(this).index() == 7) {
+                    $(this).children('td').each(function () {
+                        if ($(this).index() == 0 || $(this).index() == 7) {
+                            $(this).text(pieces.white.rook);
+                        }
+                        if ($(this).index() == 1 || $(this).index() == 6) {
+                            $(this).text(pieces.white.knight);
+                        }
+                        if ($(this).index() == 2 || $(this).index() == 5) {
+                            $(this).text(pieces.white.bishop);
+                        }
+                        if ($(this).index() == 3) {
+                            $(this).text(pieces.white.queen);
+                        }
+                        if ($(this).index() == 4) {
+                            $(this).text(pieces.white.king);
+                        }
+                    });
+                }
             });
-            $('#board > tbody > tr')[6].children('td').each(function() {
-                $(this).text(pieces.white.pawn);
-            });
-            $('#board > tbody > tr')[7].children('td')[0].append(pieces.white.rook);
-            $('#board > tbody > tr')[7].children('td')[1].append(pieces.white.knight);
-            $('#board > tbody > tr')[7].children('td')[2].append(pieces.white.bishop);
-            $('#board > tbody > tr')[7].children('td')[3].append(pieces.white.queen);
-            $('#board > tbody > tr')[7].children('td')[4].append(pieces.white.king);
-            $('#board > tbody > tr')[7].children('td')[5].append(pieces.white.bishop);
-            $('#board > tbody > tr')[7].children('td')[6].append(pieces.white.knight);
-            $('#board > tbody > tr')[7].children('td')[7].append(pieces.white.rook);
         }
 
     </script>
@@ -93,11 +124,11 @@
         .tile {
             min-width: 75px;
             min-height: 75px;
-            padding: 10px;
+            font-size: 75px;
             margin-left: auto;
             margin-right: auto;
-            vertical-align: middle;
-            font-size: 75px;
+            text-align: center !important;
+            vertical-align: middle !important;
         }
 
         .bgOrange {
@@ -110,7 +141,7 @@
 
         .hoverBorder {
 
-        } 
+        }
     </style>
 
     <div>
