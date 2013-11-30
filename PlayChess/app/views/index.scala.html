@@ -82,6 +82,11 @@
                     });
                 }
             });
+
+            $('#board > tbody > tr > td').each(function() {
+                $(this).removeClass('selected');
+                $(this).removeClass('highlight');
+            });
         }
 
         function setDefaultBoard() {
@@ -142,32 +147,36 @@
         }
 
         $(document).ready(function() {
-            setDefaultBackground();
 
-            $(".spot").click(function() {
-                var col = $(this).parent().children().index($(this));
-                var row = $(this).parent().parent().children().index($(this).parent());
-                //alert('Row: ' + row + ', Column: ' + col);
+            $('.spot').click(function() {
+                setDefaultBackground();
+                var x = $(this).parent().children().index($(this));
+                var y = $(this).parent().parent().children().index($(this).parent());
+                $(this).addClass('selected');
+
                 $.ajax({
-                    type: "POST",
-                    url: "/moves",
-                    data: { "Point": { "x": col, "y": row } }
+                    type: "GET",
+                    url: "/click?x=" + x + "&y=" + y,
                     dataType: "json"
-                }).done(function(ps) {
-                    for (p in ps) {
-                        $('#board > tdoby > tr').each(function() {
-                            if ($(this).index() == p.y) {
-                                $(this).children().each(function() {
-                                    if($(this).index() == p.x) {
-                                        $(this).css('background-color', 'blue');
-                                    }
-                                });
+                }).done(function(data) {
+                    highlight(data);
+                });
+            });
+        });
+
+        function highlight(points) {
+            for (p in points) {
+                $('#board > tbody > tr').each(function() {
+                    if ($(this).index() == points[p].y) {
+                        $(this).children().each(function() {
+                            if($(this).index() == points[p].x) {
+                                $(this).addClass('highlight');
                             }
                         });
                     }
-                })
-            });
-        });
+                });
+            }
+        }
 
     </script>
 
@@ -186,15 +195,19 @@
         .spot {}
 
         .bgOrange {
-            background-color: orange;
+            background-color: gray;
         }
 
         .bgWhite {
             background-color: white;
         }
 
-        .hoverBorder {
-            background-color: green;
+        .selected {
+            background-color: #00FFFF;
+        }
+
+        .highlight {
+            background-color: #00FF00;
         }
     </style>
 
