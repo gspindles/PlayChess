@@ -12,7 +12,7 @@ import java.util.List;
  * @author the0ldknighte
  */
 public class MoveLogic 
-{
+{    
     /*determines the moves that are available to a particular piece and then reurns an arraylist of points
      * 
      *
@@ -635,7 +635,7 @@ public class MoveLogic
                 else
                 {
                     array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
-                }                
+                }
             }
         }
         temp = tile.getLocation();
@@ -797,5 +797,54 @@ public class MoveLogic
         }
         
         return array;
-    }    
+    }
+    /**
+     * 
+     * @param s the color of the king you are checking
+     * @return if it is checkmate or not
+     */
+    public static boolean checkmate(Side s,ChessBoard board)
+    {
+        if(determineCheck(s,board) == false)
+        {
+            return false;
+        }
+        List<Move> enemyMoves = AI.populateMoves(s, board);
+        List<Move> kingMoves = MoveLogic.moveKing(board.getBoardTile(board.getKing(s)), board);
+        if(s == Side.WHITE)
+        {
+            for(int i = 0; i < enemyMoves.size();i++)
+            {
+                for(int j = 0; j < kingMoves.size(); j++)
+                {
+                    if(enemyMoves.get(i).getEnd() == kingMoves.get(j).getEnd())
+                    {
+                        kingMoves.remove(j);
+                        j--;
+                    }
+                }
+            }            
+        }
+        else if (s == Side.BLACK)
+        {
+            
+        }
+        if(kingMoves.size() == 0)
+        {
+            return true;
+        }
+        return false;
+    }
+    public static boolean determineCheck(Side s,ChessBoard board)
+    {
+        List<Move> enemyMoves = AI.populateMoves(s, board);
+        for(int i = 0; i < enemyMoves.size();i++)
+        {
+            if(enemyMoves.get(i).getEnd() == board.getKing(s))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

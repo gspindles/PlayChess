@@ -123,18 +123,46 @@ public class ChessBoard {
          * 
          * 
          */
-        public void setBoardChessPiece(Point pt, ChessPiece piece)
-        {            
-            if (pt.x >= 0 & pt.y >= 0)
+//        public void setBoardChessPiece(Point pt, ChessPiece piece)
+//        {            
+//            if (pt.x >= 0 & pt.y >= 0)
+//            {            
+//                if(pt.x <= 7 & pt.y <= 7)
+//                {
+//                    if(piece.equals(null) == false)
+//                    {
+//                        if(piece.pieceType == PieceType.KING)
+//                        {
+//                            setKing(piece.getSide(), pt);
+//                        }
+//                        board[pt.x][pt.y].setChessPiece(piece);                        
+//                    }
+//                }
+//            }            
+//        }
+        public void makeMove(Move move)
+        {
+            if (move.getEnd().x >= 0 & move.getEnd().y >= 0)
             {            
-                if(pt.x <= 7 & pt.y <= 7)
+                if(move.getEnd().x <= 7 & move.getEnd().y <= 7)
                 {
-                    if(piece.equals(null) == false)
-                    {                        
-                        board[pt.x][pt.y].setChessPiece(piece);                        
+                    if(move.getPiece().equals(null) == false)
+                    {
+                        if(move.getPiece().pieceType == PieceType.KING)
+                        {
+                            setKing(move.getPiece().getSide(), move.getEnd());
+                        }
+                        if(move.getTakenPiece() == null)
+                        {
+                            board[move.getEnd().x][move.getEnd().y].setChessPiece(move.getPiece()); 
+                        }
+                        else
+                        {
+                            board[move.getEnd().x][move.getEnd().y].setChessPiece(move.getPiece());
+                        }
                     }
                 }
-            }            
+            }  
         }
         
         /*returns the entire board array board[7][7]
@@ -155,7 +183,8 @@ public class ChessBoard {
         
         public Point getKing(Side side) 
         {
-            if(side == Side.WHITE) {
+            if(side == Side.WHITE) 
+            {
                 return whiteKing;
             }
             return blackKing;
@@ -163,11 +192,14 @@ public class ChessBoard {
         /*no error checking implemented here do it elsewhere
          * 
          */
-        public void setKing(Side side, Point p) {
-            if(side == Side.WHITE) {
+        private void setKing(Side side, Point p) 
+        {
+            if(side == Side.WHITE) 
+            {
                 whiteKing = p;
             }
-            else {
+            else 
+            {
                 blackKing = p;
             }
         }
