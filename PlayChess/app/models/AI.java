@@ -14,7 +14,7 @@ import java.util.List;
 public class AI 
 {
     private Color color;
-    private List<Move> whiteMoves = new ArrayList<Move>();    
+    private List<Move> whiteMoves = new ArrayList<Move>();
     private List<Move> blackMoves = new ArrayList<Move>();
     private List<Move> bestOptions = new ArrayList<Move>();
     private List<Move> tempList = new ArrayList<Move>();
@@ -31,19 +31,19 @@ public class AI
             for(int y = 0; y > 8; y++)
             {
                 Point temp = new Point(x,y);
-                if(ChessBoard_1.getBoardTile(temp).getChessPiece().getPieceType() != PieceType.EMPTY)
+                if(ChessBoard.getBoardTile(temp).getChessPiece().getPieceType() != PieceType.EMPTY)
                 {
-                    if(ChessBoard_1.getBoardTile(temp).getChessPiece().getSide() == Side.WHITE)
+                    if(ChessBoard.getBoardTile(temp).getChessPiece().getSide() == Side.WHITE)
                     {                        
-                        tempList = MoveLogic.determineMoves(ChessBoard_1.getBoardTile(temp));
+                        tempList = MoveLogic.determineMoves(ChessBoard.getBoardTile(temp));
                         for(int i = 0; i < tempList.size(); i ++)
                         {
                             whiteMoves.add(tempList.get(i));
                         }
                     }
-                    else if(ChessBoard_1.getBoardTile(temp).getChessPiece().getSide() == Side.BLACK)
+                    else if(ChessBoard.getBoardTile(temp).getChessPiece().getSide() == Side.BLACK)
                     {
-                        tempList = MoveLogic.determineMoves(ChessBoard_1.getBoardTile(temp));
+                        tempList = MoveLogic.determineMoves(ChessBoard.getBoardTile(temp));
                         for(int i = 0; i < tempList.size(); i ++)
                         {
                             blackMoves.add(tempList.get(i));
@@ -51,6 +51,13 @@ public class AI
                     }
                 }
             }
+        }
+    }
+    private void determineCheck()
+    {
+        for(int i = 0; i < tempList.size(); i++)
+        {
+            
         }
     }
     private void bestMove()

@@ -15,6 +15,7 @@ public class Move
     private ChessPiece piece;
     
     private ChessPiece takenPiece = null;
+    private boolean check = false;
     
     /* chessPiece p is the piece that is moving
      *  Point s is starting point point e is ending point
@@ -37,8 +38,33 @@ public class Move
         {
              end.y = e.y;
         }
+        piece = p;        
+    }
+    
+    /* chessPiece p is the piece that is moving
+     *  Point s is starting point point e is ending point
+     * boolean check the king is in check
+     */
+    public Move(Point s, Point e,ChessPiece p, boolean check)
+    {        
+        if(s.x >= 0 & s.x <= 7)
+        {
+            start.x = s.x;
+        }
+        if(s.y >= 0 & s.y <= 7)
+        {
+            start.y = s.y;
+        }
+        if(e.x >= 0 & e.x <= 7)
+        {
+            end.x = e.x;
+        }
+        if(e.y >= 0 & e.y <= 7)
+        {
+             end.y = e.y;
+        }
         piece = p;
-        
+        check = true;
     }
     /* chessPiece p is the piece that is moving
      * chessPiece t is the taken piece
