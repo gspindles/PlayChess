@@ -9,7 +9,7 @@ public class ChessGame {
 	private chessBoard chessGame;
 	
 	public ChessGame() {
-		chessGame = new ChessGame;
+		chessGame = new ChessGame();
 	}
 
 	public static void aiMakeATurn() {

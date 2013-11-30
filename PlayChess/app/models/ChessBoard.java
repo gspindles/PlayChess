@@ -4,25 +4,26 @@ public class ChessBoard {
 
 	private final int ROWS = 8;
 	private final int COLUMNS = 8;
-        //these keep track of where the pieces are on the board or if there are any left
-        //not really necessary except for king
-        private Point[] blackRook = new Point[8];
-        private Point[] whiteRook = new Point[8];
-        
-        private Point[] blackKnight = new Point[8];
-        private Point[] whiteKnight = new Point[8];
-        
-        private Point[] blackBishop = new Point[8];
-        private Point[] whiteBishop = new Point[8];
-        
-        private Point[] blackQueen = new Point[8];
-        private Point[] whiteQueen = new Point[8];
-        
-        private static Point blackKing;
-        private static Point whiteKing;
-        
-        private Point[] blackPawn = new Point[8];
-        private Point[] whitePawn = new Point[8];
+    
+    //these keep track of where the pieces are on the board or if there are any left
+    //not really necessary except for king
+    private Point[] blackRook = new Point[8];
+    private Point[] whiteRook = new Point[8];
+    
+    private Point[] blackKnight = new Point[8];
+    private Point[] whiteKnight = new Point[8];
+    
+    private Point[] blackBishop = new Point[8];
+    private Point[] whiteBishop = new Point[8];
+    
+    private Point[] blackQueen = new Point[8];
+    private Point[] whiteQueen = new Point[8];
+    
+    private static Point blackKing;
+    private static Point whiteKing;
+    
+    private Point[] blackPawn = new Point[8];
+    private Point[] whitePawn = new Point[8];
 
 	private static Tile[][] board;
 
@@ -144,24 +145,20 @@ public class ChessBoard {
             board = newBoard;
         }
         
-        public static Point getKing(    {
-            if(c ==             {
+        public static Point getKing(Side side) {
+            if(side == Side.WHITE) {
                 return whiteKing;
             }
-            else if(c ==             {
-                return blackKing;
-            }
-            return null;
+            return blackKing;
         }
         /*no error checking implemented here do it elsewhere
          * 
          */
-        public static void setKing(t p)
-        {
-            if(c ==             {
+        public static void setKing(Side side, Point p) {
+            if(side = Side.WHITE) {
                 whiteKing = p;
             }
-            else if(c ==             {
+            else {
                 blackKing = p;
             }
         }
