@@ -798,4 +798,9 @@ public class MoveLogic
         
         return array;
     }
+//    public static List<Move> determineMoves(Move initial, Move secondary)
+//    {
+//        List<Move> array = new ArrayList<Move>();
+//        Point pt = tile.getLocation();
+//    }
 }

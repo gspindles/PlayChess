@@ -13,15 +13,15 @@ import java.util.List;
  */
 public class AI 
 {
-    private Color color;
+    private Side side;
     private List<Move> whiteMoves = new ArrayList<Move>();
     private List<Move> blackMoves = new ArrayList<Move>();
     private List<Move> bestOptions = new ArrayList<Move>();
     private List<Move> tempList = new ArrayList<Move>();
     
-    public AI(Color c)
+    public AI(Side s)
     {
-        color = c;
+        side = s;
     }
     
     public void populateMoves()
@@ -56,7 +56,7 @@ public class AI
     
     private void bestMove()
     {
-        if(color == Color.WHITE)
+        if(side == Side.WHITE)
         {
             for(int i = 0; i < whiteMoves.size(); i++)
             {
@@ -87,7 +87,7 @@ public class AI
                 }
             }
         }
-        else if(color == Color.BLACK)
+        else if(side == Side.BLACK)
         {
             for(int i = 0; i < blackMoves.size(); i++)
             {
@@ -125,17 +125,14 @@ public class AI
      */
     public void actualMove()
     {
+        List<Move> temp = new ArrayList<Move>();
         bestMove();
         if(bestOptions.size() > 0)
         {
             for(int i = 0; i < bestOptions.size();i++)
             {
-                            
+                    //temp = MoveLogic.determineMoves()
             }
-        }
-        else
-        {
-            
-        }        
+        }             
     }
 }
