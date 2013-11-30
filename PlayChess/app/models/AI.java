@@ -53,21 +53,36 @@ public class AI
             }
         }
     }
-    private void determineCheck()
-    {
-        for(int i = 0; i < tempList.size(); i++)
-        {
-            
-        }
-    }
+    
     private void bestMove()
     {
         if(color == Color.WHITE)
         {
             for(int i = 0; i < whiteMoves.size(); i++)
             {
-                if(whiteMoves.get(i).getTakenPiece() != null)
+                if(whiteMoves.get(i).getTakenPiece().pieceType == PieceType.QUEEN)
                 {
+                    whiteMoves.get(i).setWeight(100);
+                    bestOptions.add(whiteMoves.get(i));
+                }
+                else if(whiteMoves.get(i).getTakenPiece().pieceType == PieceType.ROOK)
+                {
+                    whiteMoves.get(i).setWeight(10);
+                    bestOptions.add(whiteMoves.get(i));
+                }
+                else if(whiteMoves.get(i).getTakenPiece().pieceType == PieceType.KNIGHT)
+                {
+                    whiteMoves.get(i).setWeight(16);
+                    bestOptions.add(whiteMoves.get(i));
+                }
+                else if(whiteMoves.get(i).getTakenPiece().pieceType == PieceType.BISHOP)
+                {
+                    whiteMoves.get(i).setWeight(14);
+                    bestOptions.add(whiteMoves.get(i));
+                }
+                else if(whiteMoves.get(i).getTakenPiece().pieceType == PieceType.PAWN)
+                {
+                    whiteMoves.get(i).setWeight(5);
                     bestOptions.add(whiteMoves.get(i));
                 }
             }
@@ -76,8 +91,29 @@ public class AI
         {
             for(int i = 0; i < blackMoves.size(); i++)
             {
-                if(blackMoves.get(i).getTakenPiece() != null)
+                if(blackMoves.get(i).getTakenPiece().pieceType == PieceType.QUEEN)
                 {
+                    blackMoves.get(i).setWeight(100);
+                    bestOptions.add(blackMoves.get(i));
+                }
+                else if(blackMoves.get(i).getTakenPiece().pieceType == PieceType.ROOK)
+                {
+                    blackMoves.get(i).setWeight(10);
+                    bestOptions.add(blackMoves.get(i));
+                }
+                else if(blackMoves.get(i).getTakenPiece().pieceType == PieceType.KNIGHT)
+                {
+                    blackMoves.get(i).setWeight(16);
+                    bestOptions.add(blackMoves.get(i));
+                }
+                else if(whiteMoves.get(i).getTakenPiece().pieceType == PieceType.BISHOP)
+                {
+                    blackMoves.get(i).setWeight(14);
+                    bestOptions.add(blackMoves.get(i));
+                }
+                else if(whiteMoves.get(i).getTakenPiece().pieceType == PieceType.PAWN)
+                {
+                    blackMoves.get(i).setWeight(5);
                     bestOptions.add(blackMoves.get(i));
                 }
             }
