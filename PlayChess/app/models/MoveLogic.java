@@ -39,16 +39,8 @@ public class MoveLogic
                     {
                         //check to see if that piece is the same color
                         if (tile.getChessPiece().getSide() != ChessBoard.getBoardChessPiece(tile.getLocation().se()).getSide()) 
-                        {
-                            if(ChessBoard.getBoardChessPiece(tile.getLocation().se()).pieceType == PieceType.KING)
-                            {
-                                array.add(new Move(tile.getLocation(),tile.getLocation().se(),tile.getChessPiece(),ChessBoard.getBoardChessPiece(tile.getLocation().se()) ));
-                            }
-                            else
-                            {
-                                array.add(new Move(tile.getLocation(),tile.getLocation().se(),tile.getChessPiece(),ChessBoard.getBoardChessPiece(tile.getLocation().se()) ));
-                            }
-                            
+                        {                            
+                                array.add(new Move(tile.getLocation(),tile.getLocation().se(),tile.getChessPiece(),ChessBoard.getBoardChessPiece(tile.getLocation().se()) ));                            
                         }
                     }
                 }
