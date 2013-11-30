@@ -11,12 +11,4 @@ public class Knight extends ChessPiece {
 		this.side = side;
 		this.alive = true;
 	}
-	
-	
-	// method
-	public List<Point> getPossibleMoves(Point p) {
-		List<Point> availableMoves = new ArrayList<Point>();
-		
-		return super.filterBadLocation(availableMoves);
-	}
 }

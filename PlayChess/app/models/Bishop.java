@@ -11,16 +11,4 @@ public class Bishop extends ChessPiece {
 		this.side = side;
 		this.alive = true;
 	}
-	
-	
-	// method
-	public List<Point> getPossibleMoves(Point point) {
-		List<Point> availableMoves = new ArrayList<Point>();
-		if (this.side == Side.BLACK) {
-			
-		} else {
-			
-		}
-		return super.filterBadLocation(availableMoves);
-	}
 }

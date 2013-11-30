@@ -11,12 +11,4 @@ public class Queen extends ChessPiece {
 		this.side = side;
 		this.alive = true;
 	}
-	
-	
-	// method
-	public List<Point> getPossibleMoves(Point point) {
-		List<Point> availableMoves = new ArrayList<Point>();
-		
-		return super.filterBadLocation(availableMoves);
-	}
 }

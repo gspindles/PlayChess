@@ -9,7 +9,7 @@ public abstract class ChessPiece {
 	protected PieceType pieceType;
 	protected Side side;
 	protected Boolean alive;
-        protected Boolean hasMoved = false;
+    protected Boolean hasMoved = false;
 
 
 	// accessor and mutator
@@ -28,19 +28,19 @@ public abstract class ChessPiece {
 	public void setAsCaptured() {
 		this.alive = false;
 	}
-        public Boolean getHasMoved()
-        {            
-            return hasMoved;
-        }
-        public void setHasMoved()
-        {
-            hasMoved = true;
-        }
+    
+    public Boolean getHasMoved()
+    {            
+        return hasMoved;
+    }
+    
+    public void setHasMoved()
+    {
+        hasMoved = true;
+    }
 
 
 	// methods
-	public abstract List<Point> getPossibleMoves(Point point);
-
 	public static List<Point> filterBadLocation(List<Point> ptList) {
 		List<Point> goodPoints = new ArrayList<Point>();
 		for (Point p : ptList) {
