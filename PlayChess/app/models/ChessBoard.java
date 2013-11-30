@@ -19,13 +19,13 @@ public class ChessBoard {
     private Point[] blackQueen = new Point[8];
     private Point[] whiteQueen = new Point[8];
     
-    private static Point blackKing;
-    private static Point whiteKing;
+    private Point blackKing;
+    private Point whiteKing;
     
     private Point[] blackPawn = new Point[8];
     private Point[] whitePawn = new Point[8];
 
-	private static Tile[][] board;
+	private Tile[][] board;
 
 	public ChessBoard() {
     	board = new Tile[ROWS][COLUMNS];
@@ -90,7 +90,7 @@ public class ChessBoard {
          * 
          *
          */
-        public static Tile getBoardTile(Point pt)
+        public Tile getBoardTile(Point pt)
         {            
             if (pt.x >= 0 & pt.y >= 0)
             {            
@@ -101,7 +101,13 @@ public class ChessBoard {
             }
             return null;
         }
-        public static ChessPiece getBoardChessPiece(Point pt)
+        
+        /**
+         * 
+         * @param pt
+         * @return 
+         */
+        public ChessPiece getBoardChessPiece(Point pt)
         {
             if (pt.x >= 0 & pt.y >= 0)
             {            
@@ -112,11 +118,12 @@ public class ChessBoard {
             }
             return null;
         }
+        
         /*sets a particular tile at pt to piece assuming both are valid
          * 
          * 
          */
-        public static void setBoardChessPiece(Point pt, ChessPiece piece)
+        public void setBoardChessPiece(Point pt, ChessPiece piece)
         {            
             if (pt.x >= 0 & pt.y >= 0)
             {            
@@ -129,10 +136,11 @@ public class ChessBoard {
                 }
             }            
         }
+        
         /*returns the entire board array board[7][7]
          * 
          */
-        public static Tile[][] getBoard()
+        public Tile[][] getBoard()
         {            
             return board;
         }
@@ -145,7 +153,8 @@ public class ChessBoard {
             board = newBoard;
         }
         
-        public static Point getKing(Side side) {
+        public Point getKing(Side side) 
+        {
             if(side == Side.WHITE) {
                 return whiteKing;
             }
@@ -154,8 +163,8 @@ public class ChessBoard {
         /*no error checking implemented here do it elsewhere
          * 
          */
-        public static void setKing(Side side, Point p) {
-            if(side = Side.WHITE) {
+        public void setKing(Side side, Point p) {
+            if(side == Side.WHITE) {
                 whiteKing = p;
             }
             else {

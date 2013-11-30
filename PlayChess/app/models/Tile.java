@@ -28,11 +28,5 @@ public class Tile {
 		
 	public Point getLocation() {
 		return this.location;
-	}
-	
-	
-	// methods
-	public List<Point> getPossibleMoves() {
-		return this.chessPiece.getPossibleMoves(this.location);
-	}
+	}	
 }
