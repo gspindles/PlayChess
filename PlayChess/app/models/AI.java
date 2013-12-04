@@ -7,6 +7,7 @@ package chessjava;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.lang.Thread;
 
 /**
  *
@@ -22,14 +23,15 @@ public class AI
     {
         List<Move> tempList = new ArrayList<Move>();
         List<Move> whiteMoves = new ArrayList<Move>();
-        List<Move> blackMoves = new ArrayList<Move>();        
+        List<Move> blackMoves = new ArrayList<Move>();
         List<Move> bestOptions = new ArrayList<Move>();
+        Point temp;
         
         for(int x = 0; x > 8; x++)
         {
             for(int y = 0; y > 8; y++)
             {
-                Point temp = new Point(x,y);
+                temp = new Point(x,y);
                 if(board.getBoardTile(temp).getChessPiece().getPieceType() != PieceType.EMPTY)
                 {
                     if(board.getBoardTile(temp).getChessPiece().getSide() == Side.WHITE)
@@ -61,6 +63,11 @@ public class AI
         }
         return tempList;
     }
+    
+//    public static List<Move> parallelMove(Side side, ChessBoard board)
+//    {
+//        
+//    }
     
     private List<Move> bestMove(ChessBoard board, List<Move> list)
     {
