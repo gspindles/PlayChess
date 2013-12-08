@@ -1,4 +1,7 @@
-package chessjava;
+package models;
+
+import java.util.List;
+import java.util.ArrayList;
 
 public class ChessGame {
 
@@ -11,18 +14,6 @@ public class ChessGame {
 
 	public ChessGame() {
 		chessBoard = new ChessBoard();
-	}
-
-
-	// this method apply a move to the board
-	public void applyMoveToBoard(Move move) {
-
-	}
-
-
-	// query the board given xy coordinates and return relevant information
-	public static Tile queryBoard(int x, int y) {
-		return null;
 	}
 
 

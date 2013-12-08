@@ -1,7 +1,4 @@
-package chessjava;
-
-import java.util.ArrayList;
-import java.util.List;
+package models;
 
 public class Bishop extends ChessPiece {
 

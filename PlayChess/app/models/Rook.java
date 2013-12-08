@@ -1,7 +1,5 @@
-package chessjava;
+package models;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Rook extends ChessPiece {
 	

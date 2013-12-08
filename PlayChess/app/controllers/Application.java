@@ -3,7 +3,7 @@ package controllers;
 import play.*;
 import play.mvc.*;
 import play.libs.*;
-import chessjava.*;
+import models.*;
 import views.html.*;
 import play.Logger.*;
 import com.fasterxml.jackson.core.*;

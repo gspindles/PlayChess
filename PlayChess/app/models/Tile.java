@@ -1,6 +1,4 @@
-package chessjava;
-
-import java.util.List;
+package models;
 
 
 public class Tile {
