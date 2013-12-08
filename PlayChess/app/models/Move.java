@@ -8,21 +8,21 @@ package chessjava;
  *
  * @author the0ldknighte
  */
-public class Move 
+public class Move
 {
     private Point start;
-    private Point end;    
+    private Point end;
     private ChessPiece piece;
-    
+
     private ChessPiece takenPiece = null;
     private boolean check = false;
     private int weight = 0;
-    
+
     /* chessPiece p is the piece that is moving
      *  Point s is starting point point e is ending point
      */
     public Move(Point s, Point e,ChessPiece p)
-    {        
+    {
         if(s.x >= 0 & s.x <= 7)
         {
             start.x = s.x;
@@ -39,14 +39,14 @@ public class Move
         {
              end.y = e.y;
         }
-        piece = p;        
-    }    
-    
+        piece = p;
+    }
+
     /* chessPiece p is the piece that is moving
      * chessPiece t is the taken piece
      *  Point s is starting point point e is ending point
      */
-    public Move(Point s, Point e,ChessPiece p,ChessPiece t)
+    public Move(Point s, Point e, ChessPiece p, ChessPiece t)
     {
         if(s.x >= 0 & s.x <= 7)
         {
@@ -94,7 +94,7 @@ public class Move
                 end = e;
             }
         }
-    }    
+    }
     public ChessPiece getPiece()
     {
         return piece;
