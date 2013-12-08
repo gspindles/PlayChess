@@ -17,7 +17,7 @@ public class MoveLogic
      *
      *
      */
-    public static List<Move> movePawn(Tile tile)
+    public static List<Move> movePawn(Tile tile, ChessBoard board)
     {
         List<Move> array = new ArrayList<Move>();
         //if the pawn has not moved yet
@@ -35,12 +35,12 @@ public class MoveLogic
                 }
                 //check the se tile to see if there is a piece
                 if (tile.getLocation().se().isValidPoint() == true) {
-                    if (ChessBoard_1.getBoardChessPiece(tile.getLocation().se()).getPieceType() != PieceType.EMPTY)
+                    if (board.getBoardChessPiece(tile.getLocation().se()).getPieceType() != PieceType.EMPTY)
                     {
                         //check to see if that piece is the same color
-                        if (tile.getChessPiece().getSide() != ChessBoard_1.getBoardChessPiece(tile.getLocation().se()).getSide())
+                        if (tile.getChessPiece().getSide() != board.getBoardChessPiece(tile.getLocation().se()).getSide())
                         {
-                            array.add(new Move(tile.getLocation(),tile.getLocation().se(),tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(tile.getLocation().se()) ));
+                            array.add(new Move(tile.getLocation(),tile.getLocation().se(),tile.getChessPiece(),board.getBoardChessPiece(tile.getLocation().se()) ));
                         }
                     }
                 }
@@ -48,12 +48,12 @@ public class MoveLogic
                 if (tile.getLocation().sw().isValidPoint() == true)
                 {
                     //check the sw tile to see if there is a piece
-                    if (ChessBoard_1.getBoardChessPiece(tile.getLocation().sw()).getPieceType() != PieceType.EMPTY)
+                    if (board.getBoardChessPiece(tile.getLocation().sw()).getPieceType() != PieceType.EMPTY)
                     {
                         //check to see if that piece is the same color
-                        if (tile.getChessPiece().getSide() != ChessBoard_1.getBoardChessPiece(tile.getLocation().sw()).getSide())
+                        if (tile.getChessPiece().getSide() != board.getBoardChessPiece(tile.getLocation().sw()).getSide())
                         {
-                            array.add(new Move(tile.getLocation(),tile.getLocation().sw(),tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(tile.getLocation().sw())));
+                            array.add(new Move(tile.getLocation(),tile.getLocation().sw(),tile.getChessPiece(),board.getBoardChessPiece(tile.getLocation().sw())));
                         }
                     }
                 }
@@ -66,12 +66,12 @@ public class MoveLogic
                 }
                 //check the se tile to see if there is a piece
                 if (tile.getLocation().se().isValidPoint() == true) {
-                    if (ChessBoard_1.getBoardChessPiece(tile.getLocation().se()).getPieceType() != PieceType.EMPTY)
+                    if (board.getBoardChessPiece(tile.getLocation().se()).getPieceType() != PieceType.EMPTY)
                     {
                         //check to see if that piece is the same color
-                        if (tile.getChessPiece().getSide() != ChessBoard_1.getBoardChessPiece(tile.getLocation().se()).getSide())
+                        if (tile.getChessPiece().getSide() != board.getBoardChessPiece(tile.getLocation().se()).getSide())
                         {
-                            array.add(new Move(tile.getLocation(),tile.getLocation().se(),tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(tile.getLocation().se())));
+                            array.add(new Move(tile.getLocation(),tile.getLocation().se(),tile.getChessPiece(),board.getBoardChessPiece(tile.getLocation().se())));
                         }
                     }
                 }
@@ -79,12 +79,12 @@ public class MoveLogic
                 if (tile.getLocation().sw().isValidPoint() == true)
                 {
                     //check the sw tile to see if there is a piece
-                    if (ChessBoard_1.getBoardChessPiece(tile.getLocation().sw()).getPieceType() != PieceType.EMPTY)
+                    if (board.getBoardChessPiece(tile.getLocation().sw()).getPieceType() != PieceType.EMPTY)
                     {
                         //check to see if that piece is the same color
-                        if (tile.getChessPiece().getSide() != ChessBoard_1.getBoardChessPiece(tile.getLocation().sw()).getSide())
+                        if (tile.getChessPiece().getSide() != board.getBoardChessPiece(tile.getLocation().sw()).getSide())
                         {
-                            array.add(new Move(tile.getLocation(),tile.getLocation().sw(),tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(tile.getLocation().sw())));
+                            array.add(new Move(tile.getLocation(),tile.getLocation().sw(),tile.getChessPiece(),board.getBoardChessPiece(tile.getLocation().sw())));
                         }
                     }
                 }
@@ -107,12 +107,12 @@ public class MoveLogic
                         //check the se tile to see if there is a piece
                         if(tile.getLocation().ne().isValidPoint() == true)
                         {
-                            if(ChessBoard_1.getBoardChessPiece(tile.getLocation().ne()).getPieceType() != PieceType.EMPTY)
+                            if(board.getBoardChessPiece(tile.getLocation().ne()).getPieceType() != PieceType.EMPTY)
                             {
                                 //check to see if that piece is the same color
-                                if(tile.getChessPiece().getSide() != ChessBoard_1.getBoardChessPiece(tile.getLocation().ne()).getSide())
+                                if(tile.getChessPiece().getSide() != board.getBoardChessPiece(tile.getLocation().ne()).getSide())
                                 {
-                                    array.add(new Move(tile.getLocation(),tile.getLocation().ne(),tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(tile.getLocation().ne())));
+                                    array.add(new Move(tile.getLocation(),tile.getLocation().ne(),tile.getChessPiece(),board.getBoardChessPiece(tile.getLocation().ne())));
                                 }
                             }
                         }
@@ -120,12 +120,12 @@ public class MoveLogic
                         if(tile.getLocation().nw().isValidPoint() == true)
                         {
                             //check the sw tile to see if there is a piece
-                            if(ChessBoard_1.getBoardChessPiece(tile.getLocation().nw()).getPieceType() != PieceType.EMPTY)
+                            if(board.getBoardChessPiece(tile.getLocation().nw()).getPieceType() != PieceType.EMPTY)
                             {
                                 //check to see if that piece is the same color
-                                if(tile.getChessPiece().getSide() != ChessBoard_1.getBoardChessPiece(tile.getLocation().nw()).getSide())
+                                if(tile.getChessPiece().getSide() != board.getBoardChessPiece(tile.getLocation().nw()).getSide())
                                 {
-                                    array.add(new Move(tile.getLocation(),tile.getLocation().nw(),tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(tile.getLocation().nw())));
+                                    array.add(new Move(tile.getLocation(),tile.getLocation().nw(),tile.getChessPiece(),board.getBoardChessPiece(tile.getLocation().nw())));
                                 }
                             }
                         }
@@ -140,12 +140,12 @@ public class MoveLogic
                         //check the se tile to see if there is a piece
                         if(tile.getLocation().ne().isValidPoint() == true)
                         {
-                            if(ChessBoard_1.getBoardChessPiece(tile.getLocation().ne()).getPieceType() != PieceType.EMPTY)
+                            if(board.getBoardChessPiece(tile.getLocation().ne()).getPieceType() != PieceType.EMPTY)
                             {
                                 //check to see if that piece is the same color
-                                if(tile.getChessPiece().getSide() != ChessBoard_1.getBoardChessPiece(tile.getLocation().ne()).getSide())
+                                if(tile.getChessPiece().getSide() != board.getBoardChessPiece(tile.getLocation().ne()).getSide())
                                 {
-                                    array.add(new Move(tile.getLocation(),tile.getLocation().ne(),tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(tile.getLocation().ne())));
+                                    array.add(new Move(tile.getLocation(),tile.getLocation().ne(),tile.getChessPiece(),board.getBoardChessPiece(tile.getLocation().ne())));
                                 }
                             }
                         }
@@ -153,12 +153,12 @@ public class MoveLogic
                         if(tile.getLocation().nw().isValidPoint() == true)
                         {
                             //check the sw tile to see if there is a piece
-                            if(ChessBoard_1.getBoardChessPiece(tile.getLocation().nw()).getPieceType() != PieceType.EMPTY)
+                            if(board.getBoardChessPiece(tile.getLocation().nw()).getPieceType() != PieceType.EMPTY)
                             {
                                 //check to see if that piece is the same color
-                                if(tile.getChessPiece().getSide() != ChessBoard_1.getBoardChessPiece(tile.getLocation().nw()).getSide())
+                                if(tile.getChessPiece().getSide() != board.getBoardChessPiece(tile.getLocation().nw()).getSide())
                                 {
-                                    array.add(new Move(tile.getLocation(),tile.getLocation().nw(),tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(tile.getLocation().nw())));
+                                    array.add(new Move(tile.getLocation(),tile.getLocation().nw(),tile.getChessPiece(),board.getBoardChessPiece(tile.getLocation().nw())));
                                 }
                             }
                         }
@@ -168,20 +168,20 @@ public class MoveLogic
         return array;
 
     }
-    public static List<Move> moveRook(Tile tile)
+    public static List<Move> moveRook(Tile tile, ChessBoard board)
     {
         List<Move> array = new ArrayList<Move>();
         Point temp = tile.getLocation();
                 while(temp.north().isValidPoint())
                 {
                     temp.y ++;
-                    if(ChessBoard_1.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
+                    if(board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
                     {
-                        if(ChessBoard_1.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
+                        if(board.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
                         {
                             break;
                         }
-                         array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                         array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                         break;
                     }
                     else
@@ -191,14 +191,15 @@ public class MoveLogic
                 }
                 temp = tile.getLocation();
                 while(temp.south().isValidPoint())
-                {                     temp.y;
-                    if(ChessBoard_1.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
+                {
+                    temp.y--;
+                    if(board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
                     {
-                        if(ChessBoard_1.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
+                        if(board.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
                         {
                             break;
                         }
-                        array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                        array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                         break;
                     }
                     else
@@ -210,13 +211,13 @@ public class MoveLogic
                 while(temp.east().isValidPoint())
                 {
                     temp.x ++;
-                    if(ChessBoard_1.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
+                    if(board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
                     {
-                        if(ChessBoard_1.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
+                        if(board.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
                         {
                             break;
                         }
-                        array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                        array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                         break;
                     }
                     else
@@ -227,14 +228,14 @@ public class MoveLogic
                 temp = tile.getLocation();
                 while(temp.west().isValidPoint())
                 {
-                   temp.x;
-                    if(ChessBoard_1.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
+                   temp.x--;
+                    if(board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
                     {
-                        if(ChessBoard_1.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
+                        if(board.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
                         {
                             break;
                         }
-                        array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                        array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                         break;
                     }
                     else
@@ -244,7 +245,7 @@ public class MoveLogic
                 }
         return array;
     }
-    public static List<Move> moveKnight(Tile tile)
+    public static List<Move> moveKnight(Tile tile, ChessBoard board)
     {
         List<Move> array = new ArrayList<Move>();
         Point temp = tile.getLocation();
@@ -252,11 +253,11 @@ public class MoveLogic
         temp.y +=2;
         if(temp.isValidPoint() == true)
         {
-            if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
+            if(board.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                if(board.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
                 {
-                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 }
                 else
                 {
@@ -265,15 +266,15 @@ public class MoveLogic
             }
         }
         temp = tile.getLocation();
-        temp.x;
+        temp.x--;
         temp.y +=2;
         if(temp.isValidPoint() == true)
         {
-            if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
+            if(board.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                if(board.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
                 {
-                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 }
                 else
                 {
@@ -286,11 +287,11 @@ public class MoveLogic
         temp.y ++;
         if(temp.isValidPoint() == true)
         {
-            if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
+            if(board.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                if(board.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
                 {
-                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 }
                 else
                 {
@@ -300,14 +301,14 @@ public class MoveLogic
         }
         temp = tile.getLocation();
         temp.x +=2;
-        temp.y;
+        temp.y--;
         if(temp.isValidPoint() == true)
         {
-            if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
+            if(board.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                if(board.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
                 {
-                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 }
                 else
                 {
@@ -317,14 +318,14 @@ public class MoveLogic
         }
         temp = tile.getLocation();
         temp.x ++;
-        temp.y=1;
+        temp.y -=2;
         if(temp.isValidPoint() == true)
         {
-            if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
+            if(board.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                if(board.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
                 {
-                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 }
                 else
                 {
@@ -333,15 +334,15 @@ public class MoveLogic
             }
         }
         temp = tile.getLocation();
-        temp.x;
-        temp.y=1;
+        temp.x--;
+        temp.y-=2;
         if(temp.isValidPoint() == true)
         {
-            if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
+            if(board.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                if(board.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
                 {
-                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 }
                 else
                 {
@@ -350,15 +351,15 @@ public class MoveLogic
             }
         }
         temp = tile.getLocation();
-        temp.x +=2;
+        temp.x -=2;
         temp.y ++;
         if(temp.isValidPoint() == true)
         {
-            if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
+            if(board.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                if(board.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
                 {
-                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 }
                 else
                 {
@@ -367,15 +368,15 @@ public class MoveLogic
             }
         }
         temp = tile.getLocation();
-        temp.x +=2;
-        temp.y;
+        temp.x -=2;
+        temp.y--;
         if(temp.isValidPoint() == true)
         {
-            if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
+            if(board.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                if(board.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
                 {
-                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 }
                 else
                 {
@@ -385,7 +386,7 @@ public class MoveLogic
         }
         return array;
     }
-    public static List<Move> moveBishop(Tile tile)
+    public static List<Move> moveBishop(Tile tile, ChessBoard board)
     {
         List<Move> array = new ArrayList<Move>();
         Point temp = tile.getLocation();
@@ -393,13 +394,13 @@ public class MoveLogic
         {
             temp.y++;
             temp.x++;
-            if (ChessBoard_1.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
+            if (board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
             {
-                if (ChessBoard_1.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
+                if (board.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
                 {
                     break;
                 }
-                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 break;
             }
             else
@@ -410,15 +411,15 @@ public class MoveLogic
         temp = tile.getLocation();
         while (temp.se().isValidPoint())
         {
-            temp.;
+            temp.y--;
             temp.x++;
-            if (ChessBoard_1.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
+            if (board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
             {
-                if (ChessBoard_1.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
+                if (board.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
                 {
                     break;
                 }
-                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 break;
             }
             else
@@ -430,14 +431,14 @@ public class MoveLogic
         while (temp.nw().isValidPoint())
         {
             temp.y++;
-            temp.;
-            if (ChessBoard_1.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
+            temp.x--;
+            if (board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
             {
-                if (ChessBoard_1.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
+                if (board.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
                 {
                     break;
                 }
-                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 break;
             }
             else
@@ -448,15 +449,15 @@ public class MoveLogic
         temp = tile.getLocation();
         while (temp.sw().isValidPoint())
         {
-            temp.;
-            temp.;
-            if (ChessBoard_1.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
+            temp.y--;
+            temp.x--;
+            if (board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
             {
-                if (ChessBoard_1.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
+                if (board.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
                 {
                     break;
                 }
-                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 break;
             }
             else
@@ -466,20 +467,20 @@ public class MoveLogic
         }
         return array;
     }
-    public static List<Move> moveQueen(Tile tile)
+    public static List<Move> moveQueen(Tile tile,ChessBoard board)
     {
         List<Move> array = new ArrayList<Move>();
         Point temp = tile.getLocation();
         while(temp.north().isValidPoint())
         {
             temp.y ++;
-            if(ChessBoard_1.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
+            if(board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
+                if(board.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
                 {
                     break;
                 }
-                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 break;
             }
             else
@@ -491,13 +492,13 @@ public class MoveLogic
         while(temp.south().isValidPoint())
         {
             temp.y;
-            if(ChessBoard_1.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
+            if(board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
+                if(board.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
                 {
                     break;
                 }
-                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 break;
             }
             else
@@ -509,13 +510,13 @@ public class MoveLogic
         while(temp.east().isValidPoint())
         {
             temp.x ++;
-            if(ChessBoard_1.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
+            if(board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
+                if(board.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
                 {
                     break;
                 }
-                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 break;
             }
             else
@@ -527,13 +528,13 @@ public class MoveLogic
         while(temp.west().isValidPoint())
         {
             temp.x;
-            if(ChessBoard_1.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
+            if(board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
+                if(board.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
                 {
                     break;
                 }
-                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 break;
             }
             else
@@ -546,13 +547,13 @@ public class MoveLogic
         {
             temp.y ++;
             temp.x ++;
-            if(ChessBoard_1.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
+            if(board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
+                if(board.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
                 {
                     break;
                 }
-                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 break;
             }
             else
@@ -565,13 +566,13 @@ public class MoveLogic
         {
             temp.y;
             temp.x ++;
-            if(ChessBoard_1.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
+            if(board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
+                if(board.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
                 {
                     break;
                 }
-                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 break;
             }
             else
@@ -584,13 +585,13 @@ public class MoveLogic
         {
             temp.y ++;
             temp.x;
-            if(ChessBoard_1.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
+            if(board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
+                if(board.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
                 {
                     break;
                 }
-                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 break;
             }
             else
@@ -603,13 +604,13 @@ public class MoveLogic
         {
             temp.y;
             temp.x;
-            if(ChessBoard_1.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
+            if(board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
+                if(board.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
                 {
                     break;
                 }
-                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 break;
             }
             else
@@ -626,11 +627,11 @@ public class MoveLogic
         temp.y ++;
         if(temp.isValidPoint() == true)
         {
-            if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
+            if(board.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                if(board.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
                 {
-                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 }
                 else
                 {
@@ -643,11 +644,11 @@ public class MoveLogic
         temp.y ++;
         if(temp.isValidPoint() == true)
         {
-            if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
+            if(board.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                if(board.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
                 {
-                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 }
                 else
                 {
@@ -659,11 +660,11 @@ public class MoveLogic
         temp.x ++;
         if(temp.isValidPoint() == true)
         {
-            if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
+            if(board.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                if(board.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
                 {
-                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 }
                 else
                 {
@@ -676,11 +677,11 @@ public class MoveLogic
         temp.y;
         if(temp.isValidPoint() == true)
         {
-            if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
+            if(board.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                if(board.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
                 {
-                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 }
                 else
                 {
@@ -692,11 +693,11 @@ public class MoveLogic
         temp.y;
         if(temp.isValidPoint() == true)
         {
-            if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
+            if(board.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                if(board.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
                 {
-                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 }
                 else
                 {
@@ -709,11 +710,11 @@ public class MoveLogic
         temp.y;
         if(temp.isValidPoint() == true)
         {
-            if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
+            if(board.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                if(board.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
                 {
-                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 }
                 else
                 {
@@ -725,11 +726,11 @@ public class MoveLogic
         temp.x;
         if(temp.isValidPoint() == true)
         {
-            if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
+            if(board.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                if(board.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
                 {
-                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 }
                 else
                 {
@@ -742,11 +743,11 @@ public class MoveLogic
         temp.y ++;
         if(temp.isValidPoint() == true)
         {
-            if(ChessBoard_1.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
+            if(board.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
             {
-                if(ChessBoard_1.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
+                if(board.getBoardChessPiece(temp).pieceType != PieceType.EMPTY)
                 {
-                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),ChessBoard_1.getBoardChessPiece(temp)));
+                    array.add(new Move(tile.getLocation(),temp, tile.getChessPiece(),board.getBoardChessPiece(temp)));
                 }
                 else
                 {
