@@ -14,17 +14,6 @@ public class Pawn extends ChessPiece {
 	
 	
 	// methods
-	public List<Point> getPossibleMoves(Point point) {
-		List<Point> availableMoves = new ArrayList<Point>();
-		if (this.side == Side.BLACK) {
-			
-		} else {
-			
-		}
-		return super.filterBadLocation(availableMoves);
-	}
-	
-	
 	public void Promote(PieceType pieceType) {
 		this.pieceType = pieceType;
 	}

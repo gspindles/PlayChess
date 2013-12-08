@@ -7,14 +7,12 @@ public class Tile {
 
 	// fields
 	private ChessPiece chessPiece;
-	private Color color;
 	private Point location;
 	
 	
 	// constructor
-	public Tile(ChessPiece chessPiece, Color color, Point location) {
+	public Tile(ChessPiece chessPiece, Point location) {
 		this.chessPiece = chessPiece;
-		this.color = color;
 		this.location = location;
 	}
 	
@@ -27,18 +25,8 @@ public class Tile {
 	public void setChessPiece(ChessPiece chessPiece) {
 		this.chessPiece = chessPiece;
 	}
-	
-	public Color getColor() {
-		return this.color;
-	}
-	
+		
 	public Point getLocation() {
 		return this.location;
-	}
-	
-	
-	// methods
-	public List<Point> getPossibleMoves() {
-		return this.chessPiece.getPossibleMoves(this.location);
-	}
+	}	
 }

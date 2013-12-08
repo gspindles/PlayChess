@@ -26,5 +26,4 @@ public class Application extends Controller {
         ps[2] = new Point(p.x - 1, p.y - 1);
         return ok(Json.toJson(ps));
     }
-
 }
