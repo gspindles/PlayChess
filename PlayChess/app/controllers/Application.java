@@ -17,6 +17,8 @@ public class Application extends Controller {
     }
 
     public static Result getPossibleMoves(int x, int y) {
+
+
         // temporary toy for now
         Logger.info("x:" + x + " y: " + y);
         Point p = new Point(x, y);
