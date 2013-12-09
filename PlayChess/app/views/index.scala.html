@@ -2,7 +2,11 @@
 
 @main("Welcome to PlayChess") {
 
+
+    <!-- this block is for initial board set up -->
     <script type="text/javascript">
+
+        // declare the chess pieces' unicode characters
         var pieces = {
             white : {
                 king : '\u2654',
@@ -22,12 +26,20 @@
             }
         };
 
+
+        // set up everything when the document is ready
         $(document).ready(function() {
+            kickStart();
+        });
+
+
+        // the main set up method that calls everything else
+        function kickStart() {
             setDefaultBackground();
 
             $('#board > tbody > tr').each(function() {
                 $(this).children().each(function() {
-                    $(this).addClass('tile');
+                    $(this).addClass('cell');
                 });
             });
 
@@ -35,24 +47,24 @@
                 if ($(this).index() < 8) {
                     $(this).children().each(function() {
                         if ($(this).index() < 8) {
-                            $(this).addClass('spot');
+                            $(this).addClass('drop').attr('draggable', true);
                         }
                     });
                 }
             });
 
+            $('#board > tbody > tr > th').each(function() {
+                $(this).children('div').addClass('head');
+            });
+
             $('#board > tbody > tr > td').height($('#board > tbody > tr > td').width());
+            $('#board > tbody > tr > th').height($('#board > tbody > tr > th').width());
 
             setDefaultBoard();
-        });
+        }
 
-        $(window).resize(function () {
-            var cw = $('.tile').width();
-            $('.tile').height(cw);
-            $('.spot').css('font-size', cw);
-        });
 
-        // functions
+        // set the checker patterned background for the chessboard
         function setDefaultBackground() {
             $('#board > tbody > tr').each(function() {
                 if($(this).index() % 2 === 0) {
@@ -89,68 +101,109 @@
             });
         }
 
+
+        // propagate the initial positions of the chess pieces
         function setDefaultBoard() {
             $('#board > tbody > tr').each(function() {
                 if ($(this).index() == 0) {
                     $(this).children('td').each(function () {
                         if ($(this).index() == 0 || $(this).index() == 7) {
-                            $(this).append(pieces.black.rook);
+                            $(this).append(
+                                $('<div>').addClass('drag').append(pieces.black.rook)
+                            );
                         }
                         if ($(this).index() == 1 || $(this).index() == 6) {
-                            $(this).append(pieces.black.knight);
+                            $(this).append(
+                                $('<div>').addClass('drag').append(pieces.black.knight)
+                            );
                         }
                         if ($(this).index() == 2 || $(this).index() == 5) {
-                            $(this).append(pieces.black.bishop);
+                            $(this).append(
+                                $('<div>').addClass('drag').append(pieces.black.bishop)
+                            );
                         }
                         if ($(this).index() == 3) {
-                            $(this).append(pieces.black.queen);
+                            $(this).append(
+                                $('<div>').addClass('drag').append(pieces.black.queen)
+                            );
                         }
                         if ($(this).index() == 4) {
-                            $(this).append(pieces.black.king);
+                            $(this).append(
+                                $('<div>').addClass('drag').append(pieces.black.king)
+                            );
                         }
                     });
                 }
                 if ($(this).index() == 1) {
                     $(this).children('td').each(function () {
                         if ($(this).index() < 8) {
-                            $(this).append(pieces.black.pawn);
+                            $(this).append(
+                                $('<div>').addClass('drag').append(pieces.black.pawn)
+                            );
                         }
                     });
                 }
                 if ($(this).index() == 6) {
                     $(this).children('td').each(function () {
                         if ($(this).index() < 8) {
-                            $(this).append(pieces.white.pawn);
+                            $(this).append(
+                                $('<div>').addClass('drag').append(pieces.white.pawn)
+                            );
                         }
                     });
                 }
                 if ($(this).index() == 7) {
                     $(this).children('td').each(function () {
                         if ($(this).index() == 0 || $(this).index() == 7) {
-                            $(this).append(pieces.white.rook);
+                            $(this).append(
+                                $('<div>').addClass('drag').append(pieces.white.rook)
+                            );
                         }
                         if ($(this).index() == 1 || $(this).index() == 6) {
-                            $(this).append(pieces.white.knight);
+                            $(this).append(
+                                $('<div>').addClass('drag').append(pieces.white.knight)
+                            );
                         }
                         if ($(this).index() == 2 || $(this).index() == 5) {
-                            $(this).append(pieces.white.bishop);
+                            $(this).append(
+                                $('<div>').addClass('drag').append(pieces.white.bishop)
+                            );
                         }
                         if ($(this).index() == 3) {
-                            $(this).append(pieces.white.queen);
+                            $(this).append(
+                                $('<div>').addClass('drag').append(pieces.white.queen)
+                            );
                         }
                         if ($(this).index() == 4) {
-                            $(this).append(pieces.white.king);
+                            $(this).append(
+                                $('<div>').addClass('drag').append(pieces.white.king)
+                            );
                         }
                     });
                 }
             });
         }
 
+
+        // what to do when user resize the window
+        $(window).resize(function () {
+            var cw = $('.cell').width();
+            $('.cell').height(cw);
+            $('.cell').css('font-size', cw);
+        });
+    </script>
+
+
+    <!-- this block is for events and functionality -->
+    <script type="text/javascript">
+
+        // highlight the tile that was clicked and send a get request for additional things to highlight
         $(document).ready(function() {
-            $('.spot').click(function() {
+            $('.drop').click(function() {
                 setDefaultBackground();
                 var x = $(this).parent().children().index($(this));
                 var y = $(this).parent().parent().children().index($(this).parent());
+                console.log('clicked: ' + y + x);
                 $(this).addClass('selected');
 
                 $.ajax({
@@ -163,6 +216,16 @@
             });
         });
 
+
+        // if click on drop, click on the parent tile too
+        $(document).ready(function() {
+            $('.drag').click(function() {
+                $(this).parent().click();
+            });
+        });
+
+
+        // function that takes in a list of points on the chess board and highlight them
         function highlight(points) {
             for (p in points) {
                 $('#board > tbody > tr').each(function() {
@@ -177,21 +240,27 @@
             }
         }
 
-        // assume black is true
+
+        // function that adds an element to the captured list
+        // which list to add to depends on color: black is true, white is false
         function addToCaptureList(color, piece) {
             if (color) {
                 $('#bCap').append(
-                    $('<li>').append(piece)
+                    $('<li>').append(
+                        $('<div>').append(piece)
+                    )
                 );
             } else {
                 $('#wCap').append(
-                    $('<li>').append(piece)
+                    $('<li>').append(
+                        $('<div>').append(piece)
+                    )
                 );
             }
         }
 
 
-        // testing grounds
+        // test if adding works, delete when complete
         $(document).ready(function() {
             addToCaptureList(true, pieces.white.queen);
             addToCaptureList(true, pieces.white.pawn);
@@ -222,23 +291,155 @@
             addToCaptureList(false, pieces.black.rook);
             addToCaptureList(false, pieces.black.knight);
         });
+    </script>
+
+
+    <!-- this block is for drag and drop jquery way -->
+    <script type="text/javascript">
+
+        // drag
+        $(document).ready(function() {
+            $('.drag').draggable({
+                revert: true,
+                proxy: 'clone',
+                start: function(event, ui) {
+                    $(this).click();
+                },
+                stop: function(event, ui) { }
+            });
+        });
+
+        // drop
+        $(document).ready(function() {
+            $('td.drop').droppable({
+                onDragEnter: function() {
+                    $(this).addClass('over');
+                },
+                onDragLeave: function() {
+                    $(this).removeClass('over');
+                },
+                onDrop: function (e, source) {
+                    $(this).removeClass('over');
+                    $(this).empty().append(source);
+                }
+            });
+        });
 
     </script>
 
+    <!-- this block is for drag and drop html 5 way-->
+    <!--
+    <script type="text/javascript">
+
+        // the spots variables
+        var dnds = document.querySelectorAll('.drag');
+        var dragSrcElt = null;
+
+        // add event listeners
+        [].forEach.call(drags, function(drag) {
+            drag.addEventListener('dragstart', handleDragStart, false);
+            drag.addEventListener('dragenter', handleDragEnter, false);
+            drag.addEventListener('dragover', handleDragOver, false);
+            drag.addEventListener('dragleave', handleDragLeave, false);
+        });
+
+
+        // what to do when they start dragging? - highlight
+        function handleDragStart(e) {
+            this.style.opacity = '.01';
+            console.log(this.innerHTML);
+            dragSrcElt = this;
+
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.innerHTML);
+
+            this.css('background-color', 'blue');
+            var x = this.parent().children().index(this);
+            var y = this.parent().parent().children().index(this.parent());
+            highlight(x, y);
+        }
+
+
+        // what to do when they drag over?
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+
+        // what to do when drag enter a tile? - add highlighting
+        function handleDragEnter(e) {
+            this.classList.add('over');
+        }
+
+
+        // what to do when drag leaves the tile? - remove highlighting
+        function handleDragLeave(e) {
+            this.classList.remove('over');
+        }
+
+
+        // what to do when they drop?
+        function handleDrop(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+
+            if (dragSrcEl != this) {
+                // Set the source column's HTML to the HTML of the column we dropped on.
+                dragSrcEl.innerHTML = this.innerHTML;
+                this.innerHTML = e.dataTransfer.getData('text/html');
+            }
+
+            return false;
+        }
+    </script>
+    -->
+
+
     <style type="text/css">
-        .tile {
+
+        body {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* all table cells are cells */
+        .cell {
             min-width: 75px;
             min-height: 75px;
             max-width: 100px;
             max-height: 100px;
             width: auto;
             height: auto;
-            font-size: 75px;
             text-align: center !important;
             vertical-align: middle !important;
         }
 
-        .spot {}
+        /* non header cells are drop */
+        .drop {
+        }
+
+        /* all div children of .tile with innerHTML non empty, i.e. having a chest piece, are drag */
+        .drag {
+            width: inherit;
+            height: inherit;
+            font-size: 75px;
+            line-height: 75px;
+        }
+
+        /* all div children of header cells are head */
+        .head {
+            font-size: 75px;
+            line-height: 75px;
+        }
 
         .bgGray {
             background-color: gray;
@@ -263,10 +464,6 @@
             min-height: 700px;
             max-width: 850px;
             max-height: 850px;
-        }
-
-        .capture {
-            float: left;
         }
 
         .capture {
@@ -295,7 +492,21 @@
             float: right;
         }
 
+        [draggable] {
+            -moz-user-select: none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
+            -khtml-user-drag: element;
+            -webkit-user-drag: element;
+        }
+
+        .drop .over {
+            border: 2px dashed #000;
+        }
     </style>
+
+
 
     <div>
         <h3>@message</h3>
@@ -315,7 +526,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>1</td>
+                    <th><div>1</div></th>
                 </tr>
                 <tr>
                     <td></td>
@@ -326,7 +537,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>2</td>
+                    <th><div>2</div></th>
                 </tr>
                 <tr>
                     <td></td>
@@ -337,7 +548,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>3</td>
+                    <th><div>3</div></th>
                 </tr>
                 <tr>
                     <td></td>
@@ -348,7 +559,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>4</td>
+                    <th><div>4</div></th>
                 </tr>
                 <tr>
                     <td></td>
@@ -359,7 +570,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>5</td>
+                    <th><div>5</div></th>
                 </tr>
                 <tr>
                     <td></td>
@@ -370,7 +581,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>6</td>
+                    <th><div>6</div></th>
                 <tr>
                     <td></td>
                     <td></td>
@@ -380,7 +591,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>7</td>
+                    <th><div>7</div></th>
                 <tr>
                     <td></td>
                     <td></td>
@@ -390,25 +601,25 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>8</td>
+                    <th><div>8</div></th>
                 </tr>
                 <tr>
-                    <td>A</td>
-                    <td>B</td>
-                    <td>C</td>
-                    <td>D</td>
-                    <td>E</td>
-                    <td>F</td>
-                    <td>G</td>
-                    <td>H</td>
-                    <td></td>
+                    <th><div>A</div></th>
+                    <th><div>B</div></th>
+                    <th><div>C</div></th>
+                    <th><div>D</div></th>
+                    <th><div>E</div></th>
+                    <th><div>F</div></th>
+                    <th><div>G</div></th>
+                    <th><div>H</div></th>
+                    <th></th>
                 </tr>
             </tbody>
             <tfoot>
             </tfoot>
         </table>
 
-        <div class='captureBar'>
+        <div>
             <h4>Captured pieces</h4>
             <ul id="bCap" class="capture">
             </ul>
