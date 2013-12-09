@@ -9,14 +9,14 @@ import java.awt.Point;
  *
  * @author the0ldknighte
  */
-public class Piece 
+public class Piece
 {
     protected Point location = null;
     protected int imageID = 0;
     protected int team = 0;
     public Piece()
-    {                 
-      
+    {
+
     }
     public Piece(Point p, int img, int tm)
     {
@@ -26,8 +26,8 @@ public class Piece
     }
     public void move()
     {
-        
-    }    
+
+    }
     public Point getLocation()
     {
         return location;
@@ -41,7 +41,7 @@ public class Piece
                 location = p;
             }
         }
-        System.out.println("the input point was out of bounds");       
-    }   
-    
+        System.out.println("the input point was out of bounds");
+    }
+
 }
