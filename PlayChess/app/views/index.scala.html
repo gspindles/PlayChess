@@ -26,14 +26,14 @@
             setDefaultBackground();
 
             $('#board > tbody > tr').each(function() {
-                $(this).children().each(function () {
+                $(this).children().each(function() {
                     $(this).addClass('tile');
                 });
             });
 
             $('#board > tbody > tr').each(function() {
                 if ($(this).index() < 8) {
-                    $(this).children().each(function () {
+                    $(this).children().each(function() {
                         if ($(this).index() < 8) {
                             $(this).addClass('spot');
                         }
@@ -59,7 +59,7 @@
                     if ($(this).index() < 8) {
                         $(this).children('td').each(function() {
                             if($(this).index() % 2 === 1) {
-                                $(this).addClass('bgOrange');
+                                $(this).addClass('bgGray');
                             }
                             else {
                                 if ($(this).index() < 8) {
@@ -73,7 +73,7 @@
                     $(this).children('td').each(function() {
                         if($(this).index() % 2 === 0) {
                             if ($(this).index() < 8) {
-                                $(this).addClass('bgOrange');
+                                $(this).addClass('bgGray');
                             }
                         }
                         else {
@@ -94,52 +94,52 @@
                 if ($(this).index() == 0) {
                     $(this).children('td').each(function () {
                         if ($(this).index() == 0 || $(this).index() == 7) {
-                            $(this).text(pieces.black.rook);
+                            $(this).append(pieces.black.rook);
                         }
                         if ($(this).index() == 1 || $(this).index() == 6) {
-                            $(this).text(pieces.black.knight);
+                            $(this).append(pieces.black.knight);
                         }
                         if ($(this).index() == 2 || $(this).index() == 5) {
-                            $(this).text(pieces.black.bishop);
+                            $(this).append(pieces.black.bishop);
                         }
                         if ($(this).index() == 3) {
-                            $(this).text(pieces.black.queen);
+                            $(this).append(pieces.black.queen);
                         }
                         if ($(this).index() == 4) {
-                            $(this).text(pieces.black.king);
+                            $(this).append(pieces.black.king);
                         }
                     });
                 }
                 if ($(this).index() == 1) {
                     $(this).children('td').each(function () {
                         if ($(this).index() < 8) {
-                            $(this).text(pieces.black.pawn);
+                            $(this).append(pieces.black.pawn);
                         }
                     });
                 }
                 if ($(this).index() == 6) {
                     $(this).children('td').each(function () {
                         if ($(this).index() < 8) {
-                            $(this).text(pieces.white.pawn);
+                            $(this).append(pieces.white.pawn);
                         }
                     });
                 }
                 if ($(this).index() == 7) {
                     $(this).children('td').each(function () {
                         if ($(this).index() == 0 || $(this).index() == 7) {
-                            $(this).text(pieces.white.rook);
+                            $(this).append(pieces.white.rook);
                         }
                         if ($(this).index() == 1 || $(this).index() == 6) {
-                            $(this).text(pieces.white.knight);
+                            $(this).append(pieces.white.knight);
                         }
                         if ($(this).index() == 2 || $(this).index() == 5) {
-                            $(this).text(pieces.white.bishop);
+                            $(this).append(pieces.white.bishop);
                         }
                         if ($(this).index() == 3) {
-                            $(this).text(pieces.white.queen);
+                            $(this).append(pieces.white.queen);
                         }
                         if ($(this).index() == 4) {
-                            $(this).text(pieces.white.king);
+                            $(this).append(pieces.white.king);
                         }
                     });
                 }
@@ -147,7 +147,6 @@
         }
 
         $(document).ready(function() {
-
             $('.spot').click(function() {
                 setDefaultBackground();
                 var x = $(this).parent().children().index($(this));
@@ -178,23 +177,70 @@
             }
         }
 
+        // assume black is true
+        function addToCaptureList(color, piece) {
+            if (color) {
+                $('#bCap').append(
+                    $('<li>').append(piece)
+                );
+            } else {
+                $('#wCap').append(
+                    $('<li>').append(piece)
+                );
+            }
+        }
+
+
+        // testing grounds
+        $(document).ready(function() {
+            addToCaptureList(true, pieces.white.queen);
+            addToCaptureList(true, pieces.white.pawn);
+            addToCaptureList(true, pieces.white.pawn);
+            addToCaptureList(true, pieces.white.queen);
+            addToCaptureList(true, pieces.white.pawn);
+            addToCaptureList(true, pieces.white.queen);
+            addToCaptureList(true, pieces.white.pawn);
+            addToCaptureList(true, pieces.white.queen);
+            addToCaptureList(true, pieces.white.pawn);
+            addToCaptureList(true, pieces.white.pawn);
+            addToCaptureList(true, pieces.white.queen);
+            addToCaptureList(true, pieces.white.pawn);
+            addToCaptureList(true, pieces.white.pawn);
+            addToCaptureList(true, pieces.white.pawn);
+
+            addToCaptureList(false, pieces.black.knight);
+            addToCaptureList(false, pieces.black.rook);
+            addToCaptureList(false, pieces.black.bishop);
+            addToCaptureList(false, pieces.black.rook);
+            addToCaptureList(false, pieces.black.bishop);
+            addToCaptureList(false, pieces.black.rook);
+            addToCaptureList(false, pieces.black.bishop);
+            addToCaptureList(false, pieces.black.rook);
+            addToCaptureList(false, pieces.black.bishop);
+            addToCaptureList(false, pieces.black.knight);
+            addToCaptureList(false, pieces.black.bishop);
+            addToCaptureList(false, pieces.black.rook);
+            addToCaptureList(false, pieces.black.knight);
+        });
+
     </script>
 
     <style type="text/css">
         .tile {
             min-width: 75px;
             min-height: 75px;
-            width: 100px;
-            height: 100px;
-            font-size: 100px;
-            border: 0px;
+            max-width: 100px;
+            max-height: 100px;
+            width: auto;
+            height: auto;
+            font-size: 75px;
             text-align: center !important;
             vertical-align: middle !important;
         }
 
         .spot {}
 
-        .bgOrange {
+        .bgGray {
             background-color: gray;
         }
 
@@ -209,14 +255,53 @@
         .highlight {
             background-color: #00FF00;
         }
+
+        #board {
+            position: relative;
+            float: left;
+            min-width: 700px;
+            min-height: 700px;
+            max-width: 850px;
+            max-height: 850px;
+        }
+
+        .capture {
+            float: left;
+        }
+
+        .capture {
+            display: inline-block;
+            position: relative;
+            float: right;
+            min-width: 250px;
+            max-width: 300px;
+            list-style-type: none;
+            font-size: 50px;
+            overflow: auto;
+            margin: 0px;
+        }
+
+        .capture li {
+            float: right;
+            width: 75px;
+            height: 75px;
+            font-size: 60px;
+            text-align: center !important;
+            vertical-align: bottom !important;
+            line-height: 75px;
+        }
+
+        h4 {
+            float: right;
+        }
+
     </style>
 
     <div>
         <h3>@message</h3>
-        <h3>Hello there!</h3>
     </div>
 
-    <div class="setWidth">
+    <div>
         <table id="board" class="table table-bordered">
             <thead>
             </thead>
@@ -323,11 +408,13 @@
             </tfoot>
         </table>
 
-        <div>
+        <div class='captureBar'>
+            <h4>Captured pieces</h4>
             <ul id="bCap" class="capture">
             </ul>
-            <ul>
-            </ul id="wCap" class="capture">
+            <ul id="wCap" class="capture">
+            </ul>
         </div>
     </div>
+
 }

@@ -13,8 +13,9 @@ public class Application extends Controller {
 
     public static Result index() {
         ChessGame chessGame = new ChessGame();
-        return ok(index.render("Your new application is ready."));
+        return ok(index.render("The game has started."));
     }
+
 
     public static Result getPossibleMoves(int x, int y) {
 
