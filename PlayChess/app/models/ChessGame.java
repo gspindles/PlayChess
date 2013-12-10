@@ -25,9 +25,16 @@ public class ChessGame {
 	 * then return a list of possible point on the board that the piece at this xy location
 	 * can move to
 	 */
-	public List<Move> getPossibleMoves(int x, int y) 
+	public List<Point> getPossibleMoves(int x, int y) 
         {
-		return null;
+            Point pt = new Point(x,y);
+            List<Move> moveList = MoveLogic.determineMoves(chessBoard.getBoardTile(pt), chessBoard);
+            List<Point> ptList = new ArrayList<Point>();
+            for(int i = 0; i < moveList.size() - 1; i++)
+            {
+                ptList.add(moveList.get(i).getEnd());
+            }
+            return ptList;
 	}
 
 
