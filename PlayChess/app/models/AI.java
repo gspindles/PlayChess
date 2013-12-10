@@ -25,11 +25,11 @@ public class AI
         List<Move> whiteMoves = new ArrayList<Move>();
         List<Move> blackMoves = new ArrayList<Move>();
         List<Move> bestOptions = new ArrayList<Move>();
-        Point temp;
+        Point temp = new Point();
         
-        for(int x = 0; x > 8; x++)
+        for(int x = 0; x < 8; x++)
         {
-            for(int y = 0; y > 8; y++)
+            for(int y = 0; y < 8; y++)
             {
                 temp = new Point(x,y);
                 if(board.getBoardTile(temp).getChessPiece().getPieceType() != PieceType.EMPTY)

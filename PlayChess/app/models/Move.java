@@ -10,11 +10,11 @@ package models;
  */
 public class Move
 {
-    private Point start;
-    private Point end;
+    private Point start = new Point();
+    private Point end = new Point();
     private ChessPiece piece;
 
-    private ChessPiece takenPiece = null;
+    private ChessPiece takenPiece = new Empty();
     private boolean check = false;
     private int weight = 0;
 
@@ -126,5 +126,10 @@ public class Move
     public void setWeight(int iterator)
     {
         weight += iterator;
+    }
+    @Override
+    public String toString()
+    {
+        return "starting: " + start.toString() + " End: " + end.toString();
     }
 }

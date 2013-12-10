@@ -25,22 +25,25 @@ public class MoveLogic
         {
             if (tile.getChessPiece().getHasMoved() == false && tile.getLocation().south().isValidPoint() == true) 
             {
-                if (tile.getLocation().south().equals(new Empty())) 
+                if (board.getBoardTile(tile.getLocation().south()).getChessPiece().getPieceType() == PieceType.EMPTY) 
                 {
                     array.add(new Move(tile.getLocation(),tile.getLocation().south(), tile.getChessPiece()));
-                    if (tile.getLocation().south().south().equals(new Empty())) 
+                    if (board.getBoardTile(tile.getLocation().south().south()).getChessPiece().getPieceType() == PieceType.EMPTY) 
                     {
                         array.add(new Move(tile.getLocation(),tile.getLocation().south().south(),tile.getChessPiece()));
+                        tile.getChessPiece().setHasMoved();
                     }
                 }
                 //check the se tile to see if there is a piece
-                if (tile.getLocation().se().isValidPoint() == true) {
+                if (tile.getLocation().se().isValidPoint() == true) 
+                {
                     if (board.getBoardChessPiece(tile.getLocation().se()).getPieceType() != PieceType.EMPTY) 
                     {
                         //check to see if that piece is the same color
                         if (tile.getChessPiece().getSide() != board.getBoardChessPiece(tile.getLocation().se()).getSide()) 
                         {                            
-                                array.add(new Move(tile.getLocation(),tile.getLocation().se(),tile.getChessPiece(),board.getBoardChessPiece(tile.getLocation().se()) ));                            
+                                array.add(new Move(tile.getLocation(),tile.getLocation().se(),tile.getChessPiece(),board.getBoardChessPiece(tile.getLocation().se())));
+                                tile.getChessPiece().setHasMoved();
                         }
                     }
                 }
@@ -57,15 +60,19 @@ public class MoveLogic
                         }
                     }
                 }
-            } //if the pawn has not moved
+            } //if the pawn has moved
             else 
             {
-                if (tile.getLocation().south().equals(new Empty())) 
+                if (tile.getLocation().south().isValidPoint() == true) 
                 {
-                    array.add(new Move(tile.getLocation(),tile.getLocation().south(),tile.getChessPiece()));
+                    if(board.getBoardTile(tile.getLocation().south()).getChessPiece().getPieceType() == PieceType.EMPTY)
+                    {
+                        array.add(new Move(tile.getLocation(),tile.getLocation().south(),tile.getChessPiece()));
+                    }                    
                 }
                 //check the se tile to see if there is a piece
-                if (tile.getLocation().se().isValidPoint() == true) {
+                if (tile.getLocation().se().isValidPoint() == true) 
+                {
                     if (board.getBoardChessPiece(tile.getLocation().se()).getPieceType() != PieceType.EMPTY) 
                     {
                         //check to see if that piece is the same color
@@ -96,10 +103,10 @@ public class MoveLogic
                 {
                     if(tile.getChessPiece().getHasMoved() == false  && tile.getLocation().north().isValidPoint() == true)
                     {
-                        if(tile.getLocation().north().equals(new Empty()))
-                        {
+                        if(board.getBoardTile(tile.getLocation().north()).getChessPiece().getPieceType() == PieceType.EMPTY )
+                        {                            
                             array.add(new Move(tile.getLocation(),tile.getLocation().north(),tile.getChessPiece()));
-                            if(tile.getLocation().north().north().equals(new Empty()))
+                            if(board.getBoardTile(tile.getLocation().north().north()).getChessPiece().getPieceType() == PieceType.EMPTY)
                             {
                                 array.add(new Move(tile.getLocation(),tile.getLocation().north().north(),tile.getChessPiece()));
                             }
@@ -133,9 +140,12 @@ public class MoveLogic
                     
                     else
                     {
-                        if(tile.getLocation().north().equals(new Empty()))
+                        if(tile.getLocation().north().isValidPoint() == true)
                         {
-                            array.add(new Move(tile.getLocation(),tile.getLocation().north(),tile.getChessPiece()));                            
+                            if(board.getBoardTile(tile.getLocation().north()).getChessPiece().getPieceType() == PieceType.EMPTY)
+                            {
+                                array.add(new Move(tile.getLocation(),tile.getLocation().north(),tile.getChessPiece()));
+                            }
                         }
                         //check the se tile to see if there is a piece
                         if(tile.getLocation().ne().isValidPoint() == true)
@@ -170,8 +180,8 @@ public class MoveLogic
     }
     public static List<Move> moveRook(Tile tile, ChessBoard board)
     {
-        List<Move> array = new ArrayList<Move>();        
-        Point temp = tile.getLocation();            
+        List<Move> array = new ArrayList<Move>();
+        Point temp = new Point(tile.getLocation().x,tile.getLocation().y);
                 while(temp.north().isValidPoint())
                 {
                     temp.y ++;
@@ -189,9 +199,10 @@ public class MoveLogic
                         array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
                     }
                 }
-                temp = tile.getLocation();
-                while(temp.south().isValidPoint())
-                {                     temp.y --;
+                temp = tile.getLocation();                
+                while(temp.isValidPoint(temp.south()))
+                {                     
+                    temp.y --;
                     if(board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
                     {
                         if(board.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
@@ -207,7 +218,7 @@ public class MoveLogic
                     }
                 }
                 temp = tile.getLocation();
-                while(temp.east().isValidPoint())
+                while(temp.isValidPoint(temp.east()))
                 {
                     temp.x ++;
                     if(board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
@@ -225,7 +236,7 @@ public class MoveLogic
                     }
                 }
                 temp = tile.getLocation();
-                while(temp.west().isValidPoint())
+                while(temp.isValidPoint(temp.west()))
                 {
                    temp.x --;
                     if(board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
@@ -760,7 +771,7 @@ public class MoveLogic
     {
         List<Move> array = new ArrayList<Move>();
         Point pt = tile.getLocation();
-        if(tile.getChessPiece().pieceType.name() == "EMPTY")
+        if(tile.getChessPiece().pieceType == PieceType.EMPTY)
         {
             
         }

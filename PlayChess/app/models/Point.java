@@ -13,11 +13,10 @@ public class Point {
 		this.y = 0;
 	}
 
-	public Point(int x, int y) {
-		if (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
-			this.x = x;
-			this.y = y;
-		}
+	public Point(int x, int y) 
+        {		
+            this.x = x;
+            this.y = y;		
 	}
 
 
@@ -37,7 +36,8 @@ public class Point {
 		return false;
 	}
 
-	public Point north() {
+	public Point north() 
+        {
 		return new Point(this.x, this.y + 1);
 	}
 
@@ -67,6 +67,10 @@ public class Point {
 
 	public Point sw() {
 		return new Point(this.x - 1, this.y - 1);
-	}
-
+	}               
+        @Override
+        public String toString()
+        {
+            return "X: " + x + " Y: " + y;
+        }
 }

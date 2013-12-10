@@ -13,7 +13,8 @@ public abstract class ChessPiece {
 
 
 	// accessor and mutator
-	public PieceType getPieceType() {
+	public PieceType getPieceType() 
+        {
 		return this.pieceType;
 	}
 

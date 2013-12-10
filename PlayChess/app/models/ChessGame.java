@@ -20,8 +20,7 @@ public class ChessGame {
 		chessBoard = new ChessBoard();
 	}
 
-
-	/* This method receives an xy coordinates from the client and query the board
+	/** This method receives an xy coordinates from the client and query the board
 	 * then return a list of possible point on the board that the piece at this xy location
 	 * can move to
 	 */
@@ -30,13 +29,13 @@ public class ChessGame {
             Point pt = new Point(x,y);
             List<Move> moveList = MoveLogic.determineMoves(chessBoard.getBoardTile(pt), chessBoard);
             List<Point> ptList = new ArrayList<Point>();
-            for(int i = 0; i < moveList.size() - 1; i++)
+            for(int i = 0; i < moveList.size(); i++)
             {
                 ptList.add(moveList.get(i).getEnd());
+                System.out.println(moveList.get(i).getEnd().toString());
             }
             return ptList;
-	}
-
+	}        
 
 	// This method tells ai to make a turn and apply it to the board permanently
 	public Move aiMakeATurnParallel(Side side) throws InterruptedException, ExecutionException 
@@ -76,4 +75,8 @@ public class ChessGame {
 		AI ai = new AI();                
 		return ai.actualMove(side, this.chessBoard);			
 	}
+        public ChessBoard getBoard()
+        {
+            return chessBoard;
+        }
 }
