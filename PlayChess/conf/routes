@@ -5,6 +5,9 @@
 # Home page
 GET     /                           controllers.Application.index()
 GET     /click                      controllers.Application.getPossibleMoves(x: Int, y: Int)
+GET     /move                       controllers.Application.MovePiece(fromX: Int, fromY: Int, toX: Int, toY: Int)
+GET     /aiSeq                      controllers.Application.aiMakeSeqMove()
+GET     /aiPar                      controllers.Application.aiMakeParMove()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
