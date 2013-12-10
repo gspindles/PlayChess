@@ -47,7 +47,8 @@
                 if ($(this).index() < 8) {
                     $(this).children().each(function() {
                         if ($(this).index() < 8) {
-                            $(this).addClass('drop').attr('draggable', true);
+                            $(this).addClass('drop');
+                            //$(this).addClass('drop').attr('draggable', true);
                         }
                     });
                 }
@@ -66,6 +67,7 @@
 
         // set the checker patterned background for the chessboard
         function setDefaultBackground() {
+            cleanseBackground();
             $('#board > tbody > tr').each(function() {
                 if($(this).index() % 2 === 0) {
                     if ($(this).index() < 8) {
@@ -94,10 +96,18 @@
                     });
                 }
             });
+        }
 
-            $('#board > tbody > tr > td').each(function() {
+
+        function cleanseBackground() {
+            $('.selected').each(function() {
                 $(this).removeClass('selected');
+            });
+            $('.highlight').each(function() {
                 $(this).removeClass('highlight');
+            });
+            $('.over').each(function() {
+                $(this).removeClass('over');
             });
         }
 
@@ -108,28 +118,38 @@
                 if ($(this).index() == 0) {
                     $(this).children('td').each(function () {
                         if ($(this).index() == 0 || $(this).index() == 7) {
-                            $(this).append(
-                                $('<div>').addClass('drag').append(pieces.black.rook)
+                            $(this).addClass('piece').append(
+                                $('<div>').addClass('drag')
+                                    .addClass('black')
+                                    .append(pieces.black.rook)
                             );
                         }
                         if ($(this).index() == 1 || $(this).index() == 6) {
-                            $(this).append(
-                                $('<div>').addClass('drag').append(pieces.black.knight)
+                            $(this).addClass('piece').append(
+                                $('<div>').addClass('drag')
+                                    .addClass('black')
+                                    .append(pieces.black.knight)
                             );
                         }
                         if ($(this).index() == 2 || $(this).index() == 5) {
-                            $(this).append(
-                                $('<div>').addClass('drag').append(pieces.black.bishop)
+                            $(this).addClass('piece').append(
+                                $('<div>').addClass('drag')
+                                    .addClass('black')
+                                    .append(pieces.black.bishop)
                             );
                         }
                         if ($(this).index() == 3) {
-                            $(this).append(
-                                $('<div>').addClass('drag').append(pieces.black.queen)
+                            $(this).addClass('piece').append(
+                                $('<div>').addClass('drag')
+                                    .addClass('black')
+                                    .append(pieces.black.queen)
                             );
                         }
                         if ($(this).index() == 4) {
-                            $(this).append(
-                                $('<div>').addClass('drag').append(pieces.black.king)
+                            $(this).addClass('piece').append(
+                                $('<div>').addClass('drag')
+                                    .addClass('black')
+                                    .append(pieces.black.king)
                             );
                         }
                     });
@@ -137,8 +157,10 @@
                 if ($(this).index() == 1) {
                     $(this).children('td').each(function () {
                         if ($(this).index() < 8) {
-                            $(this).append(
-                                $('<div>').addClass('drag').append(pieces.black.pawn)
+                            $(this).addClass('piece').append(
+                                $('<div>').addClass('drag')
+                                    .addClass('black')
+                                    .append(pieces.black.pawn)
                             );
                         }
                     });
@@ -146,8 +168,10 @@
                 if ($(this).index() == 6) {
                     $(this).children('td').each(function () {
                         if ($(this).index() < 8) {
-                            $(this).append(
-                                $('<div>').addClass('drag').append(pieces.white.pawn)
+                            $(this).addClass('piece').append(
+                                $('<div>').addClass('drag')
+                                    .addClass('white')
+                                    .append(pieces.white.pawn)
                             );
                         }
                     });
@@ -155,28 +179,38 @@
                 if ($(this).index() == 7) {
                     $(this).children('td').each(function () {
                         if ($(this).index() == 0 || $(this).index() == 7) {
-                            $(this).append(
-                                $('<div>').addClass('drag').append(pieces.white.rook)
+                            $(this).addClass('piece').append(
+                                $('<div>').addClass('drag')
+                                    .addClass('white')
+                                    .append(pieces.white.rook)
                             );
                         }
                         if ($(this).index() == 1 || $(this).index() == 6) {
-                            $(this).append(
-                                $('<div>').addClass('drag').append(pieces.white.knight)
+                            $(this).addClass('piece').append(
+                                $('<div>').addClass('drag')
+                                    .addClass('white')
+                                    .append(pieces.white.knight)
                             );
                         }
                         if ($(this).index() == 2 || $(this).index() == 5) {
-                            $(this).append(
-                                $('<div>').addClass('drag').append(pieces.white.bishop)
+                            $(this).addClass('piece').append(
+                                $('<div>').addClass('drag')
+                                    .addClass('white')
+                                    .append(pieces.white.bishop)
                             );
                         }
                         if ($(this).index() == 3) {
-                            $(this).append(
-                                $('<div>').addClass('drag').append(pieces.white.queen)
+                            $(this).addClass('piece').append(
+                                $('<div>').addClass('drag')
+                                    .addClass('white')
+                                    .append(pieces.white.queen)
                             );
                         }
                         if ($(this).index() == 4) {
-                            $(this).append(
-                                $('<div>').addClass('drag').append(pieces.white.king)
+                            $(this).addClass('piece').append(
+                                $('<div>').addClass('drag')
+                                    .addClass('white')
+                                    .append(pieces.white.king)
                             );
                         }
                     });
@@ -194,21 +228,49 @@
 
 
         // highlight the tile that was clicked and send a get request for additional things to highlight
+        var fromX, fromY, toX, toY;
         $(document).ready(function() {
             $('.drop').click(function() {
-                setDefaultBackground();
-                var x = $(this).parent().children().index($(this));
-                var y = $(this).parent().parent().children().index($(this).parent());
-                console.log('clicked: ' + x + y);
-                $(this).addClass('selected');
+                if ($(this).hasClass('piece') && select) {
+                    fromX = $(this).parent().children().index($(this));
+                    fromY = 7 - $(this).parent().parent().children().index($(this).parent());
+                    console.log('select: (' + fromX + ', ' + fromY + ')');
+                    $(this).addClass('selected');
 
-                $.ajax({
-                    type: "GET",
-                    url: "/click?x=" + x + "&y=" + y,
-                    dataType: "json"
-                }).done(function(data) {
-                    highlight(data);
-                });
+                    $.ajax({
+                        type: "GET",
+                        url: "/click?x=" + fromX + "&y=" + fromY,
+                        dataType: "json"
+                    }).done(function(data) {
+                        highlight(data);
+
+                        $('.drop').click(function() {
+                            toX = $(this).parent().children().index($(this));
+                            toY = 7 - $(this).parent().parent().children().index($(this).parent());
+                            if (fromX == toX && fromY == toY) {
+                                setDefaultBackground();
+                            } else if ($(this).hasClass('highlight')) {
+                                console.log('move: (' + toX + ', ' + toY + ')');
+
+                                $.ajax({
+                                    type: "GET",
+                                    url: "/move?fromX=" + fromX + "&fromY=" + fromY + "&toX=" + toX + "&toY=" + toY,
+                                    dataType: "text"
+                                }).done(function(result) {
+                                    console.log(result);
+                                    if (result == "true") {
+                                        movePiece(fromX, fromY, toX, toY);
+                                        aiSeqGetRequest();
+                                        aiParGetRequest();
+                                    }
+                                });
+                                setDefaultBackground();
+                            } else {
+                                setDefaultBackground();
+                            }
+                        });
+                    });
+                }
             });
         });
 
@@ -234,6 +296,68 @@
                     }
                 });
             }
+        }
+
+
+        function aiSeqGetRequest() {
+
+        }
+
+
+        function aiParGetRequest() {
+
+        }
+
+
+        function movePiece(fromX, fromY, toX, toY) {
+            var from = "";
+            var to = "";
+            var color = false;
+            $('#board > tbody > tr').each(function() {
+                if ($(this).index() == 7 - fromY) {
+                    $(this).children('td').each(function() {
+                        if ($(this).index() == fromX) {
+                            if ($(this).hasClass('black')) {
+                                color = true;
+                            } else {
+                                color = false;
+                            }
+                            from = $(this).children('div').text();
+                            console.log(from);
+                            $(this).removeClass('piece').empty();
+                        }
+                    })
+                }
+            });
+            $('#board > tbody > tr').each(function() {
+                if ($(this).index() == 7 - toY) {
+                    $(this).children('td').each(function() {
+                        if ($(this).index() == toX) {
+                            if ($(this).children().length > 0) {
+                                // there is a piece there, we are capturing so add to discard
+                                to = $(this).children('div').text();
+                                console.log(to);
+                                addToCaptureList(color, to);
+                            }
+                            $(this).addClass('piece');
+                            if (color) {
+                                $(this).empty().append(
+                                    $('<div>').addClass('drag')
+                                        .addClass('black')
+                                        .append(from)
+                                );
+                            } else {
+                                $(this).empty().append(
+                                    $('<div>').addClass('drag')
+                                        .addClass('white')
+                                        .append(from)
+                                );
+                            }
+                        }
+                    });
+                }
+            });
+            setDefaultBackground();
         }
 
 
@@ -379,6 +503,7 @@
             height: auto;
             text-align: center !important;
             vertical-align: middle !important;
+            cursor: default;
         }
 
         /* non header cells are drop */
@@ -391,6 +516,7 @@
             height: inherit;
             font-size: 75px;
             line-height: 75px;
+            cursor: default;
         }
 
         /* all div children of header cells are head */
@@ -414,6 +540,12 @@
         .highlight {
             background-color: #00FF00;
         }
+
+        .piece {}
+
+        .black {}
+
+        .white {}
 
         #board {
             position: relative;
