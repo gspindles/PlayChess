@@ -1,4 +1,7 @@
-package models;
+package chessjava;
+
+import java.util.List;
+import java.util.ArrayList;
 
 public class Pawn extends ChessPiece {
 	

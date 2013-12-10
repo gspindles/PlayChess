@@ -1,4 +1,7 @@
-package models;
+package chessjava;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Knight extends ChessPiece {
 

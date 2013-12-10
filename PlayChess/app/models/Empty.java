@@ -1,5 +1,6 @@
-package models;
+package chessjava;
 
+import java.util.List;
 
 public class Empty extends ChessPiece {
 	

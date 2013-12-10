@@ -1,4 +1,4 @@
-package models;
+package chessjava;
 
 public class ChessBoard {
 
@@ -140,6 +140,10 @@ public class ChessBoard {
 //                }
 //            }            
 //        }
+        /**this does not do any error checking but does the moving
+         * 
+         * @param move the move that is going to be made
+         */
         public void makeMove(Move move)
         {
             if (move.getEnd().x >= 0 & move.getEnd().y >= 0)

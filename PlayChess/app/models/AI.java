@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package models;
+package chessjava;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class AI
 {
     private Side side;
         
-    private ChessBoard tempBoard;    
+    private ChessBoard tempBoard;
     
     public static List<Move> populateMoves(Side side, ChessBoard board)
     {
