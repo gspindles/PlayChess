@@ -9,24 +9,21 @@ import play.Logger.*;
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 
+import java.util.List;
+
 public class Application extends Controller {
+    public static ChessGame chessGame;
 
     public static Result index() {
-        ChessGame chessGame = new ChessGame();
+        if (chessGame == null) {
+            chessGame = new ChessGame();
+        }
         return ok(index.render("The game has started."));
     }
 
 
     public static Result getPossibleMoves(int x, int y) {
-
-
-        // temporary toy for now
-        Logger.info("x:" + x + " y: " + y);
-        Point p = new Point(x, y);
-        Point[] ps = new Point[3];
-        ps[0] = new Point(p.x, p.y - 1);
-        ps[1] = new Point(p.x + 1, p.y - 1);
-        ps[2] = new Point(p.x - 1, p.y - 1);
+        List<Point> ps = chessGame.getPossibleMoves(x, y);
         return ok(Json.toJson(ps));
     }
 }
