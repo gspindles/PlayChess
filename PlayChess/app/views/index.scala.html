@@ -191,11 +191,7 @@
             $('.cell').height(cw);
             $('.cell').css('font-size', cw);
         });
-    </script>
 
-
-    <!-- this block is for events and functionality -->
-    <script type="text/javascript">
 
         // highlight the tile that was clicked and send a get request for additional things to highlight
         $(document).ready(function() {
@@ -218,11 +214,11 @@
 
 
         // if click on drop, click on the parent tile too
-        $(document).ready(function() {
+        /*$(document).ready(function() {
             $('.drag').click(function() {
                 $(this).parent().click();
             });
-        });
+        });*/
 
 
         // function that takes in a list of points on the chess board and highlight them
@@ -259,44 +255,9 @@
             }
         }
 
+        // this block is for drag and drop jquery way
 
-        // test if adding works, delete when complete
-        $(document).ready(function() {
-            addToCaptureList(true, pieces.white.queen);
-            addToCaptureList(true, pieces.white.pawn);
-            addToCaptureList(true, pieces.white.pawn);
-            addToCaptureList(true, pieces.white.queen);
-            addToCaptureList(true, pieces.white.pawn);
-            addToCaptureList(true, pieces.white.queen);
-            addToCaptureList(true, pieces.white.pawn);
-            addToCaptureList(true, pieces.white.queen);
-            addToCaptureList(true, pieces.white.pawn);
-            addToCaptureList(true, pieces.white.pawn);
-            addToCaptureList(true, pieces.white.queen);
-            addToCaptureList(true, pieces.white.pawn);
-            addToCaptureList(true, pieces.white.pawn);
-            addToCaptureList(true, pieces.white.pawn);
-
-            addToCaptureList(false, pieces.black.knight);
-            addToCaptureList(false, pieces.black.rook);
-            addToCaptureList(false, pieces.black.bishop);
-            addToCaptureList(false, pieces.black.rook);
-            addToCaptureList(false, pieces.black.bishop);
-            addToCaptureList(false, pieces.black.rook);
-            addToCaptureList(false, pieces.black.bishop);
-            addToCaptureList(false, pieces.black.rook);
-            addToCaptureList(false, pieces.black.bishop);
-            addToCaptureList(false, pieces.black.knight);
-            addToCaptureList(false, pieces.black.bishop);
-            addToCaptureList(false, pieces.black.rook);
-            addToCaptureList(false, pieces.black.knight);
-        });
-    </script>
-
-
-    <!-- this block is for drag and drop jquery way -->
-    <script type="text/javascript">
-
+        /*
         // drag
         $(document).ready(function() {
             $('.drag').draggable({
@@ -324,13 +285,10 @@
                 }
             });
         });
+        */
 
-    </script>
-
-    <!-- this block is for drag and drop html 5 way-->
-    <!--
-    <script type="text/javascript">
-
+        // this block is for drag and drop html 5 way
+        /*
         // the spots variables
         var dnds = document.querySelectorAll('.drag');
         var dragSrcElt = null;
@@ -396,8 +354,8 @@
 
             return false;
         }
+        */
     </script>
-    -->
 
 
     <style type="text/css">
