@@ -27,6 +27,15 @@
         };
 
 
+        function reflect(points) {
+            if (points == 'undefined')
+            for (p in points) {
+                points[p].y = 7 - points[p].y;
+            }
+            return points
+        }
+
+
         // set up everything when the document is ready
         $(document).ready(function() {
             kickStart();
@@ -269,8 +278,8 @@
                             url: "/click?x=" + fromX + "&y=" + fromY,
                             dataType: "json"
                         }).done(function(data) {
-                            moves = data;
-                            highlight(data);
+                            moves = reflect(data);
+                            highlight(moves);
                         });
                     }
                 }
@@ -342,7 +351,15 @@
                     });
                 }
             });
-            cleanseBackground();
+            $.ajax({
+                type: "GET",
+                url: "/move?fromX=" + fromX + "&fromY=" + fromY + "&toX=" + toX + "&toY=" + toY,
+                dataType: "text"
+            }).done(function(data) {
+                if (data == "false") {
+                    flash("danger", "inconsistent game states between server and client");
+                }
+            });
         }
 
 
@@ -495,6 +512,12 @@
             return false;
         }
         */
+
+        function flash(type, msg) {
+            $('#flash').removeClass().addClass('in').addClass('type');
+            $('#flash').children('strong').text(type);
+            $('#flash').children('span').text(msg);
+        }
     </script>
 
 
@@ -621,8 +644,10 @@
 
 
 
-    <div>
-        <h3>@message</h3>
+    <div id="flash" class="alert in">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <strong>Welcome!</strong>
+        <span>@message</span>
     </div>
 
     <div>
