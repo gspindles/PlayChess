@@ -28,11 +28,11 @@
 
 
         function reflect(points) {
-            if (points == 'undefined')
+            if (points == 'undefined') {}
             for (p in points) {
                 points[p].y = 7 - points[p].y;
             }
-            return points
+            return points;
         }
 
 
@@ -279,7 +279,7 @@
                             dataType: "json"
                         }).done(function(data) {
                             moves = reflect(data);
-                            highlight(moves);
+                            highlight(data);
                         });
                     }
                 }
@@ -357,7 +357,7 @@
                 dataType: "text"
             }).done(function(data) {
                 if (data == "false") {
-                    flash("danger", "inconsistent game states between server and client");
+                    flash("E", "inconsistent game states between server and client");
                 }
             });
         }
@@ -514,8 +514,28 @@
         */
 
         function flash(type, msg) {
-            $('#flash').removeClass().addClass('in').addClass('type');
-            $('#flash').children('strong').text(type);
+            var className, classHeader;
+            switch(type) {
+                case "W":
+                    className = "alert";
+                    classHeader = "Warning!";
+                    break;
+                case "S":
+                    className = "alert-success";
+                    classHeader = "Success!";
+                    break;
+                case "E":
+                    className = "alert-danger";
+                    classHeader = "Error!";
+                    break;
+                case "I":
+                default:
+                    className = "alert-info";
+                    classHeader = "Notice!";
+                    break;
+            }
+            $('#flash').removeClass().addClass('in').addClass('fade').addClass('alert').addClass(className);
+            $('#flash').children('strong').text(classHeader);
             $('#flash').children('span').text(msg);
         }
     </script>
@@ -644,7 +664,7 @@
 
 
 
-    <div id="flash" class="alert in">
+    <div id="flash" class="alert-success alert fade in">
         <button type="button" class="close" data-dismiss="alert">x</button>
         <strong>Welcome!</strong>
         <span>@message</span>
