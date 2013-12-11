@@ -25,11 +25,12 @@ public class Application extends Controller {
 
     public static Result getPossibleMoves(int x, int y) {
         Logger.info("x:" + x + " y: " + y);
-        /*List<Point> ps = new ArrayList<Point>();
+        List<Point> ps = new ArrayList<Point>();
         ps = chessGame.getPossibleMoves(x, y);
         if (ps == null) { Logger.info("Empty list\n"); }
-        for (Point p : ps) { Logger.info("Point : " + x + " " + y + "\n" ); }*/
-        Point p = new Point(x, y);
+        for (Point p : ps) { Logger.info("Point : " + x + " " + y + "\n" ); }
+
+        /*Point p = new Point(x, y);
         Point[] ps = new Point[8];
         ps[0] = new Point(p.x + 1, 7 - p.y - 1);
         ps[1] = new Point(p.x, 7 - p.y - 1);
@@ -38,7 +39,7 @@ public class Application extends Controller {
         ps[4] = new Point(p.x - 1, 7 - p.y);
         ps[5] = new Point(p.x + 1, 7 - p.y + 1);
         ps[6] = new Point(p.x, 7 - p.y + 1);
-        ps[7] = new Point(p.x - 1, 7 - p.y + 1);
+        ps[7] = new Point(p.x - 1, 7 - p.y + 1);*/
         return ok(Json.toJson(ps));
     }
 
