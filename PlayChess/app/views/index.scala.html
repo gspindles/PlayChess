@@ -47,15 +47,11 @@
                 if ($(this).index() < 8) {
                     $(this).children().each(function() {
                         if ($(this).index() < 8) {
-                            $(this).addClass('drop');
+                            $(this).addClass('tile');
                             //$(this).addClass('drop').attr('draggable', true);
                         }
                     });
                 }
-            });
-
-            $('#board > tbody > tr > th').each(function() {
-                $(this).children('div').addClass('head');
             });
 
             $('#board > tbody > tr > td').height($('#board > tbody > tr > td').width());
@@ -67,7 +63,6 @@
 
         // set the checker patterned background for the chessboard
         function setDefaultBackground() {
-            cleanseBackground();
             $('#board > tbody > tr').each(function() {
                 if($(this).index() % 2 === 0) {
                     if ($(this).index() < 8) {
@@ -109,6 +104,15 @@
             $('.over').each(function() {
                 $(this).removeClass('over');
             });
+            $('.drop').each(function() {
+                $(this).removeClass('drop');
+            });
+            $('.drag').each(function() {
+                $(this).removeAttr('draggable').removeClass('drag');
+            });
+            $('.droppable').each(function() {
+                $(this).removeClass('droppable');
+            });
         }
 
 
@@ -118,36 +122,36 @@
                 if ($(this).index() == 0) {
                     $(this).children('td').each(function () {
                         if ($(this).index() == 0 || $(this).index() == 7) {
-                            $(this).addClass('piece').append(
-                                $('<div>').addClass('drag')
+                            $(this).append(
+                                $('<div>').addClass('piece')//.addClass('drag')
                                     .addClass('black')
                                     .append(pieces.black.rook)
                             );
                         }
                         if ($(this).index() == 1 || $(this).index() == 6) {
-                            $(this).addClass('piece').append(
-                                $('<div>').addClass('drag')
+                            $(this).append(
+                                $('<div>').addClass('piece')//.addClass('drag')
                                     .addClass('black')
                                     .append(pieces.black.knight)
                             );
                         }
                         if ($(this).index() == 2 || $(this).index() == 5) {
-                            $(this).addClass('piece').append(
-                                $('<div>').addClass('drag')
+                            $(this).append(
+                                $('<div>').addClass('piece')//.addClass('drag')
                                     .addClass('black')
                                     .append(pieces.black.bishop)
                             );
                         }
                         if ($(this).index() == 3) {
-                            $(this).addClass('piece').append(
-                                $('<div>').addClass('drag')
+                            $(this).append(
+                                $('<div>').addClass('piece')//.addClass('drag')
                                     .addClass('black')
                                     .append(pieces.black.queen)
                             );
                         }
                         if ($(this).index() == 4) {
-                            $(this).addClass('piece').append(
-                                $('<div>').addClass('drag')
+                            $(this).append(
+                                $('<div>').addClass('piece')//.addClass('drag')
                                     .addClass('black')
                                     .append(pieces.black.king)
                             );
@@ -157,8 +161,8 @@
                 if ($(this).index() == 1) {
                     $(this).children('td').each(function () {
                         if ($(this).index() < 8) {
-                            $(this).addClass('piece').append(
-                                $('<div>').addClass('drag')
+                            $(this).append(
+                                $('<div>').addClass('piece')//.addClass('drag')
                                     .addClass('black')
                                     .append(pieces.black.pawn)
                             );
@@ -168,8 +172,8 @@
                 if ($(this).index() == 6) {
                     $(this).children('td').each(function () {
                         if ($(this).index() < 8) {
-                            $(this).addClass('piece').append(
-                                $('<div>').addClass('drag')
+                            $(this).append(
+                                $('<div>').addClass('piece')//.addClass('drag')
                                     .addClass('white')
                                     .append(pieces.white.pawn)
                             );
@@ -179,36 +183,36 @@
                 if ($(this).index() == 7) {
                     $(this).children('td').each(function () {
                         if ($(this).index() == 0 || $(this).index() == 7) {
-                            $(this).addClass('piece').append(
-                                $('<div>').addClass('drag')
+                            $(this).append(
+                                $('<div>').addClass('piece')//.addClass('drag')
                                     .addClass('white')
                                     .append(pieces.white.rook)
                             );
                         }
                         if ($(this).index() == 1 || $(this).index() == 6) {
-                            $(this).addClass('piece').append(
-                                $('<div>').addClass('drag')
+                            $(this).append(
+                                $('<div>').addClass('piece')//.addClass('drag')
                                     .addClass('white')
                                     .append(pieces.white.knight)
                             );
                         }
                         if ($(this).index() == 2 || $(this).index() == 5) {
-                            $(this).addClass('piece').append(
-                                $('<div>').addClass('drag')
+                            $(this).append(
+                                $('<div>').addClass('piece')//.addClass('drag')
                                     .addClass('white')
                                     .append(pieces.white.bishop)
                             );
                         }
                         if ($(this).index() == 3) {
-                            $(this).addClass('piece').append(
-                                $('<div>').addClass('drag')
+                            $(this).append(
+                                $('<div>').addClass('piece')//.addClass('drag')
                                     .addClass('white')
                                     .append(pieces.white.queen)
                             );
                         }
                         if ($(this).index() == 4) {
-                            $(this).addClass('piece').append(
-                                $('<div>').addClass('drag')
+                            $(this).append(
+                                $('<div>').addClass('piece')//.addClass('drag')
                                     .addClass('white')
                                     .append(pieces.white.king)
                             );
@@ -228,59 +232,50 @@
 
 
         // highlight the tile that was clicked and send a get request for additional things to highlight
-        var fromX, fromY, toX, toY;
+        var fromX, fromY, piece, moves, toX, toY;
         $(document).ready(function() {
-            $('.drop').click(function() {
-                if ($(this).hasClass('piece') && select) {
+            $('.tile').click(function() {
+                if ($(this).hasClass('highlight')) {
+                    toX = $(this).parent().children().index($(this));
+                    toY = 7 - $(this).parent().parent().children().index($(this).parent());
+                    console.log('move: (' + toX + ', ' + toY + ')');
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/move?fromX=" + fromX + "&fromY=" + fromY + "&toX=" + toX + "&toY=" + toY,
+                        dataType: "text"
+                    }).done(function(result) {
+                        console.log(result);
+                        if (result == "true") {
+                            movePiece(fromX, fromY, toX, toY);
+                            aiSeqGetRequest();
+                            aiParGetRequest();
+                        }
+                    });
+                    cleanseBackground();
+                } else {
+                    cleanseBackground();
                     fromX = $(this).parent().children().index($(this));
                     fromY = 7 - $(this).parent().parent().children().index($(this).parent());
                     console.log('select: (' + fromX + ', ' + fromY + ')');
                     $(this).addClass('selected');
 
-                    $.ajax({
-                        type: "GET",
-                        url: "/click?x=" + fromX + "&y=" + fromY,
-                        dataType: "json"
-                    }).done(function(data) {
-                        highlight(data);
 
-                        $('.drop').click(function() {
-                            toX = $(this).parent().children().index($(this));
-                            toY = 7 - $(this).parent().parent().children().index($(this).parent());
-                            if (fromX == toX && fromY == toY) {
-                                setDefaultBackground();
-                            } else if ($(this).hasClass('highlight')) {
-                                console.log('move: (' + toX + ', ' + toY + ')');
-
-                                $.ajax({
-                                    type: "GET",
-                                    url: "/move?fromX=" + fromX + "&fromY=" + fromY + "&toX=" + toX + "&toY=" + toY,
-                                    dataType: "text"
-                                }).done(function(result) {
-                                    console.log(result);
-                                    if (result == "true") {
-                                        movePiece(fromX, fromY, toX, toY);
-                                        aiSeqGetRequest();
-                                        aiParGetRequest();
-                                    }
-                                });
-                                setDefaultBackground();
-                            } else {
-                                setDefaultBackground();
-                            }
+                    if ($(this).children().length > 0) {
+                        piece = $(this).children('div').text();
+                        //$(this).addClass('drag').attr('draggable', true);
+                        $.ajax({
+                            type: "GET",
+                            url: "/click?x=" + fromX + "&y=" + fromY,
+                            dataType: "json"
+                        }).done(function(data) {
+                            moves = data;
+                            highlight(data);
                         });
-                    });
+                    }
                 }
             });
         });
-
-
-        // if click on drop, click on the parent tile too
-        /*$(document).ready(function() {
-            $('.drag').click(function() {
-                $(this).parent().click();
-            });
-        });*/
 
 
         // function that takes in a list of points on the chess board and highlight them
@@ -290,22 +285,12 @@
                     if ($(this).index() == points[p].y) {
                         $(this).children().each(function() {
                             if($(this).index() == points[p].x) {
-                                $(this).addClass('highlight');
+                                $(this).addClass('highlight').addClass('drop');
                             }
                         });
                     }
                 });
             }
-        }
-
-
-        function aiSeqGetRequest() {
-
-        }
-
-
-        function aiParGetRequest() {
-
         }
 
 
@@ -317,7 +302,7 @@
                 if ($(this).index() == 7 - fromY) {
                     $(this).children('td').each(function() {
                         if ($(this).index() == fromX) {
-                            if ($(this).hasClass('black')) {
+                            if ($(this).children('div').hasClass('black')) {
                                 color = true;
                             } else {
                                 color = false;
@@ -342,13 +327,13 @@
                             $(this).addClass('piece');
                             if (color) {
                                 $(this).empty().append(
-                                    $('<div>').addClass('drag')
+                                    $('<div>')//.addClass('drag')
                                         .addClass('black')
                                         .append(from)
                                 );
                             } else {
                                 $(this).empty().append(
-                                    $('<div>').addClass('drag')
+                                    $('<div>')//.addClass('drag')
                                         .addClass('white')
                                         .append(from)
                                 );
@@ -357,7 +342,7 @@
                     });
                 }
             });
-            setDefaultBackground();
+            cleanseBackground();
         }
 
 
@@ -379,35 +364,66 @@
             }
         }
 
-        // this block is for drag and drop jquery way
+
+        function aiSeqGetRequest() {
+
+        }
+
+
+        function aiParGetRequest() {
+
+        }
 
         /*
         // drag
-        $(document).ready(function() {
-            $('.drag').draggable({
-                revert: true,
-                proxy: 'clone',
-                start: function(event, ui) {
-                    $(this).click();
-                },
-                stop: function(event, ui) { }
-            });
+        $('td.drag').draggable({
+            revert: true,
+            proxy: 'clone',
+            start: function(event, ui) {
+                console.log('dragging');
+            },
+            stop: function(event, ui) {
+                $(ui).empty();
+                $(ui).removeAttr('cursor')
+                    .removeAttr('style')
+                    .height($(this).width());
+                console.log('finished');
+            }
         });
 
         // drop
-        $(document).ready(function() {
-            $('td.drop').droppable({
-                onDragEnter: function() {
+        $('td.drop').droppable({
+            onDragEnter: function() {
+                if ($(this).hasClass('highlight')) {
                     $(this).addClass('over');
-                },
-                onDragLeave: function() {
-                    $(this).removeClass('over');
-                },
-                onDrop: function (e, source) {
-                    $(this).removeClass('over');
-                    $(this).empty().append(source);
+                } else {
+                    $(this).addClass('error');
                 }
-            });
+            },
+            onDragLeave: function() {
+                $(this).removeClass('over');
+                $(this).removeClass('error');
+            },
+            onDrop: function (e, source) {
+                if ($(this).hasClass('highlight')) {
+                    if ($(this).children().length > 0) {
+                        if ($(this.children('div').hasClass('black'))) {
+                            addToCaptureList(false, $(this).children('div').text());
+                        } else {
+                            addToCaptureList(true, $(this).children('div').text());
+                        }
+                    }
+                    $(this).removeClass('over');
+                    $(this).empty();
+                    $(this).append($(source).children('div'));
+                }
+                cleanseBackground();
+                $('.cell').each(function() {
+                    $(this).removeAttr('cursor')
+                        .removeAttr('style')
+                        .height($(this).width());
+                });
+            }
         });
         */
 
@@ -504,26 +520,17 @@
             text-align: center !important;
             vertical-align: middle !important;
             cursor: default;
-        }
-
-        /* non header cells are drop */
-        .drop {
-        }
-
-        /* all div children of .tile with innerHTML non empty, i.e. having a chest piece, are drag */
-        .drag {
-            width: inherit;
-            height: inherit;
             font-size: 75px;
             line-height: 75px;
             cursor: default;
+            position: static;
         }
 
-        /* all div children of header cells are head */
-        .head {
-            font-size: 75px;
-            line-height: 75px;
-        }
+        .tile {}
+
+        .drop {}
+
+        .drag {}
 
         .bgGray {
             background-color: gray;
@@ -554,6 +561,18 @@
             min-height: 700px;
             max-width: 850px;
             max-height: 850px;
+        }
+
+        #board tbody tr td div {
+            width: inherit;
+            height: inherit;
+            line-height: 75px;
+        }
+
+        #board tbody tr th div {
+            width: inherit;
+            height: inherit;
+            line-height: 75px;
         }
 
         .capture {
@@ -594,6 +613,10 @@
         .drop .over {
             border: 2px dashed #000;
         }
+        .drop .error {
+            border: 2px dashed #cc0000;
+        }
+
     </style>
 
 
