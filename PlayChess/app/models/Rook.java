@@ -11,4 +11,10 @@ public class Rook extends ChessPiece {
 		this.side = side;
 		this.alive = true;
 	}
+        
+        @Override
+        public String toString()
+        {
+            return "PieceType: Rook Side: " + side;
+        }
 }

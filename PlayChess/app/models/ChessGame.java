@@ -72,7 +72,12 @@ public class ChessGame {
 	
 	public Move aiMakeATurnSequential(Side side) 
         {		
-		AI ai = new AI();                
+		AI ai = new AI();
+                if(MoveLogic.determineCheck(side, chessBoard) == true)
+                {
+                    
+                }
+                
 		return ai.actualMove(side, this.chessBoard);			
 	}
         public ChessBoard getBoard()

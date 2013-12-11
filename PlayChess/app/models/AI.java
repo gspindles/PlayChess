@@ -31,7 +31,8 @@ public class AI
         {
             for(int y = 0; y < 8; y++)
             {
-                temp = new Point(x,y);
+                temp.x = x;
+                temp.y = y;
                 if(board.getBoardTile(temp).getChessPiece().getPieceType() != PieceType.EMPTY)
                 {
                     if(board.getBoardTile(temp).getChessPiece().getSide() == Side.WHITE)
@@ -40,7 +41,7 @@ public class AI
                         for(int i = 0; i < tempList.size(); i ++)
                         {
                             whiteMoves.add(tempList.get(i));
-                        }                        
+                        }
                     }
                     else if(board.getBoardTile(temp).getChessPiece().getSide() == Side.BLACK)
                     {
@@ -48,7 +49,7 @@ public class AI
                         for(int i = 0; i < tempList.size(); i ++)
                         {
                             blackMoves.add(tempList.get(i));
-                        }                        
+                        }
                     }
                 }
             }
@@ -101,15 +102,28 @@ public class AI
                 tempList.get(i).setWeight(5);
                 bestOptions.add(tempList.get(i));
             }
+            else if(tempList.get(i).getTakenPiece().pieceType == PieceType.KING)
+            {
+                tempList.get(i).setWeight(90);
+                bestOptions.add(tempList.get(i));
+            }
         }
-        return bestOptions;
+        if(bestOptions.size() == 0)
+        {
+            return tempList;
+        }
+        else
+        {
+            return bestOptions;
+        }
+        
     }
     /*
      *
      * 
      */
     public Move actualMove(Side side, ChessBoard board)
-    {
+    {        
         List<Move> tempList = populateMoves(side, board);
         //this will break the game
         tempList = bestMove(board,tempList);
@@ -122,6 +136,7 @@ public class AI
             {
                     if(tempList.get(i).getWeight() > send.getWeight())
                     {
+                        
                         send = tempList.get(i);
                     }
             }

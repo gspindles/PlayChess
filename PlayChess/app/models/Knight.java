@@ -11,4 +11,10 @@ public class Knight extends ChessPiece {
 		this.side = side;
 		this.alive = true;
 	}
+        
+        @Override
+        public String toString()
+        {
+            return "PieceType: Knight Side: " + side;
+        }
 }

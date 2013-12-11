@@ -11,4 +11,9 @@ public class Bishop extends ChessPiece {
 		this.side = side;
 		this.alive = true;
 	}
+        @Override
+        public String toString()
+        {
+            return "PieceType: Bishop Side: " + side;
+        }
 }

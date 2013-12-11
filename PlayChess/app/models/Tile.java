@@ -9,24 +9,32 @@ public class Tile {
 	private ChessPiece chessPiece;
 	private Point location;
 
-
 	// constructor
-	public Tile(ChessPiece chessPiece, Point location) {
+	public Tile(ChessPiece chessPiece, Point location) 
+        {
 		this.chessPiece = chessPiece;
 		this.location = location;
 	}
 
 
 	// accessor and mutator
-	public ChessPiece getChessPiece() {
+	public ChessPiece getChessPiece() 
+        {
 		return this.chessPiece;
 	}
 
-	public void setChessPiece(ChessPiece chessPiece) {
+	public void setChessPiece(ChessPiece chessPiece) 
+        {
 		this.chessPiece = chessPiece;
 	}
 
-	public Point getLocation() {
+	public Point getLocation() 
+        {
 		return this.location;
 	}
+        @Override
+        public String toString()
+        {
+            return "ChessPiece: " + chessPiece.toString() + " Location: " + location.toString();
+        }
 }

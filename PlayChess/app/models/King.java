@@ -13,4 +13,10 @@ public class King extends ChessPiece
 		this.side = side;
 		this.alive = true;
 	}
+        
+        @Override
+        public String toString()
+        {
+            return "PieceType: King Side: " + side;
+        }
 }

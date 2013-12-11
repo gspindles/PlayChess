@@ -337,7 +337,7 @@ public class MoveLogic
         temp.x = tile.getLocation().x;
         temp.y = tile.getLocation().y;
         temp.x ++;
-        temp.y -=1;
+        temp.y -=2;
         if(temp.isValidPoint() == true)
         {
             if(board.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
@@ -355,7 +355,7 @@ public class MoveLogic
         temp.x = tile.getLocation().x;
         temp.y = tile.getLocation().y;
         temp.x --;
-        temp.y -=1;
+        temp.y -=2;
         if(temp.isValidPoint() == true)
         {
             if(board.getBoardChessPiece(temp).getSide() != tile.getChessPiece().getSide())
@@ -372,7 +372,7 @@ public class MoveLogic
         }
         temp.x = tile.getLocation().x;
         temp.y = tile.getLocation().y;
-        temp.x +=2;
+        temp.x -=2;
         temp.y ++;
         if(temp.isValidPoint() == true)
         {
@@ -390,7 +390,7 @@ public class MoveLogic
         }
         temp.x = tile.getLocation().x;         
         temp.y = tile.getLocation().y;
-        temp.x +=2;
+        temp.x -=2;
         temp.y --;
         if(temp.isValidPoint() == true)
         {
@@ -851,10 +851,6 @@ public class MoveLogic
      */
     public static boolean checkmate(Side s,ChessBoard board)
     {
-        if(determineCheck(s,board) == false)
-        {
-            return false;
-        }
         List<Move> enemyMoves = AI.populateMoves(s, board);
         List<Move> kingMoves = MoveLogic.moveKing(board.getBoardTile(board.getKing(s)), board);
         if(s == Side.WHITE)

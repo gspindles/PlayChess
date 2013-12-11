@@ -51,4 +51,9 @@ public abstract class ChessPiece {
 		}
 		return goodPoints;
 	}
+        @Override
+        public String toString()
+        {
+            return "PieceType: ChessPiece Side: " + side;
+        }
 }

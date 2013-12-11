@@ -17,4 +17,10 @@ public class Pawn extends ChessPiece {
 	public void Promote(PieceType pieceType) {
 		this.pieceType = pieceType;
 	}
+        
+        @Override
+        public String toString()
+        {
+            return "PieceType: Pawn Side: " + side;
+        }
 }
