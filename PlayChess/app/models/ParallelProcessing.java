@@ -70,7 +70,7 @@ public class ParallelProcessing implements Callable
         }
         return tempList;
     }
-        private List<Move> bestMove(ChessBoard board, List<Move> list)
+    private List<Move> bestMove(ChessBoard board, List<Move> list)
     {
         List<Move> tempList = list;
         List<Move> bestOptions = new ArrayList<Move>();
@@ -102,15 +102,27 @@ public class ParallelProcessing implements Callable
                 tempList.get(i).setWeight(5);
                 bestOptions.add(tempList.get(i));
             }
+            else if(tempList.get(i).getTakenPiece().pieceType == PieceType.KING)
+            {
+                tempList.get(i).setWeight(90);
+                bestOptions.add(tempList.get(i));
+            }
         }
-        return bestOptions;
+        if(bestOptions.size() == 0)
+        {
+            return tempList;
+        }
+        else
+        {
+            return bestOptions;
+        }
     }
     /*
      *
      * 
      */
     public Move actualMove(Side side, ChessBoard board, List<Move> tempList)
-    {        
+    {
         tempList = bestMove(board,tempList);
         Move send = tempList.get(0);
        

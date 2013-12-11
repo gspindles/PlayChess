@@ -21,13 +21,17 @@ public class ChessJava {
         // TODO code application logic here
         System.out.println("test");
         List<Point> list = new ArrayList<Point>();
-        ChessGame game = new ChessGame();
-        AI ai = new AI();
-        list = game.getPossibleMoves(0, 1);
-        for(int i = 0; i < list.size(); i++)
-        {
-            System.out.println(list.get(i).toString());
-        }
+        ChessGame game = new ChessGame();        
+        game.MovePiece(4, 1, 4, 3);
+        game.MovePiece(3, 6, 3, 4);
+        game.MovePiece(5, 0,1 ,4 );
+        Move temp = game.aiMakeATurnSequential(Side.BLACK);
+        System.out.println(temp.toString());
+//        list = game.getPossibleMoves(0, 1);
+//        for(int i = 0; i < list.size(); i++)
+//        {
+//            System.out.println(list.get(i).toString());
+//        }
         //Move actualMove = ai.actualMove(Side.WHITE, game.getBoard());
         //System.out.println(actualMove.toString());
         //game.getPossibleMoves(1, 1);

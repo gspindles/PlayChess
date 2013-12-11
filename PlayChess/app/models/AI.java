@@ -148,4 +148,29 @@ public class AI
         }
         return send;
     }
+    public Move actualMove(Side side, ChessBoard board, List<Move> tempList)
+    {        
+        //this will break the game
+        tempList = bestMove(board,tempList);
+        Move send = tempList.get(0);
+       
+        if(tempList.size() > 0)
+        {
+            send = tempList.get(0);
+            for(int i = 1; i < tempList.size();i++)
+            {
+                    if(tempList.get(i).getWeight() > send.getWeight())
+                    {
+                        
+                        send = tempList.get(i);
+                    }
+            }
+        }
+        if(send.getWeight() == 0)
+        {
+            Random rand = new Random();            
+            send = tempList.get(rand.nextInt(tempList.size()));
+        }
+        return send;
+    }
 }

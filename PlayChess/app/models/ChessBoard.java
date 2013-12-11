@@ -27,83 +27,93 @@ public class ChessBoard {
 
 	private Tile[][] board;
 
-	public ChessBoard() {
-    	board = new Tile[ROWS][COLUMNS];
-        board[0][0] = new Tile(new Rook(Side.WHITE), new Point(0, 0));        
-        board[1][0] = new Tile(new Knight(Side.WHITE), new Point(1, 0));        
-        board[2][0] = new Tile(new Bishop(Side.WHITE), new Point(2, 0));
-        board[3][0] = new Tile(new Queen(Side.WHITE), new Point(3, 0));
-        board[4][0] = new Tile(new King(Side.WHITE), new Point(4, 0));
-        whiteKing = new Point(4,0);
-        board[5][0] = new Tile(new Bishop(Side.WHITE), new Point(5, 0));
-        board[6][0] = new Tile(new Knight(Side.WHITE), new Point(6, 0));
-        board[7][0] = new Tile(new Rook(Side.WHITE), new Point(7, 0));
-        
-
-        board[0][1] = new Tile(new Pawn(Side.WHITE), new Point(0, 1));
-        board[1][1] = new Tile(new Pawn(Side.WHITE), new Point(1, 1));
-        board[2][1] = new Tile(new Pawn(Side.WHITE), new Point(2, 1));
-        board[3][1] = new Tile(new Pawn(Side.WHITE), new Point(3, 1));
-        board[4][1] = new Tile(new Pawn(Side.WHITE), new Point(4, 1));
-        board[5][1] = new Tile(new Pawn(Side.WHITE), new Point(5, 1));
-        board[6][1] = new Tile(new Pawn(Side.WHITE), new Point(6, 1));
-        board[7][1] = new Tile(new Pawn(Side.WHITE), new Point(7, 1));
-
-        for(int x = 0; x < 8; x++)
+	public ChessBoard() 
         {
-            for(int y = 2; y < 6; y++)
+            board = new Tile[ROWS][COLUMNS];
+            board[0][0] = new Tile(new Rook(Side.WHITE), new Point(0, 0));        
+            board[1][0] = new Tile(new Knight(Side.WHITE), new Point(1, 0));        
+            board[2][0] = new Tile(new Bishop(Side.WHITE), new Point(2, 0));
+            board[3][0] = new Tile(new Queen(Side.WHITE), new Point(3, 0));
+            board[4][0] = new Tile(new King(Side.WHITE), new Point(4, 0));
+            whiteKing = new Point(4,0);
+            board[5][0] = new Tile(new Bishop(Side.WHITE), new Point(5, 0));
+            board[6][0] = new Tile(new Knight(Side.WHITE), new Point(6, 0));
+            board[7][0] = new Tile(new Rook(Side.WHITE), new Point(7, 0));
+
+
+            board[0][1] = new Tile(new Pawn(Side.WHITE), new Point(0, 1));
+            board[1][1] = new Tile(new Pawn(Side.WHITE), new Point(1, 1));
+            board[2][1] = new Tile(new Pawn(Side.WHITE), new Point(2, 1));
+            board[3][1] = new Tile(new Pawn(Side.WHITE), new Point(3, 1));
+            board[4][1] = new Tile(new Pawn(Side.WHITE), new Point(4, 1));
+            board[5][1] = new Tile(new Pawn(Side.WHITE), new Point(5, 1));
+            board[6][1] = new Tile(new Pawn(Side.WHITE), new Point(6, 1));
+            board[7][1] = new Tile(new Pawn(Side.WHITE), new Point(7, 1));
+
+            for(int x = 0; x < 8; x++)
             {
-                board[x][y] = new Tile(new Empty(), new Point(x,y));
+                for(int y = 2; y < 6; y++)
+                {
+                    board[x][y] = new Tile(new Empty(), new Point(x,y));
+                }
+            }
+    //        for (int x = 0; x < 8; x += 2) {
+    //                for (int y = 2; y < 6; y += 2) {
+    //                        board[x][y] = new Tile(new Empty(), new Point(x, y));
+    //                }
+    //                for (int y = 1; y < 8; y += 2) {
+    //                        board[x][y] = new Tile(new Empty(), new Point(x, y));
+    //                }
+    //        }
+    //        for (int x = 0; x < 8; x += 2) {
+    //                for (int y = 3; y < 6; y += 2) {
+    //                        board[x][y] = new Tile(new Empty(), new Point(x, y));
+    //                }
+    //                for (int y = 1; y < 8; y += 2) {
+    //                        board[x][y] = new Tile(new Empty(), new Point(x, y));
+    //                }
+    //        }
+
+            board[0][6] = new Tile(new Pawn(Side.BLACK), new Point(0, 6));
+            board[1][6] = new Tile(new Pawn(Side.BLACK), new Point(1, 6));
+            board[2][6] = new Tile(new Pawn(Side.BLACK), new Point(2, 6));
+            board[3][6] = new Tile(new Pawn(Side.BLACK), new Point(3, 6));
+            board[4][6] = new Tile(new Pawn(Side.BLACK), new Point(4, 6));
+            board[5][6] = new Tile(new Pawn(Side.BLACK), new Point(5, 6));
+            board[6][6] = new Tile(new Pawn(Side.BLACK), new Point(6, 6));
+            board[7][6] = new Tile(new Pawn(Side.BLACK), new Point(7, 6));
+
+            board[0][7] = new Tile(new Rook(Side.BLACK), new Point(0, 7));
+            board[1][7] = new Tile(new Knight(Side.BLACK), new Point(1, 7));
+            board[2][7] = new Tile(new Bishop(Side.BLACK), new Point(2, 7));
+            board[3][7] = new Tile(new Queen(Side.BLACK), new Point(3, 7));
+            board[4][7] = new Tile(new King(Side.BLACK), new Point(4, 7));
+            blackKing = new Point(4,7);
+            board[5][7] = new Tile(new Bishop(Side.BLACK), new Point(5, 7));
+            board[6][7] = new Tile(new Knight(Side.BLACK), new Point(6, 7));
+            board[7][7] = new Tile(new Rook(Side.BLACK), new Point(7, 7));
+	}
+        public ChessBoard(ChessBoard b)
+        {
+            for(int x = 0; x < 7; x++)
+            {
+                for(int y = 0; y < 7; y++)
+                {
+                    board[x][y] = b.getBoardTile(new Point(x,y));
+                }
             }
         }
-//        for (int x = 0; x < 8; x += 2) {
-//                for (int y = 2; y < 6; y += 2) {
-//                        board[x][y] = new Tile(new Empty(), new Point(x, y));
-//                }
-//                for (int y = 1; y < 8; y += 2) {
-//                        board[x][y] = new Tile(new Empty(), new Point(x, y));
-//                }
-//        }
-//        for (int x = 0; x < 8; x += 2) {
-//                for (int y = 3; y < 6; y += 2) {
-//                        board[x][y] = new Tile(new Empty(), new Point(x, y));
-//                }
-//                for (int y = 1; y < 8; y += 2) {
-//                        board[x][y] = new Tile(new Empty(), new Point(x, y));
-//                }
-//        }
-
-        board[0][6] = new Tile(new Pawn(Side.BLACK), new Point(0, 6));
-        board[1][6] = new Tile(new Pawn(Side.BLACK), new Point(1, 6));
-        board[2][6] = new Tile(new Pawn(Side.BLACK), new Point(2, 6));
-        board[3][6] = new Tile(new Pawn(Side.BLACK), new Point(3, 6));
-        board[4][6] = new Tile(new Pawn(Side.BLACK), new Point(4, 6));
-        board[5][6] = new Tile(new Pawn(Side.BLACK), new Point(5, 6));
-        board[6][6] = new Tile(new Pawn(Side.BLACK), new Point(6, 6));
-        board[7][6] = new Tile(new Pawn(Side.BLACK), new Point(7, 6));
-
-        board[0][7] = new Tile(new Rook(Side.BLACK), new Point(0, 7));
-        board[1][7] = new Tile(new Knight(Side.BLACK), new Point(1, 7));
-        board[2][7] = new Tile(new Bishop(Side.BLACK), new Point(2, 7));
-        board[3][7] = new Tile(new Queen(Side.BLACK), new Point(3, 7));
-        board[4][7] = new Tile(new King(Side.BLACK), new Point(4, 7));
-        blackKing = new Point(4,7);
-        board[5][7] = new Tile(new Bishop(Side.BLACK), new Point(5, 7));
-        board[6][7] = new Tile(new Knight(Side.BLACK), new Point(6, 7));
-        board[7][7] = new Tile(new Rook(Side.BLACK), new Point(7, 7));
-	}
         
         /*returns the tile at a particular point
          * 
          *
          */
         public Tile getBoardTile(Point pt)
-        {            
+        {
             if (pt.x >= 0 && pt.y >= 0)
             {            
                 if(pt.x <= 7 && pt.y <= 7)
-                {
-                    System.out.println(board[pt.x][pt.y]);
+                {                    
                     return board[pt.x][pt.y];
                 }
             }

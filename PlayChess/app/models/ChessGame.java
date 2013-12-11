@@ -91,14 +91,37 @@ public class ChessGame {
 		}
 		ParallelProcessing p = new ParallelProcessing(this.chessBoard,side);
                 return p.actualMove(side, chessBoard,availableMoves);		
-	}
-	
+	}	
 	public Move aiMakeATurnSequential(Side side) 
         {
+                Side notSide = Side.BLACK;
+                if(side == Side.BLACK)
+                {
+                    notSide = Side.WHITE;
+                }
 		AI ai = new AI();
+                List<Move> validOutOfCheck = new ArrayList<Move>();
                 if(MoveLogic.determineCheck(side, chessBoard) == true)
                 {
-                    
+                    System.out.println("Check from " + side);
+                    List<Move> moves = ai.populateMoves(side, chessBoard);
+                    for(int i = 0; i < moves.size();i++)
+                    {
+                        ChessBoard board = new ChessBoard(chessBoard);
+                        board.makeMove(moves.get(i));
+                        if(MoveLogic.determineCheck(side, board) == false)
+                        {
+                            validOutOfCheck.add(moves.get(i));
+                        }
+                    }
+                    if(validOutOfCheck.size() > 0)
+                    {
+                        return ai.actualMove(side, chessBoard, validOutOfCheck);
+                    }
+                    else
+                    {
+                        //checkmate has happened
+                    }
                 }
                 
 		return ai.actualMove(side, this.chessBoard);			

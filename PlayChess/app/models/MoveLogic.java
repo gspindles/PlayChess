@@ -877,7 +877,7 @@ public class MoveLogic
         }
         return false;
     }
-    /**checks to see if the team with side s is putting the opposite team in check
+    /**checks to see if the team with side s is being put into check
      * 
      * @param s
      * @param board
@@ -885,19 +885,16 @@ public class MoveLogic
      */
     public static boolean determineCheck(Side s,ChessBoard board)
     {
-        Side notS = Side.NEUTRAL;
+        Side notS = Side.BLACK;
         if(s == Side.WHITE)
         {
             notS = Side.BLACK;
         }
-        else if(s == Side.BLACK)
-        {
-            notS = Side.WHITE;
-        }
-        List<Move> moves = AI.populateMoves(s, board);
+        
+        List<Move> moves = AI.populateMoves(notS, board);
         for(int i = 0; i < moves.size();i++)
         {
-            if(moves.get(i).getEnd() == board.getKing(notS))
+            if(moves.get(i).getEnd() == board.getKing(s))
             {
                 return true;
             }
