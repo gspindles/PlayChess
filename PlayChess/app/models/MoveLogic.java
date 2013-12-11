@@ -199,7 +199,8 @@ public class MoveLogic
                         array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
                     }
                 }
-                temp = tile.getLocation();                
+                temp.x = tile.getLocation().x;
+                temp.y = tile.getLocation().y;                
                 while(temp.isValidPoint(temp.south()))
                 {                     
                     temp.y --;
@@ -217,10 +218,11 @@ public class MoveLogic
                         array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
                     }
                 }
-                temp = tile.getLocation();
+                temp.x = tile.getLocation().x;
+                temp.y = tile.getLocation().y;
                 while(temp.isValidPoint(temp.east()))
                 {
-                    temp.x ++;
+                    temp.x++;
                     if(board.getBoardChessPiece(temp).getPieceType() != PieceType.EMPTY)
                     {
                         if(board.getBoardChessPiece(temp).getSide() == tile.getChessPiece().getSide())
@@ -235,7 +237,8 @@ public class MoveLogic
                         array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
                     }
                 }
-                temp = tile.getLocation();
+                temp.x = tile.getLocation().x;
+                temp.y = tile.getLocation().y;
                 while(temp.isValidPoint(temp.west()))
                 {
                    temp.x --;
@@ -258,7 +261,9 @@ public class MoveLogic
     public static List<Move> moveKnight(Tile tile, ChessBoard board)
     {
         List<Move> array = new ArrayList<Move>();
-        Point temp = tile.getLocation();
+        Point temp = new Point();
+        temp.x = tile.getLocation().x;
+        temp.y = tile.getLocation().y;
         temp.x ++;
         temp.y +=2;
         if(temp.isValidPoint() == true)
@@ -275,7 +280,8 @@ public class MoveLogic
                 }
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;
+        temp.y = tile.getLocation().y;
         temp.x --;
         temp.y +=2;
         if(temp.isValidPoint() == true)
@@ -292,7 +298,8 @@ public class MoveLogic
                 }
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;
+        temp.y = tile.getLocation().y;        
         temp.x +=2;
         temp.y ++;
         if(temp.isValidPoint() == true)
@@ -309,7 +316,8 @@ public class MoveLogic
                 }
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;
+        temp.y = tile.getLocation().y;
         temp.x +=2;
         temp.y --;
         if(temp.isValidPoint() == true)
@@ -326,7 +334,8 @@ public class MoveLogic
                 }
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;
+        temp.y = tile.getLocation().y;
         temp.x ++;
         temp.y -=1;
         if(temp.isValidPoint() == true)
@@ -343,7 +352,8 @@ public class MoveLogic
                 }
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;
+        temp.y = tile.getLocation().y;
         temp.x --;
         temp.y -=1;
         if(temp.isValidPoint() == true)
@@ -360,7 +370,8 @@ public class MoveLogic
                 }
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;
+        temp.y = tile.getLocation().y;
         temp.x +=2;
         temp.y ++;
         if(temp.isValidPoint() == true)
@@ -377,7 +388,8 @@ public class MoveLogic
                 }
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         temp.x +=2;
         temp.y --;
         if(temp.isValidPoint() == true)
@@ -399,7 +411,9 @@ public class MoveLogic
     public static List<Move> moveBishop(Tile tile,ChessBoard board)
     {
         List<Move> array = new ArrayList<Move>();
-        Point temp = tile.getLocation();
+        Point temp = new Point();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         while (temp.ne().isValidPoint()) 
         {
             temp.y++;
@@ -418,7 +432,8 @@ public class MoveLogic
                 array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         while (temp.se().isValidPoint()) 
         {
             temp.y--;
@@ -437,7 +452,8 @@ public class MoveLogic
                 array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         while (temp.nw().isValidPoint()) 
         {
             temp.y++;
@@ -456,7 +472,8 @@ public class MoveLogic
                 array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         while (temp.sw().isValidPoint()) 
         {
             temp.y--;
@@ -480,7 +497,9 @@ public class MoveLogic
     public static List<Move> moveQueen(Tile tile,ChessBoard board)
     {
         List<Move> array = new ArrayList<Move>();
-        Point temp = tile.getLocation();
+        Point temp = new Point();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         while(temp.north().isValidPoint())
         {
             temp.y ++;
@@ -498,7 +517,8 @@ public class MoveLogic
                 array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         while(temp.south().isValidPoint())
         {
             temp.y --;
@@ -516,7 +536,8 @@ public class MoveLogic
                 array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         while(temp.east().isValidPoint())
         {
             temp.x ++;
@@ -534,7 +555,8 @@ public class MoveLogic
                 array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         while(temp.west().isValidPoint())
         {
             temp.x --;
@@ -571,7 +593,8 @@ public class MoveLogic
                 array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         while(temp.se().isValidPoint())
         {
             temp.y --;
@@ -590,7 +613,8 @@ public class MoveLogic
                 array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         while(temp.nw().isValidPoint())
         {
             temp.y ++;
@@ -609,7 +633,8 @@ public class MoveLogic
                 array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         while(temp.sw().isValidPoint())
         {
             temp.y --;
@@ -633,7 +658,9 @@ public class MoveLogic
     public static List<Move> moveKing(Tile tile, ChessBoard board)
     {
         List<Move> array = new ArrayList<Move>();
-        Point temp = tile.getLocation();                    
+        Point temp = new Point();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         temp.y ++;
         if(temp.isValidPoint() == true)
         {
@@ -649,7 +676,8 @@ public class MoveLogic
                 }
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         temp.x ++;
         temp.y ++;
         if(temp.isValidPoint() == true)
@@ -666,7 +694,8 @@ public class MoveLogic
                 }
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         temp.x ++;                    
         if(temp.isValidPoint() == true)
         {
@@ -682,7 +711,8 @@ public class MoveLogic
                 }
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         temp.x ++;
         temp.y --;
         if(temp.isValidPoint() == true)
@@ -699,7 +729,7 @@ public class MoveLogic
                 }
             }
         }
-        temp = tile.getLocation();                    
+        temp.x = tile.getLocation().x;         temp.y = tile.getLocation().y;                    
         temp.y --;
         if(temp.isValidPoint() == true)
         {
@@ -715,7 +745,8 @@ public class MoveLogic
                 }
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         temp.x --;
         temp.y --;
         if(temp.isValidPoint() == true)
@@ -732,7 +763,8 @@ public class MoveLogic
                 }
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         temp.x --;                    
         if(temp.isValidPoint() == true)
         {
@@ -748,7 +780,8 @@ public class MoveLogic
                 }
             }
         }
-        temp = tile.getLocation();
+        temp.x = tile.getLocation().x;         
+        temp.y = tile.getLocation().y;
         temp.x --;
         temp.y ++;
         if(temp.isValidPoint() == true)
@@ -770,7 +803,9 @@ public class MoveLogic
     public static List<Move> determineMoves(Tile tile, ChessBoard board)
     {
         List<Move> array = new ArrayList<Move>();
-        Point pt = tile.getLocation();
+        Point pt = new Point();
+        pt.x = tile.getLocation().x;
+        pt.y = tile.getLocation().y;
         if(tile.getChessPiece().pieceType == PieceType.EMPTY)
         {
             

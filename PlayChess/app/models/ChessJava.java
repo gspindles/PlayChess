@@ -19,7 +19,7 @@ public class ChessJava {
         System.out.println("test");
         ChessGame game = new ChessGame();
         AI ai = new AI();
-        Move actualMove = ai.actualMove(Side.BLACK, game.getBoard());
+        Move actualMove = ai.actualMove(Side.WHITE, game.getBoard());
         System.out.println(actualMove.toString());
         //game.getPossibleMoves(1, 1);
         System.out.println("test again");
