@@ -152,31 +152,35 @@ public class ChessBoard {
          * 
          * @param move the move that is going to be made
          */
-        public void makeMove(Move move)
+        public boolean makeMove(Move move)
         {
             if (move.getEnd().x >= 0 & move.getEnd().y >= 0)
             {
                 if(move.getEnd().x <= 7 & move.getEnd().y <= 7)
                 {
-                    if(move.getPiece().equals(null) == false)
+                    if(move.getPiece() != null)
                     {
                         if(move.getPiece().pieceType == PieceType.KING)
                         {
                             setKing(move.getPiece().getSide(), move.getEnd());
+                            return true;
                         }
                         if(move.getTakenPiece() == null)
                         {
                             board[move.getEnd().x][move.getEnd().y].setChessPiece(move.getPiece());
                             board[move.getStart().x][move.getStart().y].setChessPiece(new Empty());
+                            return true;
                         }
                         else
                         {
                             board[move.getEnd().x][move.getEnd().y].setChessPiece(move.getPiece());
                             board[move.getStart().x][move.getStart().y].setChessPiece(new Empty());
+                            return true;
                         }
                     }
                 }
             }
+            return false;
         }
         
         /*returns the entire board array board[7][7]

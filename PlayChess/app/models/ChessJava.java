@@ -4,6 +4,9 @@
  */
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author the0ldknighte
@@ -17,10 +20,16 @@ public class ChessJava {
     {
         // TODO code application logic here
         System.out.println("test");
+        List<Point> list = new ArrayList<Point>();
         ChessGame game = new ChessGame();
         AI ai = new AI();
-        Move actualMove = ai.actualMove(Side.WHITE, game.getBoard());
-        System.out.println(actualMove.toString());
+        list = game.getPossibleMoves(0, 1);
+        for(int i = 0; i < list.size(); i++)
+        {
+            System.out.println(list.get(i).toString());
+        }
+        //Move actualMove = ai.actualMove(Side.WHITE, game.getBoard());
+        //System.out.println(actualMove.toString());
         //game.getPossibleMoves(1, 1);
         System.out.println("test again");
     }
