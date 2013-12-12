@@ -116,29 +116,27 @@ public class ParallelProcessing implements Callable
      */
     public Move actualMove(Side side, ChessBoard board, List<Move> tempList)
     {
-        tempList = bestMove(board,tempList);
-        Move send;
-       
-       
-        //Empty list if can't take a piece
+        //list is empty if can't "take" a piece
         List<Move> bestMoves = bestMove(board,tempList);
         
         Move send;
-       //If not empty. not empty if another piece is takeable.        if(!tempList.isEmpty())
+       //If list is populated, means piece is takeable.
+	   if(!bestMoves.isEmpty())
         {
-            send = tempList.get(0);
-            for(int i = 1; i < tempList.size();i++)
+            send = bestMoves.get(0);
+            for(int i = 1; i < bestMoves.size();i++)
             {
-                    if(tempList.get(i).getWeight() > send.getWeight())
+                    if(bestMoves.get(i).getWeight() > send.getWeight())
                     {
-                        send = tempList.get(i);
+                        send = bestMoves.get(i);
                     }
             }
             System.out.println("Selected best move based on weight");
         }
-        //No takeable 
+        //List was empty, No takeable pieces. So randomly select a piece to move.
         else
         {
+			//Since bestMove is empty, use original list of all possible moves. randomly select move
             Random rand = new Random();            
             send = tempList.get(rand.nextInt(tempList.size()));
             System.out.println("No takeable pieces, randomly selected a move");
