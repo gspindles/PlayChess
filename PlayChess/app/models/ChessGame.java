@@ -93,6 +93,7 @@ public class ChessGame {
             }
             ParallelProcessing p = new ParallelProcessing(this.chessBoard,side);            
             Move temp = p.actualMove(side, chessBoard, availableMoves);
+            MovePiece(temp.getStart().x,temp.getStart().y,temp.getEnd().x,temp.getEnd().y);
             long time2 = java.lang.System.currentTimeMillis();
             time2 = time2 - time1;
             temp.settime(time2);
@@ -131,9 +132,10 @@ public class ChessGame {
                 }
             }
             Move temp = ai.actualMove(side, this.chessBoard);
+            MovePiece(temp.getStart().x,temp.getStart().y,temp.getEnd().x,temp.getEnd().y);
             long time2 = java.lang.System.currentTimeMillis();
             time2 = time2 - time1;
-            temp.settime(time2);
+            temp.settime(time2);            
             return temp;
 	}
         public ChessBoard getBoard()
