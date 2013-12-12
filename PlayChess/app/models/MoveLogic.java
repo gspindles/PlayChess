@@ -496,6 +496,7 @@ public class MoveLogic
         }
         return array;
     }
+
     public static List<Move> moveQueen(Tile tile,ChessBoard board)
     {
         List<Move> array = new ArrayList<Move>();
@@ -576,7 +577,8 @@ public class MoveLogic
                 array.add(new Move(tile.getLocation(),temp, tile.getChessPiece()));
             }
         }
-
+        temp.x = tile.getLocation().x;
+        temp.y = tile.getLocation().y;
         while(temp.ne().isValidPoint())
         {
             temp.y ++;
@@ -657,6 +659,7 @@ public class MoveLogic
         }
         return array;
     }
+
     public static List<Move> moveKing(Tile tile, ChessBoard board)
     {
         List<Move> array = new ArrayList<Move>();
@@ -802,6 +805,7 @@ public class MoveLogic
         }
         return array;
     }
+
     public static List<Move> determineMoves(Tile tile, ChessBoard board)
     {
         List<Move> array = new ArrayList<Move>();
