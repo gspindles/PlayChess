@@ -73,12 +73,7 @@ public class ChessGame {
             //Using threads, simultaniously scan through each column tallying a list of possible moves.
             for(int i = 0; i < 8; i++) {
                 //Create threads of ParallelProcessing. Accepts a List<Move> object.
-                Callable<List<Move>> myCallableThread;
-                try {
-                    myCallableThread = new ParallelProcessing(i, this.chessBoard, side);
-                } 
-                catch(ExecutionException ie) { ie.getMessage(); }
-                
+                Callable<List<Move>> myCallableThread = new ParallelProcessing(i, this.chessBoard, side);
                 //pool.submit(thread) returns a "future" object containing a list of moves from that collumn.
                 Future<List<Move>> future = pool.submit(myCallableThread);
                 //Add future object (which contains List<Move> to our set of thread return values.
@@ -94,7 +89,9 @@ public class ChessGame {
                     //List.addAll(collection) adds all the elments of a collection, in this case, all the elements of a List<Move>
                     //contained within each future object.
                     //Future.get() will block then return a List<Move> when it's thread is finished processing.
+                try {
                     availableMoves.addAll(futureMoveList.get());
+                } catch(InterruptedException | ExecutionException e) { e.getMessage(); }
             }
             ParallelProcessing p = new ParallelProcessing(this.chessBoard,side);            
             Move temp = p.actualMove(side, chessBoard, availableMoves);
