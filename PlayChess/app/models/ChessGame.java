@@ -75,7 +75,7 @@ public class ChessGame {
 			//pool.submit(thread) returns a "future" object containing a list of moves from that collumn.
 			Future<List<Move>> future = pool.submit(myCallableThread);
 			//Add future object (which contains List<Move> to our set of thread return values.
-                        
+                        System.out.println("Thread" + i + " created.");
 			set.add(future);
 		}
 		
@@ -89,8 +89,15 @@ public class ChessGame {
 			//Future.get() will block then return a List<Move> when it's thread is finished processing.
 			availableMoves.addAll(futureMoveList.get());
 		}
+                //Display list of availableMoves for Debugging.
+                int i = 0;
+                for(Move myMove: availableMoves) {
+                    System.out.println(i + " availableMoves " + myMove);
+                    i++;
+                }
+                
 		ParallelProcessing p = new ParallelProcessing(this.chessBoard,side);
-                return p.actualMove(side, chessBoard,availableMoves);		
+                return p.actualMove(side, chessBoard, availableMoves);		
 	}
 	
 	public Move aiMakeATurnSequential(Side side) 
