@@ -265,8 +265,8 @@
                         if (result == "true") {
                             movePiece(fromX, fromY, toX, toY);
                             $('#gb').click();
-                            aiSeqGetRequest();
-                            aiParGetRequest();
+                            if (seqPar) { aiSeqGetRequest(); }
+                            else { aiParGetRequest(); }
                         }
                     });
                     cleanseBackground();
@@ -386,7 +386,7 @@
                 url: "/aiSeq",
                 dataType: "json"
             }).done(function(data) {
-                $('#seqTime').text("0.2534");
+                $('#seqTime').children('td').text("0.2534" + " ms");
             });
         }
 
@@ -397,7 +397,7 @@
                 url: "/aiPar",
                 dataType: "json"
             }).done(function(data) {
-                $('#parTime').text("1.2233");
+                $('#parTime').children('td').text("1.2233" + " ms");
             });
         }
 
@@ -684,6 +684,7 @@
             }
         }
 
+        var seqPar = true;
         $(document).ready(function() {
             $('#minib').click(function() {
                 $('#curDiv').toggle();
@@ -691,6 +692,20 @@
             });
 
             $('#minib').click();
+
+            $('#seqbtn').click(function() {
+                seqPar = true;
+                $('#seqTime').toggle();
+                $('#parTime').toggle();
+            });
+
+            $('#parTime').toggle();
+
+            $('#parbtn').click(function() {
+                seqPar = false;
+                $('#seqTime').toggle();
+                $('#parTime').toggle();
+            });
         });
     </script>
 
@@ -819,7 +834,7 @@
         }
 
         #show {
-            width: 250px;
+            width: 300px;
             float: right;
             text-align: right;
             font-size: 20px;
@@ -840,7 +855,6 @@
             background-color: #CCCCCC;
 
         }
-
 
     </style>
 
@@ -964,13 +978,13 @@
                 <thead>
                 </thead>
                 <tbody>
-                    <tr class="success">
-                        <th>Sequential Times:</th>
-                        <td id="seqTime"></td>
+                    <tr id="seqTime" class="success">
+                        <th>Sequential Time:</th>
+                        <td></td>
                     </tr>
-                    <tr class="success">
+                    <tr id="parTime" class="success">
                         <th>Parallel Time:</th>
-                        <td id="parTime"></td>
+                        <td></td>
                     </tr>
                 </tbody>
                 <tfoot>
