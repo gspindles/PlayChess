@@ -29,30 +29,15 @@ public class Application extends Controller {
         ps = chessGame.getPossibleMoves(x, y);
         if (ps == null) { Logger.info("Empty list\n"); }
         for (Point p : ps) { Logger.info("Point : " + x + " " + y + "\n" ); }
-
-        /*Point p = new Point(x, y);
-        Point[] ps = new Point[8];
-        ps[0] = new Point(p.x + 1, 7 - p.y - 1);
-        ps[1] = new Point(p.x, 7 - p.y - 1);
-        ps[2] = new Point(p.x - 1, 7 - p.y - 1);
-        ps[3] = new Point(p.x + 1, 7 - p.y);
-        ps[4] = new Point(p.x - 1, 7 - p.y);
-        ps[5] = new Point(p.x + 1, 7 - p.y + 1);
-        ps[6] = new Point(p.x, 7 - p.y + 1);
-        ps[7] = new Point(p.x - 1, 7 - p.y + 1);*/
         return ok(Json.toJson(ps));
     }
 
 
     public static Result MovePiece(int fromX, int fromY, int toX, int toY) {
-        /*Logger.info("from (" + fromX + ", " + fromY + ") to (" + toX + ", " + toY + ")\n");
-        Point from = new Point(fromX, fromY);
-        Point to = new Point(toX, toY);
-        boolean result = chessGame.MovePiece(from, to);
-        return ok(result);*/
-
-
-        return ok("true");
+        Logger.info("from (" + fromX + ", " + fromY + ") to (" + toX + ", " + toY + ")\n");
+        boolean result = chessGame.MovePiece(fromX, fromY, toX, toY);
+        if (result) { return ok("true"); }
+        return ok("false");
     }
 
 
@@ -61,7 +46,7 @@ public class Application extends Controller {
         List<Point> fromto = chessGame.aiMakeATurnSequential();
         return ok(Json.toJson(fromto));*/
 
-        return ok();
+        return ok("true");
     }
 
 
@@ -70,6 +55,6 @@ public class Application extends Controller {
         List<Point> fromto = chessGame.aiMakeATurnParallel();
         return ok(Json.toJson(fromto));*/
 
-        return ok();
+        return ok("true");
     }
 }
