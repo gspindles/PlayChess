@@ -44,6 +44,7 @@ public class Application extends Controller {
     public static Result aiMakeSeqMove() {
         Logger.info("AI is going to make a move");
         Move aiSeq = chessGame.aiMakeATurnSequential(Side.BLACK);
+        Logger.info("Time: " + aiSeq.getTime());
         return ok(Json.toJson(aiSeq));
     }
 
@@ -51,6 +52,7 @@ public class Application extends Controller {
     public static Result aiMakeParMove() {
         Logger.info("AI is going to make a move");
         Move aiPar = chessGame.aiMakeATurnParallel(Side.BLACK);
+        Logger.info("Time: " + aiPar.getTime());
         return ok(Json.toJson(aiPar));
     }
 
