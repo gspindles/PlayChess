@@ -30,7 +30,7 @@ public class MoveLogic
                     array.add(new Move(tile.getLocation(),tile.getLocation().south(), tile.getChessPiece()));
                     if (board.getBoardTile(tile.getLocation().south().south()).getChessPiece().getPieceType() == PieceType.EMPTY)
                     {
-                        tile.getChessPiece().setHasMoved();
+                        //tile.getChessPiece().setHasMoved();
                         array.add(new Move(tile.getLocation(),tile.getLocation().south().south(),tile.getChessPiece()));
                     }
                 }
@@ -42,7 +42,7 @@ public class MoveLogic
                         //check to see if that piece is the same color
                         if (tile.getChessPiece().getSide() != board.getBoardChessPiece(tile.getLocation().se()).getSide())
                         {
-                            tile.getChessPiece().setHasMoved();
+                            //tile.getChessPiece().setHasMoved();
                             array.add(new Move(tile.getLocation(),tile.getLocation().se(),tile.getChessPiece(),board.getBoardChessPiece(tile.getLocation().se())));
                         }
                     }
@@ -108,7 +108,7 @@ public class MoveLogic
                             array.add(new Move(tile.getLocation(),tile.getLocation().north(),tile.getChessPiece()));
                             if(board.getBoardTile(tile.getLocation().north().north()).getChessPiece().getPieceType() == PieceType.EMPTY)
                             {
-                                tile.getChessPiece().setHasMoved();
+                                //tile.getChessPiece().setHasMoved();
                                 array.add(new Move(tile.getLocation(),tile.getLocation().north().north(),tile.getChessPiece()));
                             }
                         }
@@ -120,7 +120,7 @@ public class MoveLogic
                                 //check to see if that piece is the same color
                                 if(tile.getChessPiece().getSide() != board.getBoardChessPiece(tile.getLocation().ne()).getSide())
                                 {
-                                    tile.getChessPiece().setHasMoved();
+                                   //tile.getChessPiece().setHasMoved();
                                    array.add(new Move(tile.getLocation(),tile.getLocation().ne(),tile.getChessPiece(),board.getBoardChessPiece(tile.getLocation().ne())));
                                 }
                             }

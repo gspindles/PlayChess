@@ -170,9 +170,13 @@ public class ChessBoard {
                 {
                     if(move.getPiece() != null)
                     {
-                        if(move.getPiece().pieceType == PieceType.KING)
+                        if(move.getPiece().getPieceType() == PieceType.KING)
                         {
                             setKing(move.getPiece().getSide(), move.getEnd());                            
+                        }
+                        else if(move.getPiece().getPieceType() == PieceType.PAWN)
+                        {
+                            move.getPiece().setHasMoved();
                         }
                         if(move.getTakenPiece() == null)
                         {
