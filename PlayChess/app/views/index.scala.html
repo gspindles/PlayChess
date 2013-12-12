@@ -378,14 +378,12 @@
         }
 
 
-        var move;
         function aiSeqGetRequest() {
             $.ajax({
                 type: "GET",
                 url: "/aiSeq",
                 dataType: "json"
             }).done(function(data) {
-                move = data;
                 movePiece(data.start.x, data.start.y, data.end.x, data.end.y);
                 $('#seqTime').children('td').text(data.time + " ms");
             });
@@ -398,7 +396,6 @@
                 url: "/aiPar",
                 dataType: "json"
             }).done(function(data) {
-                move = data;
                 movePiece(data.start.x, data.start.y, data.end.x, data.end.y);
                 $('#parTime').children('td').text(data.time + " ms");
             });
@@ -697,17 +694,21 @@
             $('#minib').click();
 
             $('#seqbtn').click(function() {
-                seqPar = true;
-                $('#seqTime').toggle();
-                $('#parTime').toggle();
+                if (!seqPar) {
+                    seqPar = true;
+                    $('#seqTime').toggle();
+                    $('#parTime').toggle();
+                }
             });
 
             $('#parTime').toggle();
 
             $('#parbtn').click(function() {
-                seqPar = false;
-                $('#seqTime').toggle();
-                $('#parTime').toggle();
+                if (seqPar) {
+                    seqPar = false;
+                    $('#seqTime').toggle();
+                    $('#parTime').toggle();
+                }
             });
         });
     </script>
