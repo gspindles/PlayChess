@@ -42,20 +42,16 @@ public class Application extends Controller {
 
 
     public static Result aiMakeSeqMove() {
-        /*Logger.info("AI is going to make a move");
-        List<Point> fromto = chessGame.aiMakeATurnSequential();
-        return ok(Json.toJson(fromto));*/
-
-        return ok("true");
+        Logger.info("AI is going to make a move");
+        Move aiSeq = chessGame.aiMakeATurnSequential(Side.BLACK);
+        return ok(Json.toJson(aiSeq));
     }
 
 
     public static Result aiMakeParMove() {
-        /*Logger.info("AI is going to make a move");
-        List<Point> fromto = chessGame.aiMakeATurnParallel();
-        return ok(Json.toJson(fromto));*/
-
-        return ok("true");
+        Logger.info("AI is going to make a move");
+        Move aiPar = chessGame.aiMakeATurnParallel(Side.BLACK);
+        return ok(Json.toJson(aiPar));
     }
 
 

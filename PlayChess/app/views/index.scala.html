@@ -244,7 +244,7 @@
 
 
         // highlight the tile that was clicked and send a get request for additional things to highlight
-        var fromX, fromY, piece, moves, toX, toY;
+        var fromX, fromY, toX, toY;
         $(document).ready(function() {
             $('.tile').click(function() {
                 if ($(this).hasClass('highlight')) {
@@ -278,15 +278,13 @@
                     $(this).addClass('selected');
 
                     if ($(this).children().length > 0) {
-                        piece = $(this).children('div').text();
                         //$(this).addClass('drag').attr('draggable', true);
                         $.ajax({
                             type: "GET",
                             url: "/click?x=" + fromX + "&y=" + fromY,
                             dataType: "json"
                         }).done(function(data) {
-                            moves = reflect(data);
-                            highlight(data);
+                            highlight(reflect(data));
                         });
                     }
                 }
@@ -380,13 +378,16 @@
         }
 
 
+        var move;
         function aiSeqGetRequest() {
             $.ajax({
                 type: "GET",
                 url: "/aiSeq",
                 dataType: "json"
             }).done(function(data) {
-                $('#seqTime').children('td').text("0.2534" + " ms");
+                move = data;
+                movePiece(data.start.x, data.start.y, data.end.x, data.end.y);
+                $('#seqTime').children('td').text(data.time + " ms");
             });
         }
 
@@ -397,7 +398,9 @@
                 url: "/aiPar",
                 dataType: "json"
             }).done(function(data) {
-                $('#parTime').children('td').text("1.2233" + " ms");
+                move = data;
+                movePiece(data.start.x, data.start.y, data.end.x, data.end.y);
+                $('#parTime').children('td').text(data.time + " ms");
             });
         }
 
@@ -555,7 +558,6 @@
         }
 
 
-        var board;
         $(document).ready(function() {
             $('#gb').click(function() {
                 $.ajax({
@@ -563,8 +565,7 @@
                     url: "/board",
                     dataType: "json"
                 }).done(function(data) {
-                    board = data.board.board;
-                    display(board);
+                    display(data.board.board);
                 });
             });
         });
@@ -640,6 +641,7 @@
             }
         }
 
+
         function translate(piece, color) {
             switch(color) {
                 case "WHITE":
@@ -683,6 +685,7 @@
                     return pieces.neutral.empty;
             }
         }
+
 
         var seqPar = true;
         $(document).ready(function() {
@@ -855,7 +858,6 @@
             background-color: #CCCCCC;
 
         }
-
     </style>
 
 
