@@ -57,4 +57,9 @@ public class Application extends Controller {
 
         return ok("true");
     }
+
+
+    public static Result getBoard() {
+        return ok(Json.toJson(chessGame));
+    }
 }

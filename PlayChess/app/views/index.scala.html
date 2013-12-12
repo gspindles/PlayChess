@@ -403,127 +403,132 @@
             });
         }
 
-        /*
-        // drag
-        $('td.drag').draggable({
-            revert: true,
-            proxy: 'clone',
-            start: function(event, ui) {
-                console.log('dragging');
-            },
-            stop: function(event, ui) {
-                $(ui).empty();
-                $(ui).removeAttr('cursor')
-                    .removeAttr('style')
-                    .height($(this).width());
-                console.log('finished');
-            }
-        });
 
-        // drop
-        $('td.drop').droppable({
-            onDragEnter: function() {
-                if ($(this).hasClass('highlight')) {
-                    $(this).addClass('over');
-                } else {
-                    $(this).addClass('error');
-                }
-            },
-            onDragLeave: function() {
-                $(this).removeClass('over');
-                $(this).removeClass('error');
-            },
-            onDrop: function (e, source) {
-                if ($(this).hasClass('highlight')) {
-                    if ($(this).children().length > 0) {
-                        if ($(this.children('div').hasClass('black'))) {
-                            addToCaptureList(false, $(this).children('div').text());
-                        } else {
-                            addToCaptureList(true, $(this).children('div').text());
-                        }
-                    }
-                    $(this).removeClass('over');
-                    $(this).empty();
-                    $(this).append($(source).children('div'));
-                }
-                cleanseBackground();
-                $('.cell').each(function() {
-                    $(this).removeAttr('cursor')
+        // old drag and drop stuff dont expand
+        $(document).ready(function() {
+            /*
+            // drag
+            $('td.drag').draggable({
+                revert: true,
+                proxy: 'clone',
+                start: function(event, ui) {
+                    console.log('dragging');
+                },
+                stop: function(event, ui) {
+                    $(ui).empty();
+                    $(ui).removeAttr('cursor')
                         .removeAttr('style')
                         .height($(this).width());
-                });
+                    console.log('finished');
+                }
+            });
+
+            // drop
+            $('td.drop').droppable({
+                onDragEnter: function() {
+                    if ($(this).hasClass('highlight')) {
+                        $(this).addClass('over');
+                    } else {
+                        $(this).addClass('error');
+                    }
+                },
+                onDragLeave: function() {
+                    $(this).removeClass('over');
+                    $(this).removeClass('error');
+                },
+                onDrop: function (e, source) {
+                    if ($(this).hasClass('highlight')) {
+                        if ($(this).children().length > 0) {
+                            if ($(this.children('div').hasClass('black'))) {
+                                addToCaptureList(false, $(this).children('div').text());
+                            } else {
+                                addToCaptureList(true, $(this).children('div').text());
+                            }
+                        }
+                        $(this).removeClass('over');
+                        $(this).empty();
+                        $(this).append($(source).children('div'));
+                    }
+                    cleanseBackground();
+                    $('.cell').each(function() {
+                        $(this).removeAttr('cursor')
+                            .removeAttr('style')
+                            .height($(this).width());
+                    });
+                }
+            });
+            */
+
+            // this block is for drag and drop html 5 way
+            /*
+            // the spots variables
+            var dnds = document.querySelectorAll('.drag');
+            var dragSrcElt = null;
+
+            // add event listeners
+            [].forEach.call(drags, function(drag) {
+                drag.addEventListener('dragstart', handleDragStart, false);
+                drag.addEventListener('dragenter', handleDragEnter, false);
+                drag.addEventListener('dragover', handleDragOver, false);
+                drag.addEventListener('dragleave', handleDragLeave, false);
+            });
+
+
+            // what to do when they start dragging? - highlight
+            function handleDragStart(e) {
+                this.style.opacity = '.01';
+                console.log(this.innerHTML);
+                dragSrcElt = this;
+
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/html', this.innerHTML);
+
+                this.css('background-color', 'blue');
+                var x = this.parent().children().index(this);
+                var y = this.parent().parent().children().index(this.parent());
+                highlight(x, y);
             }
+
+
+            // what to do when they drag over?
+            function handleDragOver(e) {
+                if (e.preventDefault) {
+                    e.preventDefault();
+                }
+                e.dataTransfer.dropEffect = 'move';
+                return false;
+            }
+
+
+            // what to do when drag enter a tile? - add highlighting
+            function handleDragEnter(e) {
+                this.classList.add('over');
+            }
+
+
+            // what to do when drag leaves the tile? - remove highlighting
+            function handleDragLeave(e) {
+                this.classList.remove('over');
+            }
+
+
+            // what to do when they drop?
+            function handleDrop(e) {
+                if (e.stopPropagation) {
+                    e.stopPropagation();
+                }
+
+                if (dragSrcEl != this) {
+                    // Set the source column's HTML to the HTML of the column we dropped on.
+                    dragSrcEl.innerHTML = this.innerHTML;
+                    this.innerHTML = e.dataTransfer.getData('text/html');
+                }
+
+                return false;
+            }
+            */
         });
-        */
 
-        // this block is for drag and drop html 5 way
-        /*
-        // the spots variables
-        var dnds = document.querySelectorAll('.drag');
-        var dragSrcElt = null;
-
-        // add event listeners
-        [].forEach.call(drags, function(drag) {
-            drag.addEventListener('dragstart', handleDragStart, false);
-            drag.addEventListener('dragenter', handleDragEnter, false);
-            drag.addEventListener('dragover', handleDragOver, false);
-            drag.addEventListener('dragleave', handleDragLeave, false);
-        });
-
-
-        // what to do when they start dragging? - highlight
-        function handleDragStart(e) {
-            this.style.opacity = '.01';
-            console.log(this.innerHTML);
-            dragSrcElt = this;
-
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData('text/html', this.innerHTML);
-
-            this.css('background-color', 'blue');
-            var x = this.parent().children().index(this);
-            var y = this.parent().parent().children().index(this.parent());
-            highlight(x, y);
-        }
-
-
-        // what to do when they drag over?
-        function handleDragOver(e) {
-            if (e.preventDefault) {
-                e.preventDefault();
-            }
-            e.dataTransfer.dropEffect = 'move';
-            return false;
-        }
-
-
-        // what to do when drag enter a tile? - add highlighting
-        function handleDragEnter(e) {
-            this.classList.add('over');
-        }
-
-
-        // what to do when drag leaves the tile? - remove highlighting
-        function handleDragLeave(e) {
-            this.classList.remove('over');
-        }
-
-
-        // what to do when they drop?
-        function handleDrop(e) {
-            if (e.stopPropagation) {
-                e.stopPropagation();
-            }
-
-            if (dragSrcEl != this) {
-                // Set the source column's HTML to the HTML of the column we dropped on.
-                dragSrcEl.innerHTML = this.innerHTML;
-                this.innerHTML = e.dataTransfer.getData('text/html');
-            }
-
-            return false;
-        }
-        */
 
         function flash(type, msg) {
             var className, classHeader;
@@ -549,6 +554,77 @@
             $('#flash').removeClass().addClass('in').addClass('fade').addClass('alert').addClass(className);
             $('#flash').children('strong').text(classHeader);
             $('#flash').children('span').text(msg);
+        }
+
+
+        var board;
+        $(document).ready(function() {
+            $('#gb').click(function() {
+                $.ajax({
+                    type: "GET",
+                    url: "/board",
+                    dataType: "json"
+                }).done(function(data) {
+                    board = data;
+                    display(board);
+                });
+            });
+        });
+
+
+        $(document).ready(function() {
+            $('#current > tbody > tr').each(function() {
+                if($(this).index() % 2 === 0) {
+                    if ($(this).index() < 8) {
+                        $(this).children('td').each(function() {
+                            if($(this).index() % 2 === 1) {
+                                $(this).addClass('bgGray');
+                            }
+                            else {
+                                if ($(this).index() < 8) {
+                                    $(this).addClass('bgWhite');
+                                }
+                            }
+                        });
+                    }
+                }
+                else {
+                    $(this).children('td').each(function() {
+                        if($(this).index() % 2 === 0) {
+                            if ($(this).index() < 8) {
+                                $(this).addClass('bgGray');
+                            }
+                        }
+                        else {
+                            $(this).addClass('bgWhite');
+                        }
+                    });
+                }
+            });
+            $('#current > tbody > tr').each(function() {
+                $(this).children().each(function() {
+                    $(this).addClass('cell');
+                });
+            });
+
+            $('#current > tbody > tr').each(function() {
+                if ($(this).index() < 8) {
+                    $(this).children().each(function() {
+                        if ($(this).index() < 8) {
+                            $(this).addClass('tile');
+                            //$(this).addClass('drop').attr('draggable', true);
+                        }
+                    });
+                }
+            });
+            $('#current').width(630).height(630);
+            $('#current > tbody > tr > td').height(70).width(70);
+            $('#current > tbody > tr > th').height(70).width(70);
+        });
+
+
+        function display(board) {
+
         }
     </script>
 
@@ -841,6 +917,117 @@
             <ul id="wCap" class="capture">
             </ul>
         </div>
+    </div>
+
+    <div style="display: block;">
+        <table id="current" class="table table-bordered">
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th><div>1</div></th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th><div>2</div></th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th><div>3</div></th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th><div>4</div></th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th><div>5</div></th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th><div>6</div></th>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th><div>7</div></th>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th><div>8</div></th>
+                </tr>
+                <tr>
+                    <th><div>A</div></th>
+                    <th><div>B</div></th>
+                    <th><div>C</div></th>
+                    <th><div>D</div></th>
+                    <th><div>E</div></th>
+                    <th><div>F</div></th>
+                    <th><div>G</div></th>
+                    <th><div>H</div></th>
+                    <th>
+                        <button id="gb" class="btn btn-mini btn-success" type="button">Get Board</button>
+                    </th>
+                </tr>
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+
     </div>
 
 }
