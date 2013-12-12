@@ -23,6 +23,9 @@
                 bishop : '\u265D',
                 knight : '\u265E',
                 pawn : '\u265F'
+            },
+            neutral: {
+                empty : ''
             }
         };
 
@@ -620,7 +623,18 @@
         function display(board) {
             for (var y = 0; y < 8; y++) {
                 for (var x = 0; x < 8; x++) {
-
+                    $('#current > tbody tr').each(function() {
+                        if ($(this).index() == x) {
+                            $(this).children('td').each(function() {
+                                if ($(this).index() == y) {
+                                    var t = board[y][7 - x].chessPiece.pieceType;
+                                    var s = board[y][7 - x].chessPiece.side;
+                                    var p = translate(t, s);
+                                    $(this).text(p);
+                                }
+                            });
+                        }
+                    });
                 }
             }
 
@@ -642,8 +656,9 @@
                             return pieces.white.queen;
                         case "KING":
                             return pieces.white.king;
+                        case "EMPTY":
                         default:
-                            return;
+                            return pieces.neutral.empty;
                     }
                 case "BLACK":
                     switch(piece) {
@@ -659,11 +674,13 @@
                             return pieces.black.queen;
                         case "KING":
                             return pieces.black.king;
+                        case "EMPTY":
                         default:
-                            return;
+                            return pieces.neutral.empty;
                     }
+                case "NEUTRAL":
                 default:
-                    return;
+                    return pieces.neutral.empty;
             }
         }
     </script>
@@ -939,7 +956,7 @@
                 </thead>
                 <tbody>
                     <tr class="success">
-                        <th>Sequencial Times:</th>
+                        <th>Sequential Times:</th>
                         <td id="seqTime"></td>
                     </tr>
                     <tr class="success">
@@ -959,7 +976,7 @@
         </div>
     </div>
 
-    <div style="display: block;">
+    <div style="display: block;" >
         <table id="current" class="table table-bordered">
             <thead>
             </thead>
