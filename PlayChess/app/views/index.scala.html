@@ -264,6 +264,7 @@
                         console.log(result);
                         if (result == "true") {
                             movePiece(fromX, fromY, toX, toY);
+                            $('#gb').click();
                             aiSeqGetRequest();
                             aiParGetRequest();
                         }
@@ -637,7 +638,6 @@
                     });
                 }
             }
-
         }
 
         function translate(piece, color) {
@@ -683,6 +683,15 @@
                     return pieces.neutral.empty;
             }
         }
+
+        $(document).ready(function() {
+            $('#minib').click(function() {
+                $('#curDiv').toggle();
+                $('#gb').click();
+            });
+
+            $('#minib').click();
+        });
     </script>
 
 
@@ -976,7 +985,7 @@
         </div>
     </div>
 
-    <div style="display: block;" >
+    <div id="curDiv" style="display: block;" >
         <table id="current" class="table table-bordered">
             <thead>
             </thead>
@@ -1086,5 +1095,4 @@
         </table>
 
     </div>
-
 }
