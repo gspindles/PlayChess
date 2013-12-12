@@ -254,6 +254,10 @@
                         url: "/move?fromX=" + fromX + "&fromY=" + fromY + "&toX=" + toX + "&toY=" + toY,
                         dataType: "text"
                     }).done(function(result) {
+                        if (result == "false") {
+                            flash("E", "inconsistent game states between server and client");
+                        }
+
                         console.log(result);
                         if (result == "true") {
                             movePiece(fromX, fromY, toX, toY);
@@ -268,7 +272,6 @@
                     fromY = 7 - $(this).parent().parent().children().index($(this).parent());
                     console.log('select: (' + fromX + ', ' + fromY + ')');
                     $(this).addClass('selected');
-
 
                     if ($(this).children().length > 0) {
                         piece = $(this).children('div').text();
@@ -349,15 +352,6 @@
                             }
                         }
                     });
-                }
-            });
-            $.ajax({
-                type: "GET",
-                url: "/move?fromX=" + fromX + "&fromY=" + fromY + "&toX=" + toX + "&toY=" + toY,
-                dataType: "text"
-            }).done(function(data) {
-                if (data == "false") {
-                    flash("E", "inconsistent game states between server and client");
                 }
             });
         }
@@ -565,7 +559,7 @@
                     url: "/board",
                     dataType: "json"
                 }).done(function(data) {
-                    board = data;
+                    board = data.board.board;
                     display(board);
                 });
             });
@@ -624,7 +618,53 @@
 
 
         function display(board) {
+            for (var y = 0; y < 8; y++) {
+                for (var x = 0; x < 8; x++) {
 
+                }
+            }
+
+        }
+
+        function translate(piece, color) {
+            switch(color) {
+                case "WHITE":
+                    switch(piece) {
+                        case "PAWN":
+                            return pieces.white.pawn;
+                        case "ROOK":
+                            return pieces.white.rook;
+                        case "KNIGHT":
+                            return pieces.white.knight;
+                        case "BISHOP":
+                            return pieces.white.bishop;
+                        case "QUEEN":
+                            return pieces.white.queen;
+                        case "KING":
+                            return pieces.white.king;
+                        default:
+                            return;
+                    }
+                case "BLACK":
+                    switch(piece) {
+                        case "PAWN":
+                            return pieces.black.pawn;
+                        case "ROOK":
+                            return pieces.black.rook;
+                        case "KNIGHT":
+                            return pieces.black.knight;
+                        case "BISHOP":
+                            return pieces.black.bishop;
+                        case "QUEEN":
+                            return pieces.black.queen;
+                        case "KING":
+                            return pieces.black.king;
+                        default:
+                            return;
+                    }
+                default:
+                    return;
+            }
         }
     </script>
 
