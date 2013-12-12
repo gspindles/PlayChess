@@ -54,11 +54,12 @@ public class AI
                 }
             }
         }
-//        int t = 0;
-//        for(int z = 0; z < 80000;z++)
-//        {
-//            t++;
-//        }
+        int t = 0;
+        for(int z = 0; z < 80000000;z++)
+        {
+            Point p = new Point();
+            t++;
+        }
         if(side == Side.WHITE)
         {
             return whiteMoves;
