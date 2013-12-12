@@ -172,8 +172,7 @@ public class ChessBoard {
                     {
                         if(move.getPiece().pieceType == PieceType.KING)
                         {
-                            setKing(move.getPiece().getSide(), move.getEnd());
-                            return true;
+                            setKing(move.getPiece().getSide(), move.getEnd());                            
                         }
                         if(move.getTakenPiece() == null)
                         {
@@ -231,5 +230,4 @@ public class ChessBoard {
                 blackKing = p;
             }
         }
-
 }
