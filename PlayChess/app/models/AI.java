@@ -54,6 +54,11 @@ public class AI
                 }
             }
         }
+//        int t = 0;
+//        for(int z = 0; z < 80000;z++)
+//        {
+//            t++;
+//        }
         if(side == Side.WHITE)
         {
             return whiteMoves;

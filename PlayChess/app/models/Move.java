@@ -133,7 +133,7 @@ public class Move
     {
         time = t;
     }
-    public long getDate()
+    public long getTime()
     {
         return time;
     }

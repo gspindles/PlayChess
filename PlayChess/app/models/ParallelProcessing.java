@@ -49,6 +49,11 @@ public class ParallelProcessing implements Callable
                     {
                         whiteMoves.add(tempList.get(j));
                     }
+//                    int test = 0;
+//                    for(int z = 0; z<10000; z++)
+//                    {
+//                        test ++;
+//                    }
                 }
                 else if(board.getBoardTile(temp).getChessPiece().side == Side.BLACK)
                 {

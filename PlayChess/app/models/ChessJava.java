@@ -26,8 +26,17 @@ public class ChessJava {
         game.MovePiece(3, 6, 3, 4);
         game.MovePiece(5, 0,1 ,4 );
         game.MovePiece(3, 1, 3, 2);
+        Move temp = null;
         System.out.println(game.getBoard().getKing(Side.BLACK).toString() + "\n");
-        Move temp = game.aiMakeATurnSequential(Side.BLACK);
+        try
+        {
+            temp = game.aiMakeATurnSequential(Side.BLACK);
+            System.out.println(temp.getTime());
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.toString());
+        }
         List<Point> t = game.getPossibleMoves(3, 0);
         for(int i = 0; i < t.size(); i ++)
         {
