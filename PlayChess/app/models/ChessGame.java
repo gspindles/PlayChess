@@ -62,7 +62,7 @@ public class ChessGame {
         }
 
 	// This method tells ai to make a turn and apply it to the board permanently
-	public Move aiMakeATurnParallel(Side side) throws InterruptedException, ExecutionException 
+	public Move aiMakeATurnParallel(Side side)
         {
             long time1 = java.lang.System.currentTimeMillis();
             //Tracks progress of 8 asynchronous threads.
@@ -72,13 +72,18 @@ public class ChessGame {
 
             //Using threads, simultaniously scan through each column tallying a list of possible moves.
             for(int i = 0; i < 8; i++) {
-                    //Create threads of ParallelProcessing. Accepts a List<Move> object.
-                    Callable<List<Move>> myCallableThread = new ParallelProcessing(i, this.chessBoard, side);
-                    //pool.submit(thread) returns a "future" object containing a list of moves from that collumn.
-                    Future<List<Move>> future = pool.submit(myCallableThread);
-                    //Add future object (which contains List<Move> to our set of thread return values.
-                    System.out.println("Thread" + i + " created.");
-                    set.add(future);
+                //Create threads of ParallelProcessing. Accepts a List<Move> object.
+                Callable<List<Move>> myCallableThread;
+                try {
+                    myCallableThread = new ParallelProcessing(i, this.chessBoard, side);
+                } 
+                catch(ExecutionException ie) { ie.getMessage(); }
+                
+                //pool.submit(thread) returns a "future" object containing a list of moves from that collumn.
+                Future<List<Move>> future = pool.submit(myCallableThread);
+                //Add future object (which contains List<Move> to our set of thread return values.
+                System.out.println("Thread" + i + " created.");
+                set.add(future);
             }
 
             //Transition Set to List
