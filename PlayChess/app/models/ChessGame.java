@@ -62,7 +62,7 @@ public class ChessGame {
         }
 
 	// This method tells ai to make a turn and apply it to the board permanently
-	public Move aiMakeATurnParallel(Side side) throws InterruptedException, ExecutionException 
+	public Move aiMakeATurnParallel(Side side)
         {
             long time1 = java.lang.System.currentTimeMillis();
             //Tracks progress of 8 asynchronous threads.
@@ -89,7 +89,10 @@ public class ChessGame {
                     //List.addAll(collection) adds all the elments of a collection, in this case, all the elements of a List<Move>
                     //contained within each future object.
                     //Future.get() will block then return a List<Move> when it's thread is finished processing.
-                    availableMoves.addAll(futureMoveList.get());
+                try {
+                      availableMoves.addAll(futureMoveList.get());
+ +              }
+				catch(InterruptedException | ExecutionException e) { e.getMessage(); }
             }
             ParallelProcessing p = new ParallelProcessing(this.chessBoard,side);            
             Move temp = p.actualMove(side, chessBoard, availableMoves);
