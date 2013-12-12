@@ -9,7 +9,7 @@ public abstract class ChessPiece {
 	protected PieceType pieceType;
 	protected Side side;
 	protected Boolean alive;
-    protected Boolean hasMoved = false;
+        protected Boolean hasMoved = false;
 
 
 	// accessor and mutator

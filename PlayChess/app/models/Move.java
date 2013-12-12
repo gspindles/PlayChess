@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 package models;
+import java.util.Date;
 
 /**
  *
@@ -13,6 +14,7 @@ public class Move
     private Point start = new Point();
     private Point end = new Point();
     private ChessPiece piece;
+    private long time;
 
     private ChessPiece takenPiece = new Empty();
     private boolean check = false;
@@ -126,6 +128,14 @@ public class Move
     public void setWeight(int iterator)
     {
         weight += iterator;
+    }
+    public void settime(long t)
+    {
+        time = t;
+    }
+    public long getDate()
+    {
+        return time;
     }
     @Override
     public String toString()
