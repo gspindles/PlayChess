@@ -270,18 +270,36 @@
                         url: "/move?fromX=" + fromX + "&fromY=" + fromY + "&toX=" + toX + "&toY=" + toY,
                         dataType: "text"
                     }).done(function(result) {
-                        gameStatus();
+                        console.log(result);
                         if (result == "false") {
                             flash("E", "inconsistent game states between server and client");
                         }
-
-                        console.log(result);
                         if (result == "true") {
                             movePiece(fromX, fromY, toX, toY);
-                            if (!end) {
-                                if (seqPar) { aiSeqGetRequest(); }
-                                else { aiParGetRequest(); }
-                            }
+
+                            $.ajax({
+                                type: "GET",
+                                url: "/status",
+                                dataType: "text"
+                            }).done(function(data) {
+                                console.log("game status: " + data);
+                                switch(data) {
+                                    case "b":
+                                        flash("D", "The black team has won :(");
+                                        end = true;
+                                        break;
+                                    case "w":
+                                        flash("V", "Congratulations, you've won!!!");
+                                        end = true;
+                                        break;
+                                    case "n":
+                                    default:
+                                        end = false;
+                                        if (seqPar) { aiSeqGetRequest(); }
+                                        else { aiParGetRequest(); }
+                                        break;
+                                }
+                            });
                             $('#gb').click();
                         }
                     });
