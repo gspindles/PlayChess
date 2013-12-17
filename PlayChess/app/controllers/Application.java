@@ -70,6 +70,7 @@ public class Application extends Controller {
 
     public static Result getGameStatus() {
         String status = chessGame.getGameStatus();
+        Logger.info("Game status: " + status);
         switch (status) {
             case "b":
             case "w":

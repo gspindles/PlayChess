@@ -9,23 +9,23 @@ import java.util.Date;
 
 public class ChessGame {
 
-	// the board, the turn, the player, the list of acceptable moves
-	// and functions that checks for things such as castling, stalemate, checkmate, etc should go here
-	// and maybe even a history of moves
+    // the board, the turn, the player, the list of acceptable moves
+    // and functions that checks for things such as castling, stalemate, checkmate, etc should go here
+    // and maybe even a history of moves
 
-	private ChessBoard chessBoard;
+    private ChessBoard chessBoard;
 
 
-	public ChessGame()
-    {
-		chessBoard = new ChessBoard();
-	}
+    public ChessGame()
+        {
+        chessBoard = new ChessBoard();
+    }
 
-	/** This method receives an xy coordinates from the client and query the board
-	 * then return a list of possible point on the board that the piece at this xy location
-	 * can move to
-	 */
-	public List<Point> getPossibleMoves(int x, int y)
+    /** This method receives an xy coordinates from the client and query the board
+     * then return a list of possible point on the board that the piece at this xy location
+     * can move to
+     */
+    public List<Point> getPossibleMoves(int x, int y)
     {
         Point pt = new Point(x,y);
         List<Move> moveList = MoveLogic.determineMoves(chessBoard.getBoardTile(pt), chessBoard);
@@ -36,20 +36,6 @@ public class ChessGame {
             System.out.println(moveList.get(i).getEnd().toString());
         }
         return ptList;
-	}
-
-
-    public String getGameStatus()
-    {
-        if(chessBoard.getGameOver() == Side.WHITE)
-        {
-            return "b";
-        }
-        else if(chessBoard.getGameOver() == Side.BLACK)
-        {
-            return "w";
-        }
-        return "n";
     }
 
 
@@ -78,8 +64,8 @@ public class ChessGame {
     }
 
 
-	// This method tells ai to make a turn and apply it to the board permanently
-	public Move aiMakeATurnParallel(Side side)
+    // This method tells ai to make a turn and apply it to the board permanently
+    public Move aiMakeATurnParallel(Side side)
     {
         long time1 = java.lang.System.currentTimeMillis();
         //Tracks progress of 8 asynchronous threads.
@@ -108,7 +94,7 @@ public class ChessGame {
             //Future.get() will block then return a List<Move> when it's thread is finished processing.
             try {
               availableMoves.addAll(futureMoveList.get());
-            }
+           }
             catch(InterruptedException | ExecutionException e) { e.getMessage(); }
         }
         ParallelProcessing p = new ParallelProcessing(this.chessBoard,side);
@@ -121,7 +107,7 @@ public class ChessGame {
     }
 
 
-	public Move aiMakeATurnSequential(Side side)
+    public Move aiMakeATurnSequential(Side side)
     {
         long time1 = java.lang.System.currentTimeMillis();
         Side notSide = Side.BLACK;

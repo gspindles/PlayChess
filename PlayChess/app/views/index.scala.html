@@ -277,8 +277,8 @@
                         console.log(result);
                         if (result == "true") {
                             movePiece(fromX, fromY, toX, toY);
-
-                            if (!gameStatus()) {
+                            gameStatus();
+                            if (!end) {
                                 if (seqPar) { aiSeqGetRequest(); }
                                 else { aiParGetRequest(); }
                             }
@@ -316,19 +316,20 @@
                 url: "/status",
                 dataType: "text"
             }).done(function(data) {
+                console.log("game status: " + data);
                 switch(data) {
                     case "b":
                         flash("D", "The black team has won :(");
                         end = true;
-                        return true;
+                        break;
                     case "w":
                         flash("V", "Congratulations, You've won!!!");
                         end = true;
-                        return true;
+                        break;
                     case "n":
                     default:
                         end = false;
-                        return false;
+                        break;
                 }
             });
         }
@@ -776,11 +777,19 @@
             });
 
             $('#restart').click(function() {
-                cleanseBackground();
-                cleanseBoard();
-                setDefaultBackground();
-                setDefaultBoard();
-                end = true;
+                $.ajax({
+                    type: "GET",
+                    url: "/restart",
+                    dataType: "text"
+                }).done(function(data) {
+                    if (data == "true") {
+                        cleanseBackground();
+                        cleanseBoard();
+                        setDefaultBackground();
+                        setDefaultBoard();
+                        end = false;
+                    }
+                });
             });
         });
     </script>
