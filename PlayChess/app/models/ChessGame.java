@@ -41,11 +41,11 @@ public class ChessGame {
         {
             if(chessBoard.getGameOver() == Side.WHITE)
             {
-                return "w";
+                return "b";
             }
             else if(chessBoard.getGameOver() == Side.BLACK)
             {
-                return "b";
+                return "w";
             }
             return "n";
         }
@@ -74,82 +74,85 @@ public class ChessGame {
         }
 
 	// This method tells ai to make a turn and apply it to the board permanently
-	public Move aiMakeATurnParallel(Side side) throws InterruptedException, ExecutionException 
-        {
-            long time1 = java.lang.System.currentTimeMillis();
-            //Tracks progress of 8 asynchronous threads.
-            ExecutorService pool = Executors.newFixedThreadPool(8);
-            //A set of Future objects, which manage returned values from the callable threads.
-            Set<Future<List<Move>>> set = new HashSet<Future<List<Move>>>();
+	public Move aiMakeATurnParallel(Side side)
+    {
+        long time1 = java.lang.System.currentTimeMillis();
+        //Tracks progress of 8 asynchronous threads.
+        ExecutorService pool = Executors.newFixedThreadPool(8);
+        //A set of Future objects, which manage returned values from the callable threads.
+        Set<Future<List<Move>>> set = new HashSet<Future<List<Move>>>();
 
-            //Using threads, simultaniously scan through each column tallying a list of possible moves.
-            for(int i = 0; i < 8; i++) {
-                    //Create threads of ParallelProcessing. Accepts a List<Move> object.
-                    Callable<List<Move>> myCallableThread = new ParallelProcessing(i, this.chessBoard, side);
-                    //pool.submit(thread) returns a "future" object containing a list of moves from that collumn.
-                    Future<List<Move>> future = pool.submit(myCallableThread);
-                    //Add future object (which contains List<Move> to our set of thread return values.
-                    System.out.println("Thread" + i + " created.");
-                    set.add(future);
-            }
+        //Using threads, simultaniously scan through each column tallying a list of possible moves.
+        for(int i = 0; i < 8; i++) {
+            //Create threads of ParallelProcessing. Accepts a List<Move> object.
+            Callable<List<Move>> myCallableThread = new ParallelProcessing(i, this.chessBoard, side);
+            //pool.submit(thread) returns a "future" object containing a list of moves from that collumn.
+            Future<List<Move>> future = pool.submit(myCallableThread);
+            //Add future object (which contains List<Move> to our set of thread return values.
+            System.out.println("Thread" + i + " created.");
+            set.add(future);
+        }
 
-            //Transition Set to List
-            List<Move> availableMoves = new ArrayList<Move>();
-            //Iterate through all the future objects in our HashSet.
-            for(Future<List<Move>> futureMoveList : set) 
-            {
-                    //List.addAll(collection) adds all the elments of a collection, in this case, all the elements of a List<Move>
-                    //contained within each future object.
-                    //Future.get() will block then return a List<Move> when it's thread is finished processing.
-                    availableMoves.addAll(futureMoveList.get());
-            }
-            ParallelProcessing p = new ParallelProcessing(this.chessBoard,side);            
-            Move temp = p.actualMove(side, chessBoard, availableMoves);
-            MovePiece(temp.getStart().x,temp.getStart().y,temp.getEnd().x,temp.getEnd().y);
-            long time2 = java.lang.System.currentTimeMillis();
-            time2 = time2 - time1;
-            temp.settime(time2);
-            return temp;		
-	}	
-	public Move aiMakeATurnSequential(Side side) 
+        //Transition Set to List
+        List<Move> availableMoves = new ArrayList<Move>();
+        //Iterate through all the future objects in our HashSet.
+        for(Future<List<Move>> futureMoveList : set)
         {
-            long time1 = java.lang.System.currentTimeMillis();
-            Side notSide = Side.BLACK;
-            if(side == Side.BLACK)
+            //List.addAll(collection) adds all the elments of a collection, in this case, all the elements of a List<Move>
+            //contained within each future object.
+            //Future.get() will block then return a List<Move> when it's thread is finished processing.
+            try {
+              availableMoves.addAll(futureMoveList.get());
+           }
+            catch(InterruptedException | ExecutionException e) { e.getMessage(); }
+        }
+        ParallelProcessing p = new ParallelProcessing(this.chessBoard,side);
+        Move temp = p.actualMove(side, chessBoard, availableMoves);
+        MovePiece(temp.getStart().x,temp.getStart().y,temp.getEnd().x,temp.getEnd().y);
+        long time2 = java.lang.System.currentTimeMillis();
+        time2 = time2 - time1;
+        temp.settime(time2);
+        return temp;
+    }	
+	public Move aiMakeATurnSequential(Side side)
+    {
+        long time1 = java.lang.System.currentTimeMillis();
+        Side notSide = Side.BLACK;
+        if(side == Side.BLACK)
+        {
+            notSide = Side.WHITE;
+        }
+        AI ai = new AI();
+        List<Move> validOutOfCheck = new ArrayList<Move>();
+        if(MoveLogic.determineCheck(side, chessBoard) == true)
+        {
+            System.out.println("Check from " + side);
+            List<Move> moves = ai.populateMoves(side, chessBoard);
+            for(int i = 0; i < moves.size();i++)
             {
-                notSide = Side.WHITE;
+                ChessBoard board = new ChessBoard(chessBoard);
+                board.makeMove(moves.get(i));
+                if(MoveLogic.determineCheck(side, board) == false)
+                {
+                    validOutOfCheck.add(moves.get(i));
+                }
             }
-            AI ai = new AI();
-            List<Move> validOutOfCheck = new ArrayList<Move>();
-            if(MoveLogic.determineCheck(side, chessBoard) == true)
+            if(validOutOfCheck.size() > 0)
             {
-                System.out.println("Check from " + side);
-                List<Move> moves = ai.populateMoves(side, chessBoard);
-                for(int i = 0; i < moves.size();i++)
-                {
-                    ChessBoard board = new ChessBoard(chessBoard);
-                    board.makeMove(moves.get(i));
-                    if(MoveLogic.determineCheck(side, board) == false)
-                    {
-                        validOutOfCheck.add(moves.get(i));
-                    }
-                }
-                if(validOutOfCheck.size() > 0)
-                {
-                    return ai.actualMove(side, chessBoard, validOutOfCheck);
-                }
-                else
-                {
-                    //checkmate has happened
-                }
+                return ai.actualMove(side, chessBoard, validOutOfCheck);
             }
-            Move temp = ai.actualMove(side, this.chessBoard);
-            MovePiece(temp.getStart().x,temp.getStart().y,temp.getEnd().x,temp.getEnd().y);
-            long time2 = java.lang.System.currentTimeMillis();
-            time2 = time2 - time1;
-            temp.settime(time2);            
-            return temp;
-	}
+            else
+            {
+                //checkmate has happened
+            }
+        }
+        Move temp = ai.actualMove(side, this.chessBoard);
+        MovePiece(temp.getStart().x,temp.getStart().y,temp.getEnd().x,temp.getEnd().y);
+        long time2 = java.lang.System.currentTimeMillis();
+        time2 = time2 - time1;
+        temp.settime(time2);
+        return temp;
+    }
         public ChessBoard getBoard()
         {
             return chessBoard;
