@@ -60,4 +60,18 @@ public class Application extends Controller {
     public static Result getBoard() {
         return ok(Json.toJson(chessGame));
     }
+
+
+    public static Result getGameStatus() {
+        String status = chessGame.getGameStatus();
+        switch (status) {
+            case "b":
+            case "w":
+                chessGame = new ChessGame();
+            case "n":
+            default:
+                break;
+        }
+        return ok(status);
+    }
 }
