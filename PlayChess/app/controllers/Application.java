@@ -57,6 +57,12 @@ public class Application extends Controller {
     }
 
 
+    public static Result restartGame() {
+        chessGame = new ChessGame();
+        return ok("true");
+    }
+
+
     public static Result getBoard() {
         return ok(Json.toJson(chessGame));
     }

@@ -30,6 +30,8 @@
         };
 
 
+        // reflect a point over from [0][0] being upper left corner (client side)
+        // to [0][0] being lower left corner (server side)
         function reflect(points) {
             if (points == 'undefined') {}
             for (p in points) {
@@ -45,7 +47,7 @@
         });
 
 
-        // the main set up method that calls everything else
+        // the main set up method that sets up everything else
         function kickStart() {
             setDefaultBackground();
 
@@ -106,6 +108,7 @@
         }
 
 
+        // clean all the css class selectors
         function cleanseBackground() {
             $('.selected').each(function() {
                 $(this).removeClass('selected');
@@ -235,6 +238,16 @@
         }
 
 
+        // remove all the pieces from the board
+        function cleanseBoard() {
+            $('#board > tbody > tr').each(function() {
+                $(this).children('td').each(function() {
+                    $(this).empty();
+                });
+            });
+        }
+
+
         // what to do when user resize the window
         $(window).resize(function () {
             var cw = $('.cell').width();
@@ -247,7 +260,7 @@
         var fromX, fromY, toX, toY;
         $(document).ready(function() {
             $('.tile').click(function() {
-                if ($(this).hasClass('highlight')) {
+                if ($(this).hasClass('highlight') && !end) {
                     toX = $(this).parent().children().index($(this));
                     toY = 7 - $(this).parent().parent().children().index($(this).parent());
                     console.log('move: (' + toX + ', ' + toY + ')');
@@ -264,9 +277,12 @@
                         console.log(result);
                         if (result == "true") {
                             movePiece(fromX, fromY, toX, toY);
+
+                            if (!gameStatus()) {
+                                if (seqPar) { aiSeqGetRequest(); }
+                                else { aiParGetRequest(); }
+                            }
                             $('#gb').click();
-                            if (seqPar) { aiSeqGetRequest(); }
-                            else { aiParGetRequest(); }
                         }
                     });
                     cleanseBackground();
@@ -292,6 +308,32 @@
         });
 
 
+        // send a request to the server about game status
+        var end = false;
+        function gameStatus() {
+            $.ajax({
+                type: "GET",
+                url: "/status",
+                dataType: "text"
+            }).done(function(data) {
+                switch(data) {
+                    case "b":
+                        flash("D", "The black team has won :(");
+                        end = true;
+                        return true;
+                    case "w":
+                        flash("V", "Congratulations, You've won!!!");
+                        end = true;
+                        return true;
+                    case "n":
+                    default:
+                        end = false;
+                        return false;
+                }
+            });
+        }
+
+
         // function that takes in a list of points on the chess board and highlight them
         function highlight(points) {
             for (p in points) {
@@ -308,6 +350,7 @@
         }
 
 
+        // move a piece from point (fromX, fromY) to point (toX, toY)
         function movePiece(fromX, fromY, toX, toY) {
             var from = "";
             var to = "";
@@ -377,6 +420,8 @@
             }
         }
 
+
+        // request ai on server to make a sequential move and display the result
         var move;
         function aiSeqGetRequest() {
             $.ajax({
@@ -387,10 +432,12 @@
                 move = data;
                 movePiece(data.start.x, data.start.y, data.end.x, data.end.y);
                 $('#seqTime').children('td').text(data.time + " ms");
+                gameStatus();
             });
         }
 
 
+        // request ai on server to make a parellel move and display the result
         function aiParGetRequest() {
             $.ajax({
                 type: "GET",
@@ -400,6 +447,7 @@
                 move = data;
                 movePiece(data.start.x, data.start.y, data.end.x, data.end.y);
                 $('#parTime').children('td').text(data.time + " ms");
+                gameStatus();
             });
         }
 
@@ -530,12 +578,21 @@
         });
 
 
+        // flash a message to the user
         function flash(type, msg) {
             var className, classHeader;
             switch(type) {
                 case "W":
                     className = "alert";
                     classHeader = "Warning!";
+                    break;
+                case "D":
+                    className = "alert";
+                    classHeader = "Defeat!";
+                    break;
+                case "V":
+                    className = "alert-success";
+                    classHeader = "Victory!";
                     break;
                 case "S":
                     className = "alert-success";
@@ -557,6 +614,7 @@
         }
 
 
+        // grab the whole board object from the server and display it in mini b
         $(document).ready(function() {
             $('#gb').click(function() {
                 $.ajax({
@@ -570,6 +628,7 @@
         });
 
 
+        // set up mini b
         $(document).ready(function() {
             $('#current > tbody > tr').each(function() {
                 if($(this).index() % 2 === 0) {
@@ -621,6 +680,7 @@
         });
 
 
+        // display the given board object from the server
         function display(board) {
             for (var y = 0; y < 8; y++) {
                 for (var x = 0; x < 8; x++) {
@@ -641,6 +701,7 @@
         }
 
 
+        // translate pieceType array from server side to pieces in client side
         function translate(piece, color) {
             switch(color) {
                 case "WHITE":
@@ -686,6 +747,7 @@
         }
 
 
+        // actions when users click on various link on the menu bar
         var seqPar = true;
         $(document).ready(function() {
             $('#minib').click(function() {
@@ -711,6 +773,13 @@
                     $('#seqTime').toggle();
                     $('#parTime').toggle();
                 }
+            });
+
+            $('#restart').click(function() {
+                cleanseBackground();
+                cleanseBoard();
+                setDefaultBackground();
+                setDefaultBoard();
             });
         });
     </script>

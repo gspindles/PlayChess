@@ -8,8 +8,9 @@ GET     /click                      controllers.Application.getPossibleMoves(x: 
 GET     /move                       controllers.Application.MovePiece(fromX: Int, fromY: Int, toX: Int, toY: Int)
 GET     /aiSeq                      controllers.Application.aiMakeSeqMove()
 GET     /aiPar                      controllers.Application.aiMakeParMove()
+GET     /restart                    controllers.Application.restartGame()
 GET     /board                      controllers.Application.getBoard()
-GET     /status                     controllers.Applicarion.getGameStatus()
+GET     /status                     controllers.Application.getGameStatus()
 
 
 # Map static resources from the /public folder to the /assets URL path
