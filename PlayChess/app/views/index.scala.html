@@ -270,6 +270,7 @@
                         url: "/move?fromX=" + fromX + "&fromY=" + fromY + "&toX=" + toX + "&toY=" + toY,
                         dataType: "text"
                     }).done(function(result) {
+                        gameStatus();
                         if (result == "false") {
                             flash("E", "inconsistent game states between server and client");
                         }
@@ -277,7 +278,6 @@
                         console.log(result);
                         if (result == "true") {
                             movePiece(fromX, fromY, toX, toY);
-                            gameStatus();
                             if (!end) {
                                 if (seqPar) { aiSeqGetRequest(); }
                                 else { aiParGetRequest(); }
@@ -323,12 +323,11 @@
                         end = true;
                         break;
                     case "w":
-                        flash("V", "Congratulations, You've won!!!");
+                        flash("V", "Congratulations, you've won!!!");
                         end = true;
                         break;
                     case "n":
                     default:
-                        end = false;
                         break;
                 }
             });
