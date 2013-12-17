@@ -21,6 +21,7 @@ public class ChessBoard {
     
     private Point blackKing;
     private Point whiteKing;
+    private Side gameOver = Side.NEUTRAL;
     
     private Point[] blackPawn = new Point[8];
     private Point[] whitePawn = new Point[8];
@@ -186,6 +187,10 @@ public class ChessBoard {
                         }
                         else
                         {
+                            if(getBoardTile(move.getEnd()).getChessPiece().pieceType == PieceType.KING)
+                            {
+                                gameOver = getBoardTile(move.getEnd()).getChessPiece().getSide();
+                            }
                             board[move.getEnd().x][move.getEnd().y].setChessPiece(move.getPiece());
                             board[move.getStart().x][move.getStart().y].setChessPiece(new Empty());
                             return true;
@@ -233,5 +238,9 @@ public class ChessBoard {
             {
                 blackKing = p;
             }
+        }
+        public Side getGameOver()
+        {
+            return gameOver;
         }
 }
